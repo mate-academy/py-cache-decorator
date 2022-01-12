@@ -43,60 +43,14 @@ def test_cache_single_function():
             """
 
 
-def test_cache_multiple_functions_one():
+def test_cache_multiple_functions():
     @cache
     def long_time_func(a, b, c):
         return (a ** b ** c) % (a * c)
 
     @cache
-    def long_time_func_2(a, b, c):
-        return a * b * c / (a + b)
-
-    f = io.StringIO()
-
-    with redirect_stdout(f):
-        long_time_func(1, 2, 3)
-        long_time_func(2, 2, 3)
-        long_time_func_2(1, 2, 3)
-        long_time_func(1, 2, 3)
-        long_time_func_2(3, 2, 3)
-        long_time_func_2(3, 2, 3)
-
-    out = f.getvalue()
-
-    output = (
-        "Calculating new result\n"
-        "Calculating new result\n"
-        "Calculating new result\n"
-        "Getting from cache\n"
-        "Calculating new result\n"
-        "Getting from cache\n"
-    )
-
-    assert (
-        out == output
-    ), f"""
-            output must be:
-            {output},
-            
-            while calls are:  
-            long_time_func(1, 2, 3)
-            long_time_func(2, 2, 3)
-            long_time_func_2(1, 2, 3)
-            long_time_func(1, 2, 3)
-            long_time_func_2(3, 2, 3)
-            long_time_func_2(3, 2, 3)
-        """
-
-
-def test_cache_multiple_functions_two():
-    @cache
-    def long_time_func(a, b, c):
-        return (a ** b ** c) % (a * c)
-
-    @cache
-    def long_time_func_2(a, b, c):
-        return a * b * c / (a + b)
+    def long_time_func_2(text_1, text_2):
+        return f"{text_1.upper()}, {text_2.lower()}"
 
     @cache
     def long_time_func_3(n_list, text):
@@ -110,10 +64,10 @@ def test_cache_multiple_functions_two():
         long_time_func(1, 2, 3)
         long_time_func_3((10, 20, 30), "wow, numbers!")
         long_time_func(2, 2, 3)
-        long_time_func_2(1, 2, 3)
+        long_time_func_2("Hello", "world")
         long_time_func(1, 2, 3)
-        long_time_func_2(3, 2, 3)
-        long_time_func_2(3, 2, 3)
+        long_time_func_2("Hello", "Mark")
+        long_time_func_2("Hello", "Mark")
         long_time_func_3((10, 20, 30), "wow, numbers!")
         long_time_func_3((10, 20, 30), "egh, numbers...")
 
