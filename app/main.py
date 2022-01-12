@@ -1,3 +1,3 @@
-# TODO: add initial code
-def hello_world():
-    return "Hello, world!"
+def cache(func):
+    # Write your code here
+    pass
