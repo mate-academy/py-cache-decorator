@@ -1,11 +1,49 @@
 import io
-import pytest
 
 from contextlib import redirect_stdout
 from app.main import cache
 
 
-def test_cache_1():
+def test_cache_single_function():
+    @cache
+    def long_time_func(a, b, c):
+        return (a ** b ** c) % (a * c)
+
+    f = io.StringIO()
+
+    with redirect_stdout(f):
+        long_time_func(1, 2, 3)
+        long_time_func(2, 2, 3)
+        long_time_func(1, 2, 3)
+        long_time_func(3, 4, 5)
+        long_time_func(3, 4, 5)
+
+    out = f.getvalue()
+
+    output = (
+        "Calculating new result\n"
+        "Calculating new result\n"
+        "Getting from cache\n"
+        "Calculating new result\n"
+        "Getting from cache\n"
+    )
+
+    assert (
+            out == output
+    ), f"""
+                output must be:
+                {output},
+
+                while calls are:  
+                    long_time_func(1, 2, 3)
+                    long_time_func(2, 2, 3)
+                    long_time_func(1, 2, 3)
+                    long_time_func(3, 4, 5)
+                    long_time_func(3, 4, 5)
+            """
+
+
+def test_cache_multiple_functions_one():
     @cache
     def long_time_func(a, b, c):
         return (a ** b ** c) % (a * c)
@@ -51,7 +89,7 @@ def test_cache_1():
         """
 
 
-def test_cache_2():
+def test_cache_multiple_functions_two():
     @cache
     def long_time_func(a, b, c):
         return (a ** b ** c) % (a * c)
