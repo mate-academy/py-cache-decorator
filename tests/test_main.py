@@ -99,10 +99,10 @@ def test_cache_multiple_functions():
             long_time_func(1, 2, 3)
             long_time_func_3((10, 20, 30), 'wow, numbers!')
             long_time_func(2, 2, 3)
-            long_time_func_2(1, 2, 3)
+            long_time_func_2("Hello", "world")
             long_time_func(1, 2, 3)
-            long_time_func_2(3, 2, 3)
-            long_time_func_2(3, 2, 3)
+            long_time_func_2("Hello", "Mark")
+            long_time_func_2("Hello", "Mark")
             long_time_func_3((10, 20, 30), 'wow, numbers!')
             long_time_func_3((10, 20, 30), 'egh, numbers...')
         """
