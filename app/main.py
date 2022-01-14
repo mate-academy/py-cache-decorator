@@ -11,6 +11,3 @@ def cache(func):
             return result
 
     return inner
-
-
-
