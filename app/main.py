@@ -1,12 +1,12 @@
 def cache(func):
-    arr = []
+    cache_lish = []
 
     def inner(*args, **kwargs):
-        if args in arr:
+        if args in cache_lish:
             print("Getting from cache")
             return func(*args, **kwargs)
         else:
-            arr.append(args)
+            cache_lish.append(args)
             print("Calculating new result")
             return func(*args, **kwargs)
 
