@@ -13,4 +13,3 @@ def cache(func):
 
         return memory[args]
     return wrapper
-    pass
