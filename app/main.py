@@ -5,7 +5,7 @@ def cache(func):
         if args not in hole:
             hole[args] = func(*args)
             print('Calculating new result')
-            return func(*args)
+            return hole[args]
         if args in hole:
             print('Getting from cache')
 
