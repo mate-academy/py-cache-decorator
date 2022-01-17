@@ -3,7 +3,7 @@ def cache(func):
     memory = {}
 
     def wrapper(*args):
-        nonlocal memory
+
         if args in memory:
             print("Getting from cache")
 
