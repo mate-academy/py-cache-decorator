@@ -1,21 +1,16 @@
-import functools
-
-
 def cache(func):
 
     memory = {}
 
-    @functools.wraps(func)
     def wrapper(*args):
         nonlocal memory
-        if args in memory and memory[args][0] == func.__name__:
+        if args in memory:
             print("Getting from cache")
-            return memory[args][1]
 
         else:
-            memory[args] = func.__name__, func(*args)
+            memory[args] = func(*args)
             print("Calculating new result")
-            return func(*args)
 
+        return memory[args]
     return wrapper
     pass
