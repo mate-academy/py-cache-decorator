@@ -1,12 +1,11 @@
 def cache(func):
-    dic = {}
+    cache_dict = {}
 
     def inner(*args):
-        nonlocal dic
-        if args in dic:
+        if args in cache_dict:
             print("Getting from cache")
         else:
-            dic[args] = func(*args)
+            cache_dict[args] = func(*args)
             print("Calculating new result")
-        return dic[args]
+        return cache_dict[args]
     return inner
