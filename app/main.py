@@ -1,17 +1,11 @@
 def cache(func):
-    result_arr = []
+    cache_dictionary = {}
 
     def inner(*args):
-        tmp_args = []
-        arr = [i for i in args]
-        if arr in result_arr:
-            print('Getting from cache')
-            return func(*tuple(arr))
+        if args in cache_dictionary:
+            print("Getting from cache")
         else:
-            for i in args:
-                tmp_args.append(i)
-            result_arr.append(tmp_args)
-            print('Calculating new result')
-            return func(*tuple(tmp_args))
-
+            cache_dictionary[args] = func(*args)
+            print("Calculating new result")
+        return cache_dictionary[args]
     return inner
