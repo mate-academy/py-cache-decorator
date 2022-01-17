@@ -13,5 +13,5 @@ def cache(func):
             print("Calculating new result")
         else:
             print("Getting from cache")
-            return repository[args]
+        return repository[args]
     return wrapper
