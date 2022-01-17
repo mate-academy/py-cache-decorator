@@ -8,6 +8,5 @@ def cache(func):
         else:
             cache_dict[args] = func(*args)
             print("Calculating new result")
-            return func(*args, **kwargs)
 
     return inner
