@@ -2,7 +2,6 @@ def cache(func):
     history = {}
 
     def wrapper(*args, **kwargs):
-        nonlocal history
         if history.get(args):
             print("Getting from cache")
             return history[args]
