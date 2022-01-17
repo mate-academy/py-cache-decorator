@@ -2,12 +2,12 @@ def cache(func):
     caches = {}
 
     def inner(*args):
-        if args in caches.keys():
+        if args in caches:
             print("Getting from cache")
             return caches[args]
         else:
             print("Calculating new result")
             result = func(*args)
-            caches[tuple(args)] = result
+            caches[args] = result
             return result
     return inner
