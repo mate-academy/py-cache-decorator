@@ -4,10 +4,10 @@ def cache(func):
     def wrapper(*args):
         if args in storage:
             print("Getting from cache")
-            return storage[args]
         else:
             print("Calculating new result")
             storage[args] = func(*args)
-            return func(*args)
+
+        return storage[args]
 
     return wrapper
