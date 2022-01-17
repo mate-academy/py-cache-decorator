@@ -1,4 +1,6 @@
 def cache(func):
+    # Write your code here
+    pass
     ls = []
 
     def wrapper(*args, **kwargs):
