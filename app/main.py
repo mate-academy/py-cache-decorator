@@ -1,13 +1,12 @@
 def cache(func):
-    unique = set()
+    unique = {}
 
     def inner(*args):
         if args not in unique:
-            unique.add(args)
+            unique[args] = func(*args)
             print("Calculating new result")
-            return func(*args)
         else:
             print("Getting from cache")
-            return unique
+        return unique[args]
 
     return inner
