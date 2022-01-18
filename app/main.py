@@ -1,3 +1,16 @@
+from functools import wraps
+
+
 def cache(func):
-    # Write your code here
-    pass
+    results = {}
+
+    @wraps(func)
+    def wrapper(*args):
+        if args in results:
+            print("Getting from cache")
+        else:
+            results[args] = func(*args)
+            print("Calculating new result")
+
+        return results[args]
+    return wrapper
