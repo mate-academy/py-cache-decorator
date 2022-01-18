@@ -1,13 +1,10 @@
 def cache(func):
-    # Write your code here
-    pass
-    ls = []
-
+    collection = {}
     def wrapper(*args, **kwargs):
-        if args in ls:
+        if args in collection:
             print("Getting from cache")
         else:
-            ls.append(args)
+            collection[args] = func(*args)
             print("Calculating new result")
-        return func(*args, **kwargs)
+        return collection[args]
     return wrapper
