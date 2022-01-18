@@ -1,14 +1,14 @@
 def cache(func):
-    c_dict = {}
+    cache_dictionary = {}
 
     def inner(*args):
-        if args in c_dict:
+        if args in cache_dictionary:
             print("Getting from cache")
-            return c_dict[args]
+            return cache_dictionary[args]
         else:
             print("Calculating new result")
-            s = func(*args)
-            c_dict[args] = s
-            return s
+            var = func(*args)
+            cache_dictionary[args] = var
+            return var
 
     return inner
