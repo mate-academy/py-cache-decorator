@@ -13,5 +13,5 @@ def cache(func):
         else:
             cache_dict.update({key: func(*args)})
             print("Calculating new result")
-            return func(*args)
+            return cache_dict[key]
     return wrapper
