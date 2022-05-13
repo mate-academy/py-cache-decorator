@@ -2,9 +2,6 @@ def cache(func):
     dict_results = {}
 
     def wrapper(*args, **kwargs):
-
-        nonlocal dict_results
-
         if args in dict_results:
             print("Getting from cache")
             return dict_results[args]
@@ -13,6 +10,6 @@ def cache(func):
             print("Calculating new result")
             result = func(*args, **kwargs)
             dict_results[args] = result
-            return result, dict_results
+            return result
 
     return wrapper
