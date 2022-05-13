@@ -8,6 +8,6 @@ def cache(func):
 
         dict_with_args.update({args: func(*args)})
         print("Calculating new result")
-        return func(*args)
+        return dict_with_args[args]
 
     return wrapper
