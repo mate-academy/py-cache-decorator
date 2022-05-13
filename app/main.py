@@ -1,13 +1,13 @@
 def cache(func):
 
-    cache_list = {}
+    cache_dict = {}
 
     def wrapper(*args):
-        if args in cache_list.keys():
+        if args in cache_dict.keys():
             print("Getting from cache")
-            return cache_list[args]
+            return cache_dict[args]
         else:
             print("Calculating new result")
-            cache_list[args] = func(*args)
+            cache_dict[args] = func(*args)
             return func(*args)
     return wrapper
