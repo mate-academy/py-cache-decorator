@@ -22,7 +22,7 @@ Example:
 ```python
 @cache
 def long_time_func(a, b, c):
-    return (a ** b ** c) % (a*c)
+    return (a ** b ** c) % (a * c)
 
 @cache
 def long_time_func_2(n_tuple, power):
