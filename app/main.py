@@ -1,8 +1,5 @@
-results = {}
-
-
 def cache(func):
-    global results
+    results = {}
 
     def inner(*args):
         if func in results:
