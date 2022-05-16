@@ -8,6 +8,6 @@ def cache(func):
         else:
             print("Calculating new result")
             results_for_cache[args] = func(*args)
-            return func(*args)
+            return results_for_cache[args]
 
     return inc_sort
