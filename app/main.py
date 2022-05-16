@@ -2,7 +2,6 @@ def cache(func):
     result = {}
 
     def caching(*args, **kwargs):
-        nonlocal result
 
         if f'{args}' in result.keys():
             print('Getting from cache')
