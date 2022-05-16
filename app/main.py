@@ -11,7 +11,8 @@ def cache(func):
             return data_dictionary[args]  # And return them
         else:  # If there aren't input data do this
             print("Calculating new result")  # If they aren't -> print
-            data_dictionary[args] = func(*args)  # Input data pass to func
-            return func(*args)  # return func with input data
+            result = func(*args)
+            data_dictionary[args] = result  # Input data pass to func
+            return result  # return func with input data
 
     return wrapper  # Return wrapper function
