@@ -1,12 +1,12 @@
 def cache(func):
-    lis = []
+    result = {}
 
     def inner(*args):
-        if args not in lis:
-            lis.append(args)
+        if args not in result:
+            result[args] = func(*args)
             print("Calculating new result")
             return func(*args)
         else:
             print("Getting from cache")
-            return func(*args)
+            return result[args]
     return inner
