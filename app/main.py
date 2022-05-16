@@ -5,7 +5,7 @@ def cache(func):
         if args not in result:
             result[args] = func(*args)
             print("Calculating new result")
-            return func(*args)
+            return result[args]
         else:
             print("Getting from cache")
             return result[args]
