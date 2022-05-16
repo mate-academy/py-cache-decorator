@@ -1,10 +1,12 @@
 def cache(func):
+    # Write your code here
     cache_dict = {}
 
     def inner(*args):
         mutable = False
-        if type(args) in [list, dict, set]:
-            mutable = True
+        for argument in args:
+            if type(argument) in [list, dict, set]:
+                mutable = True
         if mutable:
             return func(*args)
         else:
@@ -14,5 +16,5 @@ def cache(func):
             else:
                 cache_dict[args] = func(*args)
                 print("Calculating new result")
-                return func(*args)
+                return cache_dict[args]
     return inner
