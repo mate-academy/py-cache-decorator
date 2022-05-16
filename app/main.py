@@ -1,12 +1,15 @@
 def cache(func):
-    dictionary = {}
+    # Write your code here
+    pass
+    cacheDict = {}
 
-    def inner(*args, **kwargs):
-        if args in dictionary:
-            print('Getting from cache')
-            return dictionary[args]
+    def calculation(*args):
+        if args in cacheDict:
+            print("Getting from cache")
+            return cacheDict[args]
         else:
-            dictionary[args] = func(*args)
-            print('Calculating new result')
-            return func(*args)
-    return inner
+            print("Calculating new result")
+            result = func(*args)
+            cacheDict[args] = result
+            return result
+    return calculation
