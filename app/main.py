@@ -2,15 +2,12 @@ def cache(func):
     results = {}
 
     def inner(*args):
-        if func in results:
-            if args in results[func] is not None:
-                print("Getting from cache")
-                return results[func][args]
-        else:
-            results[func] = {}
+        if args in results is not None:
+            print("Getting from cache")
+            return results[args]
 
         print("Calculating new result")
-        results[func][args] = func(*args)
-        return results[func][args]
+        results[args] = func(*args)
+        return results[args]
 
     return inner
