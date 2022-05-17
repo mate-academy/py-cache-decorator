@@ -3,11 +3,12 @@ def cache(func):
 
     def caching(*args, **kwargs):
 
-        if f'{args}' in result.keys():
+        if args in result.keys():
             print('Getting from cache')
-            return result[f'{args}']
+            return result[args]
         else:
-            result[f'{args}'] = func(*args, **kwargs)
+            result[args] = func(*args, **kwargs)
             print('Calculating new result')
+            return result[args]
 
     return caching
