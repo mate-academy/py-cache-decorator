@@ -1,12 +1,12 @@
 def cache(func):
-    cache_result = set()
+    cache_result = {}
 
     def wrapper(*args, **kwargs):
         if args not in cache_result:
-            cache_result.add(args)
+            cache_result[args] = func(*args, *kwargs)
             print("Calculating new result")
         else:
             print("Getting from cache")
-        return func(*args, *kwargs)
+        return cache_result[args]
 
     return wrapper
