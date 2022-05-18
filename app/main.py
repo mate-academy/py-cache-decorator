@@ -6,9 +6,8 @@ def cache(func):
 
         if tuple(args) in long_time_list:
             print("Getting from cache")
-            return long_time_list[tuple(args)]
         else:
             print("Calculating new result")
             long_time_list[tuple(args)] = func(*args, **kwargs)
-            return long_time_list[tuple(args)]
+        return long_time_list[tuple(args)]
     return inner
