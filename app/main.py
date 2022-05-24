@@ -1,3 +1,17 @@
+import functools
+
+
 def cache(func):
-    # Write your code here
-    pass
+    cache_dict = {}
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        key = f"{args}"
+        if key in cache_dict:
+            print("Getting from cache")
+            return cache_dict[key]
+        else:
+            cache_dict.update({key: func(*args, **kwargs)})
+            print("Calculating new result")
+            return cache_dict[key]
+    return wrapper
