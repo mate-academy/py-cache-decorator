@@ -6,7 +6,7 @@ def cache(func):
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        key = f"{func}{args}"
+        key = f"{args}"
         if key in cache_dict:
             print("Getting from cache")
             return cache_dict[key]
