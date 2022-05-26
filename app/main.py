@@ -1,3 +1,15 @@
 def cache(func):
-    # Write your code here
+    res_cache = {}
+
+    def inner(*args):
+        if args in res_cache:
+            print("Getting from cache")
+            return res_cache[args]
+
+        else:
+            res_cache[args] = func(*args)
+            print("Calculating new result")
+            return res_cache[args]
+
+    return inner
     pass
