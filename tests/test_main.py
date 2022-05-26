@@ -1,4 +1,5 @@
 import io
+import time
 
 from contextlib import redirect_stdout
 from app.main import cache
@@ -126,16 +127,16 @@ def test_cache_depends_on_different_functions():
         return a - b
 
     @cache
-    def addiction(a, b):
+    def addition(a, b):
         return a + b
 
     f = io.StringIO()
 
     with redirect_stdout(f):
         subtraction(1, 1)
-        addiction(1, 1)
+        addition(1, 1)
         subtraction(1, 1)
-        addiction(1, 1)
+        addition(1, 1)
 
     out = f.getvalue()
 
@@ -149,3 +150,19 @@ def test_cache_depends_on_different_functions():
     assert (
             out == output
     ), "Cache decorator should depend on different function"
+
+
+def test_deco_returns_cached_value():
+    @cache
+    def delay_addition(a, b):
+        time.sleep(3)
+        return a + b
+
+    time1 = time.time()
+    delay_addition(1, 2)
+    time2 = time.time()
+    delay_addition(1, 2)
+    time3 = time.time()
+
+    assert time2 - time1 >= 3
+    assert time3 - time2 < 1, "Cache decorator should return cached value."
