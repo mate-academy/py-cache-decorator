@@ -3,14 +3,13 @@ def cache(func):
 
     def wrap(*args):
         nonlocal cached_data
-        for key, value in {args: func(*args)}.items():
-            if str(key) not in cached_data:
-                cached_data.update({f"{args}": func(*args)})
-                print("Calculating new result")
-                return cached_data[str(key)]
-            else:
-                print("Getting from cache")
-                return cached_data[str(key)]
+        if args in cached_data:
+            print("Getting from cache")
+            return cached_data[args]
+        else:
+            cached_data.update({args: func(*args)})
+            print("Calculating new result")
+            return cached_data[args]
     return wrap
 
 
