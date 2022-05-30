@@ -5,8 +5,7 @@ def cache(func):
         if args not in cache_dict:
             cache_dict[args] = func(*args)
             print("Calculating new result")
-            return func(*args)
         else:
             print("Getting from cache")
-            return cache_dict[args]
+        return cache_dict[args]
     return inner
