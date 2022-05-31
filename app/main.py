@@ -7,12 +7,12 @@ def cache(func):
 
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if f"{f_name} {args}" in dict_cache:
+        if f"{args}" in dict_cache:
             print("Getting from cache")
-            return dict_cache[f"{f_name} {args}"]
+            return dict_cache[f"{args}"]
         else:
-            dict_cache.update({f"{f_name} {args}": func(*args, **kwargs)})
+            dict_cache.update({f"{args}": func(*args)})
             print("Calculating new result")
-            return func(*args, **kwargs)
+            return dict_cache[f"{args}"]
 
     return wrapper
