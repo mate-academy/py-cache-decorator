@@ -10,4 +10,3 @@ def cache(func):
         return res_cache[args]
 
     return inner
-    pass
