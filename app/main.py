@@ -1,11 +1,11 @@
 from functools import wraps
 
-dict_cache = {}
+
 
 
 def cache(func):
     f_name = func.__name__
-
+    dict_cache = {}
     @wraps(func)
     def wrapper(*args, **kwargs):
         if f"{f_name} {args}" in dict_cache:
