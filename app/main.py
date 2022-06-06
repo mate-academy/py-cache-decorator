@@ -6,14 +6,12 @@ def cache(func):
 
     @wraps(func)
     def func_wrapper(*args):
-        if func.__name__ in function_results and \
-                args in function_results[func.__name__]:
+        if args in function_results:
             print("Getting from cache")
         else:
             result = func(*args)
-            function_results.setdefault(func.__name__, {args: result})
-            function_results[func.__name__][args] = result
+            function_results[args] = result
             print("Calculating new result")
-        return function_results[func.__name__][args]
+        return function_results[args]
 
     return func_wrapper
