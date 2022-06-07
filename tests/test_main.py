@@ -164,5 +164,7 @@ def test_deco_returns_cached_value():
     delay_addition(1, 2)
     time3 = time.time()
 
-    assert time2 - time1 >= 3
+    assert 3 <= time2 - time1 < 4, (
+        "Cache decorator should work once to calculate the result"
+    )
     assert time3 - time2 < 1, "Cache decorator should return cached value."
