@@ -1,19 +1,19 @@
 def cache(func):
 
-    my_memory = {}
+    stores_results = {}
 
     def wrapper(*args):
 
-        if args in my_memory:
+        if args in stores_results:
 
             print("Getting from cache")
-            return my_memory[args]
+            return stores_results[args]
 
         else:
 
-            my_memory[args] = func(*args)
+            stores_results[args] = func(*args)
             print("Calculating new result")
 
-            return func(*args)
+            return stores_results[args]
 
     return wrapper
