@@ -9,5 +9,5 @@ def cache(func):
             return res
         if args in cache_of_args.keys():
             print("Getting from cache")
-            return cache_of_args[args]
+        return cache_of_args[args]
     return wrapper
