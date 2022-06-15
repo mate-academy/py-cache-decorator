@@ -1,15 +1,14 @@
 def cache(func):
-    total_list = []
+    total_dict = {}
 
     def inside(*args):
-        for i in total_list:
-            if args in i.keys():
-                print("Getting from cache")
-                return i[args]
+        if args in total_dict.keys():
+            print("Getting from cache")
+            return total_dict[args]
 
         print("Calculating new result")
         result = func(*args)
-        total_list.append({args: result})
+        total_dict[args] = result
         return result
 
     return inside
