@@ -6,7 +6,7 @@ def cache(func):
             print("Calculating new result")
             stored_values[args] = func(*args)
             return stored_values[args]
-        else:
-            print("Getting from cache")
-            return stored_values[args]
+
+        print("Getting from cache")
+        return stored_values[args]
     return wrapper
