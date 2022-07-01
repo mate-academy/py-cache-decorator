@@ -2,7 +2,7 @@ def cache(func):
     results = {}
 
     def inner(*args):
-        nonlocal results
+        results
         if args not in results.keys():
             print("Calculating new result")
             result_func = func(*args)
