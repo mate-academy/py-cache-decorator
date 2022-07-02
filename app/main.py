@@ -1,5 +1,6 @@
 def cache(func):
     results = {}
+
     def inner(*args):
         results
         if args not in results.keys():
