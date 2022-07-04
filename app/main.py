@@ -2,7 +2,6 @@ def cache(func):
     results = {}
 
     def inner(*args):
-        results
         if args not in results:
             print("Calculating new result")
             result_func = func(*args)
