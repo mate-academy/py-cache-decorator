@@ -8,8 +8,7 @@ def cache(func):
             cache_results[function_args] = res
             print("Calculating new result")
             return res
-        else:
-            print("Getting from cache")
-            return cache_results.get(function_args)
+        print("Getting from cache")
+        return cache_results[function_args]
 
     return wrapped
