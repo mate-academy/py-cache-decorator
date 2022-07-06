@@ -1,15 +1,15 @@
 def cache(func):
-    list_arguments = {}
+    dict_arguments = {}
 
     def inner(*args):
 
-        if args not in list_arguments:
+        if args not in dict_arguments:
             print('Calculating new result')
-            list_arguments[args] = func(*args)
+            dict_arguments[args] = func(*args)
 
         else:
             print('Getting from cache')
 
-        return list_arguments[args]
+        return dict_arguments[args]
 
     return inner
