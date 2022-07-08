@@ -2,7 +2,7 @@ def cache(func):
     saved = dict()
 
     def function(*args):
-        key = str(args)
+        key = args
         if key not in saved.keys():
             val = func(*args)
             saved[key] = val
