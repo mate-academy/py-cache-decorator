@@ -11,4 +11,3 @@ def cache(func):
         return cache_dict[key]
 
     return wrapper
-    pass
