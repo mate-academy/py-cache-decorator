@@ -9,4 +9,3 @@ def cache(func):
             print("Getting from cache")
         return cache_dict[args]
     return wrapper
-
