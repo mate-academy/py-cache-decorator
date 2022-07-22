@@ -18,7 +18,7 @@ functions simultaneously and correctly return for every function separately.
 Also `cache` should print `Getting from cache` when returns stored value and 
 `Calculating new result` when run function with new arguments.
 
-Example:
+Example:. 
 ```python
 @cache
 def long_time_func(a, b, c):
