@@ -2,12 +2,11 @@ def cache(func):
     dictionary = {}
 
     def wrapper(*args):
-        key = args
-        if key not in dictionary.keys():
+        if args not in dictionary.keys():
             print("Calculating new result")
-            dictionary[key] = func(*args)
+            dictionary[args] = func(*args)
         else:
             print("Getting from cache")
-        return dictionary[key]
+        return dictionary[args]
 
     return wrapper
