@@ -1,17 +1,12 @@
 def cache(func):
-    name_of_the_function = {}
+    cashe = {}
 
     def inner(*args, **kwargs):
-        nonlocal name_of_the_function
-        if args in name_of_the_function:
+        if args in cashe:
             print("Getting from cache")
-            return name_of_the_function[args]
+            return cashe[args]
         else:
             print("Calculating new result")
-            if isinstance(args, str):
-                name_of_the_function[args] = args
-            else:
-                name_of_the_function[args] = func(*args)
-                return name_of_the_function[args]
-
+            cashe[args] = func(*args)
+            return cashe[args]
     return inner
