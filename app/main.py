@@ -1,3 +1,14 @@
 def cache(func):
-    # Write your code here
-    pass
+    count = {}
+
+    def wrapper(*args):
+
+        if args in count:
+            print("Getting from cache")
+        else:
+            count[args] = func(*args)
+            print("Calculating new result")
+
+        return count[args]
+
+    return wrapper
