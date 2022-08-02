@@ -2,9 +2,8 @@ def cache(func):
     count = {}
 
     def wrapper(*args):
-        nonlocal count
 
-        if args in count.keys():
+        if args in count:
             print("Getting from cache")
         else:
             count[args] = func(*args)
