@@ -2,11 +2,10 @@ import functools
 
 
 def cache(func):
-    global_cache = dict({})
+    global_cache = dict()
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        # if (func.__name__, args) in global_cache:
         if args in global_cache:
             print("Getting from cache")
             return global_cache[args]
