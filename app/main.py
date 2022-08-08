@@ -1,3 +1,17 @@
+import functools
+
+
 def cache(func):
-    # Write your code here
-    pass
+    global_cache = dict()
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        if args in global_cache:
+            print("Getting from cache")
+            return global_cache[args]
+        else:
+            print("Calculating new result")
+        res = func(*args)
+        global_cache[args] = res
+        return res
+    return wrapper
