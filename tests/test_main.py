@@ -35,7 +35,7 @@ def test_cache_single_function():
                 output must be:
                 {output},
 
-                while calls are:  
+                while calls are:
                     long_time_func(1, 2, 3)
                     long_time_func(2, 2, 3)
                     long_time_func(1, 2, 3)
@@ -94,7 +94,7 @@ def test_cache_multiple_functions():
             output must be:
             {output},
 
-            while calls are:  
+            while calls are:
             long_time_func(1, 2, 3)
             long_time_func(1, 2, 3)
             long_time_func(1, 2, 3)
