@@ -4,9 +4,8 @@ def cache(func):
     def inner(*args):
         if args in d_memory.keys():
             print("Getting from cache")
-            return func(*args)
-        else:
-            d_memory[args] = func(*args)
-            print("Calculating new result")
-            return func(*args)
+            return d_memory[args]
+        d_memory[args] = func(*args)
+        print("Calculating new result")
+        return d_memory[args]
     return inner
