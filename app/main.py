@@ -3,7 +3,6 @@ def cache(func):
     dict_results = {}
 
     def wrapper(*args):
-        nonlocal dict_results
         if args in dict_results:
             print("Getting from cache")
             return dict_results[args]
