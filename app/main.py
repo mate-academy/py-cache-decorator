@@ -10,4 +10,3 @@ def cache(func):
             print("Calculating new result")
             return storage[args]
     return inner
-
