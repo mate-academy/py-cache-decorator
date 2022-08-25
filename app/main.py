@@ -1,7 +1,7 @@
 def cache(func):
     cache_dict = {}
 
-    def wrapper1(*args):
+    def wrapper(*args):
         if args not in cache_dict:
             cache_dict[args] = func(*args)
             print("Calculating new result")
@@ -9,4 +9,4 @@ def cache(func):
         else:
             print("Getting from cache")
             return cache_dict[args]
-    return wrapper1
+    return wrapper
