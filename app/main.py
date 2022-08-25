@@ -1,5 +1,6 @@
 def cache(func):
     cache_dict = {}
+
     def wrapper(*args):
         if args in cache_dict:
             print("Getting from cache")
