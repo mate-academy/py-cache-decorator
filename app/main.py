@@ -3,7 +3,7 @@ def cache(func):
     dict_for_cache = {}
 
     def inner(*args):
-        key_name_dict = args  # For search value in dictionary with name function
+        key_name_dict = args
         if key_name_dict in dict_for_cache:
             print("Getting from cache")
             return dict_for_cache[key_name_dict]
