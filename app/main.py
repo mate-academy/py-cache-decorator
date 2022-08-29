@@ -1,5 +1,5 @@
 def cache(func):
-    # Write your code here
+
     dict_for_cache = {}
 
     def inner(*args):
