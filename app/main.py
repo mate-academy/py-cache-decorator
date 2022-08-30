@@ -1,14 +1,12 @@
 def cache(func):
-    storage = []
+    storage = {}
 
-    def run(*args):
-        nonlocal storage
-        for numb, val in enumerate(storage):
-            if storage[numb].get(args) is not None:
-                print("Getting from cache")
-                return storage[numb].get(args)
-        out = func(*args)
-        storage.append({args: out})
+    def wrapper(*args):
+        if storage.get(args) is not None:
+            print("Getting from cache")
+            return storage.get(args)
+        temp = func(*args)
+        storage.update({args: temp})
         print("Calculating new result")
-        return out
-    return run
+        return storage.get(args)
+    return wrapper
