@@ -3,13 +3,11 @@ def cache(func):
     dict_for_cache = {}
 
     def inner(*args):
-        key_name_dict = args
-        if key_name_dict in dict_for_cache:
+        if args in dict_for_cache:
             print("Getting from cache")
-            return dict_for_cache[key_name_dict]
-        new_result = func(*args)
-        dict_for_cache[key_name_dict] = new_result
+            return dict_for_cache[args]
+        dict_for_cache[args] = func(*args)
         print("Calculating new result")
-        return new_result
+        return dict_for_cache[args]
 
     return inner
