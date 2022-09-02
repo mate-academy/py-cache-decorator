@@ -3,6 +3,7 @@ import time
 
 from contextlib import redirect_stdout
 from app.main import cache
+import os
 
 
 def test_cache_single_function():
@@ -168,3 +169,17 @@ def test_deco_returns_cached_value():
         "Cache decorator should work once to calculate the result"
     )
     assert time3 - time2 < 1, "Cache decorator should return cached value."
+
+
+def test_unnecessary_comment():
+    if os.path.exists(os.path.join(os.pardir, "app", "main.py")):
+        main_path = os.path.join(os.pardir, "app", "main.py")
+    else:
+        main_path = os.path.join("app", "main.py")
+
+    with open(main_path, "r") as main:
+        main_content = main.read()
+
+        assert (
+                "# Write your code here" not in main_content
+        ), "Remove unnecessary comment"
