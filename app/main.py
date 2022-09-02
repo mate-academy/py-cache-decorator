@@ -7,8 +7,7 @@ def cache(func):
             print("Getting from cache")
             return storage_result.get(args)
 
-        temp = func(*args)
-        storage_result.update({args: temp})
+        storage_result[args] = func(*args)
         print("Calculating new result")
         return storage_result.get(args)
 
