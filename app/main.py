@@ -1,5 +1,6 @@
 def cache(func):
     result_dict = {}
+    
     def wrapper(*args):
 
         if args in result_dict:
@@ -10,4 +11,3 @@ def cache(func):
 
         return result_dict[args]
     return wrapper
-    
