@@ -1,7 +1,7 @@
 def cache(func):
     result_dict = {}    
-    def wrapper(*args):
 
+    def wrapper(*args):
         if args in result_dict:
             print("Getting from cache")
         else:
