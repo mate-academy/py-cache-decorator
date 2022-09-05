@@ -1,19 +1,12 @@
 def cache(func):
-    stored_results = {}
+    result = {}
 
     def wrapper(*args):
-        if func.__name__ not in stored_results:
-            stored_results[func.__name__] = {}
-
-        arg_tuple = args
-
-        if args in stored_results[func.__name__]:
+        if args in result:
             print("Getting from cache")
-            return stored_results[func.__name__][arg_tuple]
         else:
+            result[args] = func(*args)
             print("Calculating new result")
-            result = func(*args)
-            stored_results[func.__name__][arg_tuple] = result
-            return result
+        return result[args]
 
     return wrapper
