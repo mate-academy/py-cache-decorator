@@ -1,12 +1,12 @@
 def cache(func):
-    res = {}
+    result = {}
 
     def wrapper(*args):
-        if args in res:
+        if args in result:
             print("Getting from cache")
         else:
-            res[args] = func(*args)
+            result[args] = func(*args)
             print("Calculating new result")
-        return res[args]
+        return result[args]
 
     return wrapper
