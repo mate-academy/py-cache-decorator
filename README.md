@@ -42,3 +42,5 @@ long_time_func_2((5, 6, 7), 10)
 # Calculating new result 
 # Getting from cache
 ```
+
+### Note: Check your code using this [checklist](checklist.md) before pushing your solution.
