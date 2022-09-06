@@ -80,4 +80,5 @@ for a in ls:
 ## Clean Code
 
 1. You don't need the `nonlocal` statement when you change a mutable object in inner function.
-2. You can add comments, prints, and functions to check your solution when you write your code. Don't forget to delete them when you are ready to commit and push your code.
+2. Add comments, prints, and functions to check your solution when you write your code. 
+Don't forget to delete them when you are ready to commit and push your code.
