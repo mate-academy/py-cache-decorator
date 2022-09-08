@@ -4,12 +4,10 @@ def cache(function):
     def runtime(*data):
         if data in data_array:
             print("Getting from cache")
-            return data_array[data]
         else:
             print("Calculating new result")
             function_result = function(*data)
-        data_array[data] = function_result
-
-        return function_result
+            data_array[data] = function_result
+        return data_array[data]
 
     return runtime
