@@ -22,4 +22,3 @@ def long_time_func(a, b, c):
 @cache
 def long_time_func_2(n_tuple, power):
     return [number ** power for number in n_tuple]
-
