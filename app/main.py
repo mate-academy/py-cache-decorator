@@ -2,7 +2,6 @@ def cache(func):
     cache_dict = {}
 
     def inner(*args):
-        nonlocal cache_dict
         if args in cache_dict.keys():
             print("Getting from cache")
             return cache_dict[args]
