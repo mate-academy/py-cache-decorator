@@ -2,7 +2,6 @@ def cache(func):
     cache_base = {}
 
     def inner(*args):
-        nonlocal cache_base
         if args in cache_base:
             print("Getting from cache")
         else:
