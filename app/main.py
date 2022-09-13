@@ -2,15 +2,14 @@ def cache(func):
     saved = {}
 
     def inner(*args):
-        func_with_args = (func, args)
-
-        if func_with_args in saved:
+        if args in saved:
             print("Getting from cache")
-            return saved[func_with_args]
+
+            return saved[args]
 
         print("Calculating new result")
         res = func(*args)
-        saved[func_with_args] = res
+        saved[args] = res
 
         return res
 
