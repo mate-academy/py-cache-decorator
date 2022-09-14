@@ -7,9 +7,9 @@ def cache(func):
             res = func(*args, **kwargs)
             result[args] = res
             print("Calculating new result")
-            return res
         else:
             print("Getting from cache")
-            return result[args]
+
+        return result[args]
 
     return inner
