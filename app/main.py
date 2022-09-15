@@ -1,3 +1,11 @@
 def cache(func):
-    # Write your code here
-    pass
+    cache_lib = {}
+
+    def inner(*args):
+        if args not in cache_lib:
+            cache_lib[args] = func(*args)
+            print('Calculating new result')
+        else:
+            print('Getting from cache')
+        return cache_lib[args]
+    return inner
