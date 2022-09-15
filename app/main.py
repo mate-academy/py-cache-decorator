@@ -1,12 +1,12 @@
 def cache(func):
-    cash_storJ = {}
+    cash_storj = {}
 
     def wrapper(*args):
-        if args not in cash_storJ:
+        if args not in cash_storj:
             print("Calculating new result")
-            cash_storJ[args] = func(*args)
+            cash_storj[args] = func(*args)
         else:
             print("Getting from cache")
-        return cash_storJ[args]
+        return cash_storj[args]
 
     return wrapper
