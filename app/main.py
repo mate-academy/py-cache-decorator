@@ -1,15 +1,15 @@
 def cache(func):
-    catche = {}
+    cache = {}
 
     def inner(*args):
 
-        if args in catche:  # check previous results
+        if args in cache:  # check previous results
             print("Getting from cache")
         else:
-            # if result not in catch,
-            # add result in cathc and return catch
-            catche[args] = func(*args)
+            # if result not in cache,
+            # add result in cache and return cache
+            cache[args] = func(*args)
             print("Calculating new result")
 
-        return catche[args]
+        return cache[args]
     return inner
