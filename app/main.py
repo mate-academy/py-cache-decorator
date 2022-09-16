@@ -10,18 +10,3 @@ def cache(func):
         print("Calculating new result")
         return res
     return inner
-
-
-@cache
-def long_time_func(a, b, c):
-    return (a ** b ** c) % (a * c)
-
-
-@cache
-def long_time_func_2(n_tuple, power):
-    return [number ** power for number in n_tuple]
-
-
-@cache
-def long_time_func_3(n_list, text):
-    return f"{[i ** 2 for i in n_list]}, {text}"
