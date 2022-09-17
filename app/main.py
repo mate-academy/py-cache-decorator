@@ -2,7 +2,6 @@ def cache(func):
     stored_results = {}
 
     def wrapper(*args):
-        nonlocal stored_results
 
         if args in stored_results:
             print("Getting from cache")
