@@ -2,7 +2,6 @@ def cache(func):
     container = {}
 
     def inner_function(*args):
-        nonlocal container
         if args in container:
             print("Getting from cache")
             return container[args]
