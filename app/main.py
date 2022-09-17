@@ -5,9 +5,9 @@ def cache(func):
         if args not in memorized_function_results:
             print("Calculating new result")
             memorized_function_results[args] = func(*args)
-            return memorized_function_results[args]
+        else:
+            print("Getting from cache")
 
-        print("Getting from cache")
         return memorized_function_results[args]
 
     return wrapper
