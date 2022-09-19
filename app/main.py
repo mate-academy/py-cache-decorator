@@ -10,13 +10,3 @@ def cache(func):
             print("Getting from cache")
         return new_dict.get(args)
     return inner
-
-
-@cache
-def long_time_func(a, b, c):
-    return (a ** b ** c) % (a * c)
-
-
-long_time_func(1, 2, 3)
-long_time_func(2, 2, 3)
-long_time_func(1, 2, 3)
