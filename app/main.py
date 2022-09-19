@@ -4,11 +4,10 @@ def cache(func):
     def wrapper(*args):
         if args in dictionary.keys():
             print('Getting from cache')
-            return dictionary[args]
+            result = dictionary[args]
         else:
-            res = func(*args)
-            dictionary[args] = res
+            result = func(*args)
+            dictionary[args] = result
             print('Calculating new result')
-            return res
-
+        return result
     return wrapper
