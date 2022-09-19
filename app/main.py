@@ -1,22 +1,21 @@
 def cache(func):
-    dict_args_result = {}
-    dict_name_func = {}
+    dct_args_res = {}
+    dct_name_fun = {}
 
     def inner(*args, **kwargs):
 
-        for key_name_func, value_name_func in dict_name_func.items():
-            if key_name_func == str(func.__name__):
-                for key_args_result, value_args_result in \
-                        value_name_func.items():
-                    if key_args_result == args:
+        for key_name_fun, val_name_fun in dct_name_fun.items():
+            if key_name_fun == str(func.__name__):
+                for key_args_res, value_args_res in val_name_fun.items():
+                    if key_args_res == args:
 
                         print('Getting from cache')
-                        return dict_args_result[args]
+                        return dct_args_res[args]
 
-        dict_args_result[args] = func(*args, **kwargs)
-        dict_name_func.update({func.__name__: dict_args_result})
+        dct_args_res[args] = func(*args, **kwargs)
+        dct_name_fun.update({func.__name__: dct_args_res})
 
         print('Calculating new result')
-        return dict_args_result[args]
+        return dct_args_res[args]
 
     return inner
