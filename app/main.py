@@ -1,15 +1,12 @@
 def cache(func):
     data = {}
 
-    def inner(*args, power: int = 0):
-        if (args, power) in data:
+    def inner(*args):
+        if args in data:
             print("Getting from cache")
-            return data[args, power]
+            return data[args]
         else:
             print("Calculating new result")
-            if power == 0:
-                data[args, power] = func(*args)
-            else:
-                data[args, power] = func(*args, power)
-            return data[args, power]
+            data[args] = func(*args)
+            return data[args]
     return inner
