@@ -1,3 +1,13 @@
 def cache(func):
-    # Write your code here
-    pass
+    dict_results = {}
+
+    def inner(*args):
+        if args in dict_results:
+            print("Getting from cache")
+            return dict_results[args]
+        else:
+            print("Calculating new result")
+        result = func(*args)
+        dict_results.update({args: result})
+        return result
+    return inner
