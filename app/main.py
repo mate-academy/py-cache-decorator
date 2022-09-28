@@ -1,20 +1,16 @@
 
 def cache(func):
 
-    d = {}
+    array = {}
 
     def wrapper(*args):
-        if args not in d:
-            d[args] = func(*args)
+        if args not in array:
+            array[args] = func(*args)
             print("Calculating new result")
-            return d[args]
-        elif args in d:
+
+        elif args in array:
             print("Getting from cache")
-            return d[args]
+
+        return array[args]
 
     return wrapper
-
-
-@cache
-def subtraction(a, b):
-    return a - b
