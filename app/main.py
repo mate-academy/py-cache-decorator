@@ -9,4 +9,3 @@ def cache(func):
             old_cache[args] = func(*args)
         return old_cache[args]
     return wrapper_cache
-
