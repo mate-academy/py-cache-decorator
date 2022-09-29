@@ -1,3 +1,12 @@
+caches = []
+
+
 def cache(func):
-    # Write your code here
-    pass
+    def inner(*args, **kwargs):
+        global caches
+        if args in caches:
+            print("Getting from cache")
+        else:
+            caches.append(args)
+            print("Calculating new result")
+    return inner
