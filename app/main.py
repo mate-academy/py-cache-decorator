@@ -1,5 +1,4 @@
 def cache(func):
-
     cached_list = []
 
     def inner(*args):
