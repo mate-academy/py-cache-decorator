@@ -7,6 +7,7 @@ def cache(func):
         element = list(args)
 
         if cached_list:
+
             for value in cached_list:
                 if value == element:
 
