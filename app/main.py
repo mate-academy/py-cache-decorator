@@ -1,7 +1,9 @@
 def cache(func):
+
     cached_list = []
 
     def inner(*args):
+
         access = True
         element = list(args)
 
