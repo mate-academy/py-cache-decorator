@@ -3,8 +3,6 @@ def cache(func):
 
     def wrapper(*args):
 
-        nonlocal result_cache
-
         if args not in result_cache:
             result_cache[args] = func(*args)
             print("Calculating new result")
