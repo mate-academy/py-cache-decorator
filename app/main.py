@@ -13,10 +13,6 @@ def cache(func):
                 for item in args:
                     return item
 
-
-
-
-
         cached_list[args] = "Calculating new result"
         print(cached_list[args])
 
