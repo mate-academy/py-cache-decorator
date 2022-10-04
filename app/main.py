@@ -1,12 +1,12 @@
-import functools
+from functools import wraps
 
 
 def cache(func):
-    @functools.wraps(func)
-
+    """New decoration function with cache"""
     cache_keys = []
     cache_result = []
 
+    @wraps(func)
     def wrapper(*args):
         cache_key = (id(func), *args,)
         if cache_key not in cache_keys:
@@ -21,4 +21,3 @@ def cache(func):
         return res
 
     return wrapper
-
