@@ -1,28 +1,21 @@
 def cache(func):
+
     cached_list = []
 
     def inner(*args):
 
-        access = True
         element = list(args)
 
-        if cached_list:
-            for value in cached_list:
-                if value == element:
+        for value in cached_list:
+            if value == element:
 
-                    print("Getting from cache")
-                    access = False
+                print("Getting from cache")
 
-        if access:
+                for i in element:
+                    return i
 
-            print("Calculating new result")
-            cached_list.append(element)
-
-        else:
-            for value in element:
-
-                return value
+        print("Calculating new result")
+        cached_list.append(element)
 
         return func(*args)
     return inner
-    pass
