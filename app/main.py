@@ -3,10 +3,10 @@ def cache(func):
 
     def wrapper(*args):
         if args in cache_data:
-            print('Getting from cache')
+            print("Getting from cache")
         else:
             cache_data[args] = func(*args)
-            print('Calculating new result')
+            print("Calculating new result")
         return cache_data[args]
 
     return wrapper
