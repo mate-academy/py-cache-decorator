@@ -1,7 +1,7 @@
-def cache(func):
+def cache(func) -> None:
     cash_data = dict()
 
-    def time_cashed(*args, **kwargs):
+    def time_cashed(*args, **kwargs) -> str:
         if args not in cash_data:
             cash_data[args] = func(*args)
             print("Calculating new result")
