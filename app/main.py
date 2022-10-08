@@ -10,6 +10,6 @@ def cache(func: any) -> any:
         else:
             for key in result_runs.keys():
                 if key == args:
-                    print(f"Getting from cache")
+                    print("Getting from cache")
         return run_func
     return wrapper
