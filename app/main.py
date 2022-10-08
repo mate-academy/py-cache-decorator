@@ -7,6 +7,7 @@ def cache(func):
 
             cached_list[args] = "Getting from cache"
             print("Getting from cache")
+
             for item in args:
                 return item
 
