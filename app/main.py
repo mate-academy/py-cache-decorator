@@ -4,17 +4,16 @@ def cache(func):
 
     def inner(*args):
 
-        for key, value in cached_list.items():
-            if key == args:
+        if args in cached_list:
 
-                cached_list[args] = "Getting from cache"
-                print(cached_list[args])
+            cached_list[args] = "Getting from cache"
+            print("Getting from cache")
 
-                for item in args:
-                    return item
+            for item in args:
+                return item
 
         cached_list[args] = "Calculating new result"
-        print(cached_list[args])
+        print("Calculating new result")
 
         return func(*args)
     return inner
