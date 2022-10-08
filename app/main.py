@@ -1,7 +1,12 @@
-def cache(func):
+from functools import wraps
+from typing import Any
+
+
+def cache(func: Any) -> Any:
     cache_result = {}
 
-    def wrapper(*args, **kwargs):
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> Any:
         if args in cache_result:
             print("Getting from cache")
         else:
