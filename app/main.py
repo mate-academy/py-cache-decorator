@@ -2,7 +2,7 @@ def cache(func):
 
     cached_list = {}
 
-    def inner(*args):
+    def inner(*args: int):
         if args in cached_list:
 
             cached_list[args] = "Getting from cache"
