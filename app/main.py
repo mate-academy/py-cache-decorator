@@ -2,7 +2,7 @@ def cache(func: object) -> object:
     cache = {}
 
     def wrapper(*args) -> str:
-        signature = (func, *args)
+        signature = (args)
         if signature in cache:
             result = cache[signature]
             print("Getting from cache")
