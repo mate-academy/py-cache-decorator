@@ -1,7 +1,7 @@
 from typing import Callable
 
 
-def cache(func) -> Callable:
+def cache(func: Callable) -> Callable[[dict[str]], int]:
     res_dict = {}
 
     def inner(*args, **kwargs) -> int:
