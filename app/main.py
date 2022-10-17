@@ -1,4 +1,6 @@
-def cache(func):
+from typing import Callable
+
+def cache(func: Callable) -> Callable:
     cache_backet = {}
 
     def wrapper(*args):
