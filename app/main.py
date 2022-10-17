@@ -1,7 +1,7 @@
-def cache(func):
+def cache(func: any) -> any:
     cache_dict = {}
 
-    def wrapper(*args: tuple):
+    def wrapper(*args: int) -> any:
         if args in cache_dict:
             print("Getting from cache")
             return cache_dict[args]
