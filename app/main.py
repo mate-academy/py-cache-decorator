@@ -4,7 +4,7 @@ from typing import Callable
 def cache(func: Callable) -> Callable:
     cache_backet = {}
 
-    def wrapper(*args):
+    def wrapper(*args: Callable) -> Callable:
         if args not in cache_backet:
             result = func(*args)
             cache_backet[args] = result
