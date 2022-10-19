@@ -1,7 +1,11 @@
-def cache(func):
+from typing import Union
+
+
+def cache(func: callable) -> callable:
     saved_results = {}
 
-    def wrapper(*args: (int, float), **kwargs: (int, float)) -> dict:
+    def wrapper(*args: Union[int, float, str, tuple, frozenset],
+                **kwargs: Union[int, float, str, tuple, frozenset]) -> dict:
         if args in saved_results:
             print("Getting from cache")
         else:
