@@ -1,4 +1,3 @@
-
 def cache(func):
     saved_results = {}
 
