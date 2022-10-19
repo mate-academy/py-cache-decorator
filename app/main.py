@@ -1,7 +1,7 @@
 def cache(func):
     saved_results = {}
 
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: (int, float), **kwargs: (int, float)) -> dict:
         if args in saved_results:
             print("Getting from cache")
         else:
