@@ -1,8 +1,8 @@
 def cache(func):
     dt = {}
 
-    def wrapper(*args):
-        if not dt.get(args, False) is False:
+    def wrapper(*args) -> int:
+        if args in dt:
             print("Getting from cache")
             return dt[args]
         else:
