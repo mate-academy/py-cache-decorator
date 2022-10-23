@@ -1,6 +1,10 @@
-def cache(func):
+from typing import Callable
+
+
+def cache(func: Callable) -> Callable:
     cached_dict = {}
-    def wrapper(*args):
+
+    def wrapper(*args) -> Callable:
         if args in cached_dict.keys():
             print("Getting from cache")
             return cached_dict[args]
@@ -10,4 +14,3 @@ def cache(func):
             return cached_dict[args]
         return func
     return wrapper
-
