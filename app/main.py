@@ -1,11 +1,12 @@
 from functools import wraps
+from collections.abc import Callable
 
 
-def cache(func):
+def cache(func: Callable) -> Callable:
     store = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> Callable:
         if args in store.keys():
             print("Getting from cache")
             return store[args]
@@ -13,4 +14,5 @@ def cache(func):
         store[args] = maintain
         print("Calculating new result")
         return maintain
+
     return wrapper
