@@ -1,7 +1,7 @@
-def cache(func: object) -> object:
+def cache(func: any) -> any:
     cache = {}
 
-    def wrapper(*args) -> str:
+    def wrapper(*args) -> func:
         if args in cache:
             result = cache[args]
             print("Getting from cache")
