@@ -1,13 +1,11 @@
 def cache(func: callable) -> callable:
-    cache_lib = {}
+    cache_storage = {}
 
     def inner(*args) -> callable:
-        nonlocal cache_lib
-        if args not in cache_lib:
-            cache_lib[args] = func(*args)
+        if args not in cache_storage:
+            cache_storage[args] = func(*args)
             print("Calculating new result")
-            return cache_lib[args]
-        if args in cache_lib:
+        elif args in cache_storage:
             print("Getting from cache")
-            return cache_lib[args]
+        return cache_storage[args]
     return inner
