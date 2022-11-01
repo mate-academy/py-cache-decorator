@@ -1,7 +1,10 @@
-def cache(func):
+from typing import Any
+
+
+def cache(func: Any) -> Any:
     dt = {}
 
-    def wrapper(*args) -> dict:
+    def wrapper(*args) -> Any:
         if args in dt:
             print("Getting from cache")
             return dt[args]
