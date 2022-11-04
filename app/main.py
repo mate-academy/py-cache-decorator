@@ -1,16 +1,19 @@
-def cache(func: callable) -> callable:
-    # dictionary 'archive' will store arguments given to func (as keys)
-    # and func(args) as values
+from typing import Callable
+
+
+def cache(func: Callable) -> Callable:
+    """
+    A decorator that stores results of completed runs of decorated function
+    with different arguments.
+    If decorated function runs with repeating arguments it returns stored
+    result instead of calling function again.
+    """
     archive = {}
 
-    def wrapper(*args: tuple) -> callable:
-        # if function has already been called with these argument,
-        # we seek in archive
-        if args in archive.keys():
+    def wrapper(*args: tuple) -> Callable:
+        if args in archive:
             print("Getting from cache")
             return archive[args]
-        # if new arguments - call the function and add its arguments
-        # and return to the archive
         result = func(*args)
         archive[args] = result
         print("Calculating new result")
