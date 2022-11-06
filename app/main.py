@@ -4,7 +4,7 @@ from typing import Callable
 def cache(func: Callable) -> Callable:
     res_dict = {}
 
-    def inner(*args) -> str:
+    def inner(*args) -> Any:
         if args not in res_dict:
             print("Calculating new result")
             result = func(*args)
