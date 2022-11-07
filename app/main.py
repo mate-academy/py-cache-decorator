@@ -1,13 +1,15 @@
-def cache(func: callable) -> callable:
+from typing import Callable
+
+
+def cache(func: Callable) -> Callable:
     dict_res = {}
 
-    def inner(*args) -> callable:
+    def inner(*args) -> Callable:
         if args not in dict_res:
-            res = func(*args)
-            dict_res[args] = res
+            result_func = func(*args)
+            dict_res[args] = result_func
             print("Calculating new result")
-            return dict_res[args]
         else:
             print("Getting from cache")
-            return dict_res[args]
+        return dict_res[args]
     return inner
