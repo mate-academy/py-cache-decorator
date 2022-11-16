@@ -15,21 +15,3 @@ def cache(func: Callable) -> Callable:
             print("Getting from cache")
         return args_results[args]
     return inner
-
-
-@cache
-def long_time_func(alfa: int, beta: int, ceta: int) -> int:
-    return (alfa ** beta ** ceta) % (alfa * ceta)
-
-
-@cache
-def long_time_func_2(n_tuple: tuple, power: int) -> list:
-    return [number ** power for number in n_tuple]
-
-
-print(long_time_func(1, 2, 3))
-print(long_time_func(2, 2, 3))
-print(long_time_func_2((5, 6, 7), 5))
-print(long_time_func(1, 2, 3))
-print(long_time_func_2((5, 6, 7), 10))
-print(long_time_func_2((5, 6, 7), 10))
