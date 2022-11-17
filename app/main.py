@@ -11,7 +11,6 @@ def cache(func: Callable) -> Callable:
 
         if args not in buffer:
             print("Calculating new result")
-            # buffer.append(args)
             buffer[args] = func(*args)
             return buffer[args]
 
