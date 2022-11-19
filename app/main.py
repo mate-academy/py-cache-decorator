@@ -5,14 +5,12 @@ def cache(func: Callable) -> Callable:
     input_data = {}
 
     def inner(*args, **kwargs) -> Callable:
-        nonlocal input_data
         if args in input_data:
             print("Getting from cache")
-            return input_data[args]
         else:
             input_data.update({args: func(*args)})
             print("Calculating new result")
-            return input_data[args]
+        return input_data[args]
     return inner
 
 
