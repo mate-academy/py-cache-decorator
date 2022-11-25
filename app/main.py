@@ -11,6 +11,7 @@ def cache(func: Callable) -> Any:
             print("Calculating new result")
             func_result = func(*args)
             cache_data[args] = func_result
+
         return cache_data[args]
 
     return memory
