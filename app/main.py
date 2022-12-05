@@ -1,29 +1,23 @@
 from typing import Callable, Any
 
 
-rezult_all = []
-
-
 def cache(func: Callable) -> Callable:
+    global result_all
+    result_all = []
 
     def inner(*args, **kqargs) -> Any:
-        rezult = {"name": func, "arg": args}
-        if len(rezult_all) < 1:
-            rez_func = func(*args, **kqargs)
-            print("Calculating new result")
-            rezult["rezult"] = rez_func
-            rezult_all.append(rezult)
-            return rez_func
 
-        for rez in rezult_all:
-            if rez["name"] == rezult["name"] and rez["arg"] == rezult["arg"]:
+        results = {"name": func, "arg": args}
+        for result in result_all:
+            if result["name"] == results["name"] \
+                    and result["arg"] == results["arg"]:
                 print("Getting from cache")
-                return rez["rezult"]
+                return result["result"]
 
         print("Calculating new result")
-        rez_func = func(*args, **kqargs)
-        rezult["rezult"] = rez_func
-        rezult_all.append(rezult)
-        return rez_func
+        result_func = func(*args, **kqargs)
+        results["result"] = result_func
+        result_all.append(results)
+        return result_func
 
     return inner
