@@ -2,7 +2,6 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    global result_all
     result_all = []
 
     def inner(*args, **kqargs) -> Any:
