@@ -7,8 +7,10 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args) -> dict:
         if args in stored_cache:
             print("Getting from cache")
-            return stored_cache[args]
-        print("Calculating new result")
-        stored_cache[args] = func(*args)
+        else:
+            print("Calculating new result")
+            result = func(*args)
+            stored_cache[args] = result
+        return stored_cache[args]
 
     return wrapper
