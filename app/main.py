@@ -1,8 +1,9 @@
+from typing import Callable, Any
 cache_archive = {}
 
 
-def cache(func):
-    def wrapper(*args, **kwargs):
+def cache(func: Callable) -> Callable:
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
         if f"{func} {args} {kwargs}" not in cache_archive.keys():
             print("Calculating new result")
             res = func(*args, **kwargs)
