@@ -1,4 +1,4 @@
-def cache(func):
+def cache(func: callable):
     data = {}
 
     def wrapper(*args):
