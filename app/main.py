@@ -8,7 +8,7 @@ def cache(func: Callable) -> Callable:
 
         if args in cache_archive.keys():
             print("Getting from cache")
-            res = cache_archive[args]
+            result = cache_archive[args]
         else:
             print("Calculating new result")
             result = func(*args)
