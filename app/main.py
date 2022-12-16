@@ -2,21 +2,15 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    result_all = []
+    result_all = {}
 
-    def inner(*args, **kqargs) -> Any:
+    def inner(*args) -> Any:
 
-        results = {"name": func, "arg": args}
-        for result in result_all:
-            if result["name"] == results["name"] \
-                    and result["arg"] == results["arg"]:
-                print("Getting from cache")
-                return result["result"]
-
-        print("Calculating new result")
-        result_func = func(*args, **kqargs)
-        results["result"] = result_func
-        result_all.append(results)
-        return result_func
+        if args not in result_all:
+            result_all[args] = func(*args)
+            print("Calculating new result")
+        else:
+            print("Getting from cache")
+        return result_all[args]
 
     return inner
