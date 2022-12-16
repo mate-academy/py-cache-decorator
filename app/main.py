@@ -2,18 +2,12 @@ def cache(func: callable) -> callable:
     my_cache = dict()
 
     def wrapped_func(*args, **kwargs) -> callable:
-        key = str(args) + str(kwargs)
+        key = str(args)
         if key in my_cache:
             print("Getting from cache")
             return my_cache[key]
-        value = func(*args, **kwargs)
-        my_cache[key] = value
+        my_cache[key] = func(*args, **kwargs)
         print("Calculating new result")
-        return value
+        return my_cache[key]
 
     return wrapped_func
-
-
-@cache
-def long_time_func_2(n_tuple: tuple, power: int) -> list:
-    return [number ** power for number in n_tuple]
