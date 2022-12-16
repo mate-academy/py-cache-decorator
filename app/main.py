@@ -2,15 +2,15 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    cash = {}
+    data = {}
 
     def init(*args) -> Any:
-        if args in cash:
+        if args in data:
             print("Getting from cache")
-            return cash[args]
+            return data[args]
         else:
             print("Calculating new result")
             res = func(*args)
-            cash[args] = res
+            data[args] = res
             return res
     return init
