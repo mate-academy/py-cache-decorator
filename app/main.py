@@ -6,8 +6,7 @@ def cache(func: Callable) -> Callable:
     results_in_cache = {}
 
     def inner(*args) -> Any:
-        nonlocal results_in_cache
-        if tuple(args) not in results_in_cache:
+        if args not in results_in_cache:
             print("Calculating new result")
             results_in_cache[tuple(args)] = func(*args)
         else:
