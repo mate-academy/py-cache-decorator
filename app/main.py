@@ -11,7 +11,6 @@ def cache(func: callable) -> callable:
             print("Calculating new result")
             return value
 
-        elif args in results:
-            print("Getting from cache")
-            return results[args]
+        print("Getting from cache")
+        return results[args]
     return wrapper
