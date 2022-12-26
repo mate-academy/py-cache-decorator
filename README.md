@@ -20,6 +20,20 @@ Also `cache` should print `Getting from cache` when returns stored value and
 
 Example:
 ```python
+
+from typing import Callable
+
+
+def cache(func: Callable) -> Callable:
+    def wrapper(*args, **kwargs): -> list
+        already_run = []
+        for i in args:
+            if
+            
+    
+
+
+
 @cache
 def long_time_func(a, b, c):
     return (a ** b ** c) % (a * c)
