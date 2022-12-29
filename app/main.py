@@ -14,4 +14,3 @@ def cache(func: Callable) -> Any:
             print("Calculating new result")
         return result[f"{func.__name__}{args}"]
     return check_data
-
