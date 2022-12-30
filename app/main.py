@@ -3,7 +3,14 @@ from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    storage = {}  # this will be stored in closure because it is nonlocal
+    """
+    # dict items(storage = {})
+    will be stored in closure because it is nonlocal
+    # keys = tuple(args) - Unpack args (and kwargs)
+    into a tuple to be used as dict keys
+
+    """
+    storage = {}
 
     @wraps(func)
     def wrapper(*args) -> list:
