@@ -9,8 +9,8 @@ def cache(func: Callable) -> Any:
         if args in all_number:
             print("Getting from cache")
         else:
-            result[f"{func.__name__}{args}"] = func(*args)
+            result[args] = func(*args)
             all_number.append(args)
             print("Calculating new result")
-        return result[f"{func.__name__}{args}"]
+        return result[args]
     return check_data
