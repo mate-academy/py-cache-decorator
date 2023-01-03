@@ -44,7 +44,6 @@ def test_cache_single_function():
                     long_time_func(3, 4, 5)
             """
 
-
 def test_cache_multiple_functions():
     @cache
     def long_time_func(a, b, c):
