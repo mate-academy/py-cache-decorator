@@ -6,12 +6,11 @@ def cache(func: Callable) -> Callable:
     def inner(*args: Any) -> Any:
         if not isinstance(args, Hashable):
             return func(*args)
-        if args in inner.cache:
+        if args in cache_dict:
             print("Getting from cache")
-            return inner.cache[args]
+            return cache_dict[args]
         print("Calculating new result")
-        result = func(*args)
-        inner.cache[args] = result
-        return result
-    inner.cache = {}
+        cache_dict[args] = func(*args)
+        return cache_dict[args]
+    cache_dict = {}
     return inner
