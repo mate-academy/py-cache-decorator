@@ -8,9 +8,7 @@ def cache(func: Callable) -> None:
         if args in store:
             print("Getting from cache")
             return store[args]
-        else:
-            result = func(*args)
-            print("Calculating new result")
-            store[args] = result
-        return result
+        store[args] = func(*args)
+        print("Calculating new result")
+        return func(*args)
     return inner
