@@ -1,4 +1,3 @@
-from collections.abc import Hashable
 from typing import Callable, Any
 
 
