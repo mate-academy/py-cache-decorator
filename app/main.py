@@ -1,10 +1,12 @@
+from functools import wraps
 from typing import Any
 
 
 def cache(func: callable) -> callable:
     _cache = {}
 
-    def some_inputs(*inputs: Any) -> Any:
+    @wraps(func)
+    def wrapper(*inputs: tuple) -> Any:
         if inputs not in _cache:
             _cache[inputs] = func(*inputs)
             print("Calculating new result")
@@ -13,4 +15,4 @@ def cache(func: callable) -> callable:
 
         return _cache[inputs]
 
-    return some_inputs
+    return wrapper
