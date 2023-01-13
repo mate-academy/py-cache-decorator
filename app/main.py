@@ -1,6 +1,10 @@
-def cache(func, *args, **kwargs):
+from typing import Callable
+
+
+def cache(func: Callable, *args, **kwargs) -> Callable:
     cache_dict = {}
-    def wrapper(*spisok):
+
+    def wrapper(*spisok) -> Callable:
         if spisok in cache_dict:
             print("Getting from cache")
             return cache_dict.get(spisok)
@@ -11,13 +15,16 @@ def cache(func, *args, **kwargs):
             return result
     return wrapper
 
-@cache
-def long_time_func(a, b, c):
-    return (a ** b ** c) % (a * c)
 
 @cache
-def long_time_func_2(n_tuple, power):
+def long_time_func(first: int, second: int, third: int) -> int:
+    return (first ** second ** third) % (first * third)
+
+
+@cache
+def long_time_func_2(n_tuple: tuple, power: int) -> list:
     return [number ** power for number in n_tuple]
+
 
 long_time_func(1, 2, 3)
 long_time_func(2, 2, 3)
