@@ -1,12 +1,11 @@
 def cache(func: list) -> str:
-    add_func = {}
+    cache_dict = {}
 
     def wrapps(*args, **kwargs) -> str:
-        if args in add_func:
+        if args in cache_dict:
             print("Getting from cache")
         else:
-            perfom_func = func(*args, **kwargs)
-            add_func[args] = perfom_func
+            cache_dict[args] = func(*args, **kwargs)
             print("Calculating new result")
-        return add_func[args]
+        return cache_dict[args]
     return wrapps
