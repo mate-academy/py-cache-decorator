@@ -2,15 +2,15 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    results = dict()
+    cash_dict = dict()
 
-    def inner(*args: Any) -> Any:
+    def wrapper(*args: tuple) -> Any:
 
-        if args in results:
+        if args in cash_dict:
             print("Getting from cache")
-            return results[args]
         else:
-            results[args] = func(*args)
+            cash_dict[args] = func(*args)
             print("Calculating new result")
-            return results[args]
-    return inner
+
+        return cash_dict[args]
+    return wrapper
