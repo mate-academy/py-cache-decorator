@@ -1,14 +1,16 @@
 from typing import Callable
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    cache_func = {}
+    cache_dict = {}
 
-    def wrapper(*args) -> Callable:
-        if args in cache_func:
+    @wraps(func)
+    def wrapper(*args: int) -> Callable:
+        if args in cache_dict:
             print("Getting from cache")
         else:
             print("Calculating new result")
-            cache_func[args] = func(*args)
-        return cache_func[args]
+            cache_dict[args] = func(*args)
+        return cache_dict[args]
     return wrapper
