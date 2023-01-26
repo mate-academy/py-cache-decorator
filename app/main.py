@@ -7,8 +7,7 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args) -> Any:
         if args not in cache_dict:
             print("Calculating new result")
-            result = func(*args)
-            cache_dict[args] = result
+            cache_dict[args] = func(*args)
         else:
             print("Getting from cache")
         return cache_dict[args]
