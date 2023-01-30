@@ -1,7 +1,10 @@
-def cache(func):
+from typing import Callable
+
+
+def cache(func: Callable) -> Callable:
     values = []
 
-    def inner(*args, **kwargs):
+    def inner(*args, **kwargs) -> Callable:
         nonlocal values
 
         cached = list(filter(lambda x: x[0] == args, values))
