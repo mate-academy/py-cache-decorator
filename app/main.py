@@ -7,9 +7,8 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args, **kwargs) -> None:
         if args not in store:
             print("Calculating new result")
-            result = func(*args, *kwargs)
-            store[args] = result
-            return result
-        print("Getting from cache")
+            store[args] = func(*args, *kwargs)
+        else:
+            print("Getting from cache")
         return store[args]
     return wrapper
