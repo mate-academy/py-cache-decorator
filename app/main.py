@@ -7,10 +7,9 @@ def cache(func: Callable) -> Callable:
     def saver(*args) -> Any:
         if args in runs_data:
             print("Getting from cache")
-            return runs_data[args]
         else:
             print("Calculating new result")
             runs_data[args] = func(*args)
-            return runs_data[args]
+        return runs_data[args]
 
     return saver
