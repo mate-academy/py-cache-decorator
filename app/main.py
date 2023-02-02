@@ -14,16 +14,3 @@ def cache(func: Callable) -> Callable:
         return database[args]
 
     return inner
-
-
-@cache
-def long_time_func(a, b, c):
-    return (a ** b ** c) % (a * c)
-
-
-@cache
-def long_time_func_2(n_tuple, power):
-    return [number ** power for number in n_tuple]
-
-
-
