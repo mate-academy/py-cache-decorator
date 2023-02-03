@@ -6,12 +6,11 @@ def cache(func: Callable) -> Callable:
 
     def wrapper(*args) -> int:
         if args not in cached_data:
-            result = func(*args)
-            cached_data[args] = result
+            cached_data[args] = func(*args)
             print("Calculating new result")
         else:
             print("Getting from cache")
-            result = cached_data[args]
-        return result
+
+        return cached_data[args]
 
     return wrapper
