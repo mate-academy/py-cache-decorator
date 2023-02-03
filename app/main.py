@@ -9,8 +9,8 @@ def cache(func: Callable) -> None:
         if args not in new_dict.keys():
             new_dict[args] = func(*args)
             print("Calculating new result")
-            return new_dict[args]
-        if args in new_dict.keys():
+        else:
             print("Getting from cache")
-            return new_dict[args]
+        return new_dict[args]
+
     return inner
