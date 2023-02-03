@@ -7,7 +7,7 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def results_save_wrapper(*args, **kwargs) -> Any:
-        func_arg_kwarg_hash = (*args, *kwargs.values(), hash(func))
+        func_arg_kwarg_hash = (*args, *kwargs.items(), hash(func))
 
         if cache_hash_result.get(func_arg_kwarg_hash) is not None:
             print("Getting from cache")
