@@ -7,7 +7,7 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def wrapper(*args) -> int:
-        result = cached_data.get(args, None)
+        result = cached_data.get(args)
         if result is None:
             print("Calculating new result")
             result = func(*args)
