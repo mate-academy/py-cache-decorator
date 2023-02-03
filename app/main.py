@@ -11,9 +11,11 @@ def cache(func: Callable) -> Callable:
 
         for item in kwargs.items():
             func_arg_kwarg_hash += hash(item)
+
         if cache_hash_result.get(func_arg_kwarg_hash) is not None:
             print("Getting from cache")
             return cache_hash_result.get(func_arg_kwarg_hash)
+
         print("Calculating new result")
         cache_hash_result[func_arg_kwarg_hash] = func(*args, **kwargs)
         return cache_hash_result.get(func_arg_kwarg_hash)
