@@ -13,13 +13,3 @@ def cache(func: Callable) -> Callable:
         results[args] = func(*args, **kwargs)
         return results[args]
     return inner
-
-
-@cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
-
-
-@cache
-def long_time_func_2(n_tuple: tuple[int], power: int) -> list[int]:
-    return [number ** power for number in n_tuple]
