@@ -1,18 +1,17 @@
+import functools
 from typing import Callable
 
 
-def cache(func: Callable) -> Callable:
-    store = {}
+def cache(func: Callable) -> int:
+    cache_store = {}
 
-    def inner(*args: int, **kwargs: int) -> int:
-        nonlocal store
-        for key, value in store.items():
-            if args == value or kwargs == value:
-                print("Getting from cache")
-                return key
+    @functools.wraps(func)
+    def inner(*args: int) -> int:
+        nonlocal cache_store
+        if args in cache_store:
+            print("Getting from cache")
         else:
+            cache_store[args] = func(*args)
             print("Calculating new result")
-            res = func(*args, **kwargs)
-            store.update({res: args})
-            return res
+        return cache_store[args]
     return inner
