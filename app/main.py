@@ -1,10 +1,10 @@
 from typing import Callable, Any
 
 
-def cache(func: Callable) -> Any:
+def cache(func: Callable) -> Callable:
     incoming_args = {}
 
-    def inner(*args) -> int:
+    def inner(*args) -> Any:
         if args not in incoming_args:
             print("Calculating new result")
             incoming_args[args] = func(*args)
