@@ -3,7 +3,7 @@ from typing import Callable
 from typing import Union
 
 
-def cache(func: Callable) -> int:
+def cache(func: Callable) -> Callable:
     cache_store = {}
 
     @functools.wraps(func)
