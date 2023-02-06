@@ -1,5 +1,6 @@
 from typing import Callable
 
+
 def cache(func: Callable) -> None:
 
     new_dict = {}
