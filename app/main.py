@@ -1,17 +1,15 @@
-from typing import Callable, Any
+from typing import Callable
 
 
-def cache(func: Callable) -> Any:
+def cache(func: Callable) -> Callable:
     cache_dict = {}
 
-    def wrapper(*args) -> Any:
-        if hash(args) in cache_dict:
+    def wrapper(*args) -> Callable:
+        if f"{func.__name__}:{args}" in cache_dict:
             print("Getting from cache")
-            return cache_dict[hash(args)]
         else:
-            func_res = func(*args)
-            cache_dict[hash(args)] = func_res
+            cache_dict[f"{func.__name__}:{args}"] = func(*args)
             print("Calculating new result")
-            return func_res
+        return cache_dict.get(f"{func.__name__}:{args}")
 
     return wrapper
