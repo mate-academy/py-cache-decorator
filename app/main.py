@@ -9,10 +9,10 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args) -> Any:
         if (func.__name__, args) in cache_store:
             print("Getting from cache")
-            return cache_store[(func.__name__, args)]
+            result = cache_store[(func.__name__, args)]
         else:
             result = func(*args)
             cache_store[(func.__name__, args)] = result
             print("Calculating new result")
-            return result
+        return result
     return wrapper
