@@ -15,4 +15,3 @@ def cache(func: Callable) -> None:
             return new_dict[args]
 
     return inner
-
