@@ -7,7 +7,7 @@ def cache(func: Callable) -> Callable:
     cache_store = {}
 
     @functools.wraps(func)
-    def inner(*args: Union[int, float, str, tuple]) -> Callable:
+    def inner(*args: any) -> Callable:
         if args in cache_store:
             print("Getting from cache")
         else:
