@@ -1,6 +1,5 @@
 import functools
 from typing import Callable
-from typing import Union
 
 
 def cache(func: Callable) -> Callable:
