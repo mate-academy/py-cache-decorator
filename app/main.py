@@ -1,16 +1,14 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     dict_cache = {}
 
-    def inner(*args, **kwargs) -> tuple:
-        inputs = (*args, *kwargs.values())
-        if inputs not in dict_cache:
-            result = func(*args)
-            dict_cache[inputs] = result
+    def inner(*args: Any) -> tuple:
+        if args in dict_cache:
+            print("Getting from cache")
+        else:
             print("Calculating new result")
-            return result
-        print("Getting from cache")
-        return dict_cache[inputs]
+            dict_cache[args] = func(*args)
+        return dict_cache[args]
     return inner
