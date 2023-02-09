@@ -4,7 +4,7 @@ from typing import Callable, Any
 def cache(func: Callable) -> Callable:
     dict_cache = {}
 
-    def inner(*args: Any) -> tuple:
+    def inner(*args: Any) -> Any:
         if args in dict_cache:
             print("Getting from cache")
         else:
