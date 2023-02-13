@@ -5,14 +5,12 @@ def cache(func: Callable) -> Callable:
 
     storage = {}
 
-    def inner(*args) -> Callable:
+    def inner(*args, **kwargs) -> Callable:
         if args in storage:
             print("Getting from cache")
-            return storage[args]
-
-        print("Calculating new result")
-        result = func(*args)
-        storage[args] = result
-        return result
+        else:
+            print("Calculating new result")
+            storage[args] = func(*args, **kwargs)
+        return storage[args]
 
     return inner
