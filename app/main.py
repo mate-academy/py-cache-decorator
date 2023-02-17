@@ -9,10 +9,9 @@ def cache(func: callable) -> any:
         nonlocal stored_param_and_result
         if args in stored_param_and_result.keys():
             print("Getting from cache")
-            return stored_param_and_result[args]
         else:
             stored_param_and_result[args] = func(*args)
             print("Calculating new result")
-            return stored_param_and_result[args]
+        return stored_param_and_result[args]
 
     return inner
