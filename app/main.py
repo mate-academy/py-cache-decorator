@@ -1,3 +1,15 @@
-def cache(func):
-    # Write your code here
-    pass
+import typing
+
+
+def cache(func: typing.Callable) -> typing.Callable:
+    stored_values = {}
+
+    def wrapper(*args) -> typing.Any:
+        if args in stored_values.keys():
+            print("Getting from cache")
+            return stored_values[args]
+        else:
+            stored_values[args] = func(*args)
+            print("Calculating new result")
+            return stored_values[args]
+    return wrapper
