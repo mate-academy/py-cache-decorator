@@ -4,7 +4,7 @@ from typing import Callable, Any
 def cache(func: Callable) -> Callable:
     dict_cache = {}
 
-    def inner(*args) -> Any:
+    def inner(*args: Any) -> Any:
         if args not in dict_cache:
             print("Calculating new result")
             dict_cache[args] = func(*args)
