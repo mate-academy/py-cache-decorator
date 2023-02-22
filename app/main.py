@@ -1,7 +1,7 @@
 from typing import Callable, Any
 
 
-def cache(func: Callable) -> dict:
+def cache(func: Callable) -> Callable:
     list_of_results = {}
 
     def inner(*args: Any, **kwargs: Any) -> None:
