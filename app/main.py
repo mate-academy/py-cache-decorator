@@ -14,4 +14,3 @@ def cache(func: Callable) -> None:
             return my_cash[args]
 
     return inner
-
