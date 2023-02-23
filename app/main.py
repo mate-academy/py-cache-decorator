@@ -1,8 +1,8 @@
-def cache(func: callable) -> any:
+def cache(func):
     results = {}
 
-    def wrapper(*args) -> any:
-        if args in results:
+    def wrapper(*args):
+        if args in results and results[args] == func(*args):
             print("Getting from cache")
             return results[args]
         else:
