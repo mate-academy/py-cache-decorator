@@ -21,11 +21,11 @@ Also `cache` should print `Getting from cache` when returns stored value and
 Example:
 ```python
 @cache
-def long_time_func(a, b, c):
+def long_time_func(a: int, b: int, c: int) -> int:
     return (a ** b ** c) % (a * c)
 
 @cache
-def long_time_func_2(n_tuple, power):
+def long_time_func_2(n_tuple: tuple, power: int) -> int:
     return [number ** power for number in n_tuple]
 
 long_time_func(1, 2, 3)
