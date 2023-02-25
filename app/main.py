@@ -1,13 +1,13 @@
-def cache(func):
+def cache(func: callable) -> dict:
     results = {}
 
-    def wrapper(*args):
-        if args in results and results[args] == func(*args):
+    def wrapper(*args) -> any:
+        if args in results:
             print("Getting from cache")
-            return results[args]
         else:
             print("Calculating new result")
             result = func(*args)
             results[args] = result
-            return result
+        return results[args]
+
     return wrapper
