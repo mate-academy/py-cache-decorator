@@ -5,14 +5,14 @@ from typing import Callable
 def cache(func: Callable) -> None:
     storage = {}
 
-    def wrapper(*args, **kwargs) -> Any:
+    def wrapper(*args) -> Any:
         wrapper_dict = {}
 
         if args in storage.keys():
             print("Getting from cache")
         else:
             print("Calculating new result")
-            wrapper_dict[args] = func(*args, **kwargs)
+            wrapper_dict[args] = func(*args)
             storage.update(wrapper_dict)
 
         return storage[args]
