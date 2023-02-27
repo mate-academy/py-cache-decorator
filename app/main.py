@@ -1,7 +1,7 @@
 def cache(func: callable) -> Callable:
     results = {}
 
-    def wrapper(*args) -> any:
+    def wrapper(*args) -> Any:
         if args in results:
             print("Getting from cache")
         else:
