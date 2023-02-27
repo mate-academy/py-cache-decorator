@@ -1,4 +1,4 @@
-def cache(func: callable) -> dict:
+def cache(func: callable) -> Callable:
     results = {}
 
     def wrapper(*args) -> any:
