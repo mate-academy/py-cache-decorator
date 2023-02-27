@@ -1,3 +1,13 @@
-def cache(func):
-    # Write your code here
-    pass
+def cache(func: callable) -> callable:
+    results = {}
+
+    def wrapper(*args) -> any:
+        if args in results:
+            print("Getting from cache")
+        else:
+            print("Calculating new result")
+            result = func(*args)
+            results[args] = result
+        return results[args]
+
+    return wrapper
