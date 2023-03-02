@@ -8,9 +8,10 @@ def cache(func: Callable) -> None:
     def inner(*args) -> str:
         if args in completed_runs:
             print("Getting from cache")
-            return completed_runs[args]
         else:
             print("Calculating new result")
             completed_runs[args] = func(*args)
-            return completed_runs[args]
+
+        return completed_runs[args]
+
     return inner
