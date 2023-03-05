@@ -1,10 +1,12 @@
 from typing import Callable
+from functools import wraps
 
 
 def cache(func: Callable) -> None:
     stored_values = {}
 
-    def inner(*args, **kwargs) -> None:
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> None:
         if args not in stored_values:
             stored_values[args] = func(*args, **kwargs)
             print("Calculating new result")
@@ -12,4 +14,4 @@ def cache(func: Callable) -> None:
         else:
             print("Getting from cache")
             return stored_values[args]
-    return inner
+    return wrapper
