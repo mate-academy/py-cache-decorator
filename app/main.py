@@ -3,7 +3,7 @@ from typing import Callable
 
 def cache(func: Callable) -> Callable:
     data_dict = {}
-    
+
     def inner(*args) -> Callable:
         if args in data_dict:
             print("Getting from cache")
