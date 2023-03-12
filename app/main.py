@@ -1,17 +1,16 @@
-from typing import Any, Callable
+from typing import Callable
 
 
-def cache(func: Callable) -> Any:
-    sum_cache = {}
+def cache(func: Callable) -> Callable:
+    cache_dict = {}
 
-    def wrapped(*args: Callable) -> Any:
-        if args not in sum_cache:
-            temp_cache = func(*args)
-            sum_cache[args] = temp_cache
+    def wrapped(*args: tuple) -> Callable:
+        if args not in cache_dict:
+            cache_dict[args] = func(*args)
             print("Calculating new result")
-            return temp_cache
+            return cache_dict[args]
         else:
             print("Getting from cache")
-            return sum_cache[args]
+            return cache_dict[args]
 
     return wrapped
