@@ -6,7 +6,7 @@ def cache(func: Callable) -> Callable:
     """Keep a cache of previous function calls"""
 
     @functools.wraps(func)
-    def wrapper_cache(*args, **kwargs) -> Any:
+    def wrapper_cache(*args: Any, **kwargs: Any) -> Any:
         cache_key = args + tuple(kwargs.items())
         if cache_key not in wrapper_cache.cache:
             print("Calculating new result")
