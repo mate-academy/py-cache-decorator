@@ -5,12 +5,11 @@ def cache(func: Callable) -> Callable:
     memory = {}
 
     def decorator(*args: tuple, **kwargs: dict) -> Any:
-        key = str(args) + str(kwargs)
+        key = args
         if key in memory:
             print("Getting from cache")
             return memory[key]
-        value = func(*args, **kwargs)
-        memory[key] = value
+        memory[key] = func(*args, **kwargs)
         print("Calculating new result")
         return memory[key]
     return decorator
