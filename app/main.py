@@ -1,12 +1,15 @@
+from typing import Any
+
+
 def cache(func: callable) -> callable:
     cached_results = {}
 
-    def inner(*args: any) -> any:
-        if args in cached_results.keys():
+    def inner(*args: Any) -> Any:
+        if args in cached_results:
             print("Getting from cache")
-            return cached_results[args]
-        print("Calculating new result")
-        cached_results.update({args: func(*args)})
+        else:
+            print("Calculating new result")
+            cached_results.update({args: func(*args)})
         return cached_results[args]
 
     return inner
