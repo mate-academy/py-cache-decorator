@@ -1,14 +1,16 @@
-def cache(func: int) -> None:
-    rv = {}
+from typing import Callable, Any
 
-    def wrapper(*args: int) -> None:
-        if args in rv:
+
+def cache(func: Callable) -> None:
+    memory = {}
+
+    def wrapper(*args: Any) -> None:
+        if args in memory:
             print("Getting from cache")
-            return rv[args]
+            return memory[args]
         else:
-            rv1 = func(*args)
-            rv[args] = rv1
+            memory[args] = func(*args)
             print("Calculating new result")
-            return rv[args]
+            return memory[args]
 
     return wrapper
