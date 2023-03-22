@@ -7,10 +7,9 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args: Any) -> Any:
         if args in stock:
             print("Getting from cache")
-            return stock[args]
         else:
             print("Calculating new result")
             result = func(*args)
             stock[args] = result
-            return result
+        return stock[args]
     return wrapper
