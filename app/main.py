@@ -6,7 +6,7 @@ def cache(func: Callable) -> Callable :
     area_cache = {}
 
     @functools.wraps(func)
-    def wrap_cache(*args, **kwargs) -> Any:
+    def wrap_cache(*args: tuple, **kwargs: dict) -> Any:
         key = args + tuple(kwargs.values())
         if key in area_cache:
             print("Getting from cache")
