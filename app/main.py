@@ -7,11 +7,10 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def wrapper(*args: Any) -> Any:
-        if args in result:
+        if args not in result:
+            result.update({args: func(*args)})
+            print("Calculating new result")
+        else:
             print("Getting from cache")
-            return result[args]
-        result.update({args: func(*args)})
-        print("Calculating new result")
         return result[args]
-
     return wrapper
