@@ -8,8 +8,7 @@ def cache(func: Callable) -> None:
         key = args + tuple(kwargs.values())
         if key not in cache_data:
             print("Calculating new result")
-            result = func(*args, **kwargs)
-            cache_data[key] = result
+            cache_data[key] = func(*args, **kwargs)
         else:
             print("Getting from cache")
 
