@@ -1,7 +1,7 @@
-from typing import Callable
+from typing import Callable, Any
 
 
-def cache(func: Callable) -> Callable:
+def cache(func: Callable) -> Any:
     storage = {}
 
     def inner(*args) -> Callable:
