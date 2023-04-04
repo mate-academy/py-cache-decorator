@@ -1,5 +1,6 @@
 from typing import Callable
 
+
 def cache(func: Callable) -> Callable:
     dict_of_args = {}
 
@@ -11,4 +12,3 @@ def cache(func: Callable) -> Callable:
             print("Calculating new result")
         return dict_of_args[args]
     return inner
-
