@@ -5,7 +5,7 @@ def cache(func: Callable) -> Callable:
     dict_of_args = {}
 
     def inner(*args: tuple) -> Callable:
-        if args in dict_of_args.keys():
+        if args in dict_of_args:
             print("Getting from cache")
         else:
             dict_of_args[args] = func(*args)
