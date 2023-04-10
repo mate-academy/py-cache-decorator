@@ -10,11 +10,9 @@ def cache(func: Callable) -> Callable:
         nonlocal cached_data
         if args in cached_data.keys():
             print("Getting from cache")
-            result = cached_data.get(args)
         else:
-            result = func(*args)
-            cached_data.update({args: result})
+            cached_data[args] = func(*args)
             print("Calculating new result")
-        return result
+        return cached_data.get(args)
 
     return wrapper
