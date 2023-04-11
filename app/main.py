@@ -2,22 +2,16 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    cache_args = [0]
+    cache_args = {}
 
-    def wrapper(*args) -> Any:
-        def check_cache(*args) -> bool:
-            nonlocal cache_args
-            for i in cache_args:
-                if i != args:
-                    continue
-                print("Getting from cache")
-                return True
-            return False
-        if check_cache(*args) is False:
-            print("Calculating new result")
-            cache_args.append(args)
-            return func(*args)
-
+    def wrapper(*args, **kwargs) -> Any:
+        key = args
+        if key in cache_args:
+            print("Getting from cache")
+            return cache_args[key]
+        cache_args[key] = func(*args, **kwargs)
+        print("Calculating new result")
+        return cache_args[key]
     return wrapper
 
 
