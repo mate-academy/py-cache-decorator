@@ -6,12 +6,6 @@ def cache(func: Callable) -> Callable:
 
     def inner(*args) -> Any:
 
-        is_immutable_obj = [str, int, float, tuple, bool]
-        for elements in args:
-            if type(elements) not in is_immutable_obj:
-                return None
-            continue
-
         if args in stored_args_and_result:
             print("Getting from cache")
             return stored_args_and_result[args]
