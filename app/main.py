@@ -12,7 +12,6 @@ def cache(func: Callable) -> Callable:
             return cashed_result[args]
         else:
             print("Calculating new result")
-            result = func(*args)
-            cashed_result[args] = result
-            return result
+            cashed_result[args] = func(*args)
+            return cashed_result[args]
     return wrapper
