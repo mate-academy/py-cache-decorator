@@ -7,9 +7,8 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args) -> int:
         if args in local_cache:
             print("Getting from cache")
-            return local_cache[args]
         else:
             local_cache[args] = func(*args)
             print("Calculating new result")
-            return local_cache[args]
+        return local_cache[args]
     return wrapper
