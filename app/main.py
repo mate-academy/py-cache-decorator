@@ -1,11 +1,11 @@
-import typing
+from typing import Callable, Any
 
 
-def cache(func: typing.Callable) -> typing.Callable:
+def cache(func: Callable) -> Callable:
     # data_cache == {args: [func_name, result]}
     data_cache = dict()
 
-    def init(*args) -> typing.Any:
+    def init(*args) -> Any:
         for key, value in data_cache.items():
             if key == args and value[0] == func.__name__:
                 print("Getting from cache")
