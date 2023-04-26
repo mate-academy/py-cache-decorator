@@ -1,11 +1,9 @@
 from typing import Callable, Any
-import functools
 
 
-def cache(func: Callable) -> Callable:
+def cache(func: Callable) -> Any:
     result_dict = {}
 
-    @functools.wraps(func)
     def wrapper(*args) -> Any:
 
         if args in result_dict:
@@ -15,4 +13,5 @@ def cache(func: Callable) -> Callable:
             result_dict[args] = func(*args)
 
         return result_dict[args]
+
     return wrapper
