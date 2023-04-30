@@ -1,5 +1,6 @@
 def cache(func):
     stored_results = {}
+
     def wrapper(*args):
         if args in stored_results:
             print("Getting from cache")
