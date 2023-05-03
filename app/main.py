@@ -1,15 +1,18 @@
-def cache(func):
-    results = {}
+from typing import Callable
 
-    def inner(*args, **kwargs):
-        key = str(args)
-        if key in results:
+
+def cache(func: Callable) -> Callable:
+    result = {}
+
+    def inner(*args, **kwargs) -> dict:
+        key = str(args) + str(kwargs)
+        if key in result:
             print("Getting from cache")
-            return results[key]
+            return result[key]
         else:
             print("Calculating new result")
             res = func(*args, **kwargs)
-            res[key] = res
+            result[key] = res
             return res
 
     return inner
