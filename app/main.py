@@ -4,7 +4,7 @@ from functools import wraps
 
 def cache(func: Callable) -> Callable:
     stored_results = {}
-    
+        
     @wraps(func)
     def wrapper(*args) -> Any:
         if args in stored_results:
