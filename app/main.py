@@ -8,11 +8,10 @@ def cache(func: Callable) -> Callable:
         request = str([*args, {**kwargs}])
         if request not in storage:
             print("Calculating new result")
-            res = func(*args, **kwargs)
-            storage.update({request: res})
-            return res
-        else:
-            print("Getting from cache")
-            return storage[request]
+            result = func(*args, **kwargs)
+            storage.update({request: result})
+            return result
+        print("Getting from cache")
+        return storage[request]
 
     return checker
