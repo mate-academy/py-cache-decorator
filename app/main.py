@@ -7,8 +7,8 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args) -> Callable:
         if args in items_in_cached.keys():
             print("Getting from cache")
-            return items_in_cached[args]
-        print("Calculating new result")
-        items_in_cached.update({args: func(*args)})
+        else:
+            print("Calculating new result")
+            items_in_cached[args] = func(*args)
         return items_in_cached[args]
     return wrapper
