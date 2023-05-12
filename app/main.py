@@ -3,18 +3,18 @@ from typing import Any, Callable
 
 
 def cache(func: Callable) -> Callable:
-    memo = {}
+    data_memo = {}
 
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         key = args + tuple(sorted(kwargs.items()))
-        if key in memo:
+        if key in data_memo:
             print("Getting from cache")
-            return memo[key]
+            return data_memo[key]
         else:
             print("Calculating new result")
             result = func(*args, **kwargs)
-            memo[key] = result
+            data_memo[key] = result
             return result
 
     return wrapper
