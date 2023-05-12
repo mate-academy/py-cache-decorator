@@ -15,16 +15,6 @@ def cache(func: Callable) -> Callable:
             print("Calculating new result")
             result = func(*args, **kwargs)
             cached_results[key] = result
-            return result
+            return cached_results[key]
 
     return wrapper
-
-
-@cache
-def long_time_func(var1: int, var2: int, var3: int) -> int:
-    return (var1 ** var2 ** var3) % (var1 * var3)
-
-
-@cache
-def long_time_func_2(n_tuple: tuple, power: int) -> int:
-    return [number ** power for number in n_tuple]
