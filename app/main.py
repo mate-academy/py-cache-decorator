@@ -11,10 +11,10 @@ def cache(func: Callable) -> Callable:
         if key in data_memo:
             print("Getting from cache")
             return data_memo[key]
-        else:
-            print("Calculating new result")
-            result = func(*args, **kwargs)
-            data_memo[key] = result
-            return result
+
+        print("Calculating new result")
+        result = func(*args, **kwargs)
+        data_memo[key] = result
+        return data_memo[key]
 
     return wrapper
