@@ -1,10 +1,12 @@
-from typing import Callable
+from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     cache_item = {}
 
-    def long_time(*args) -> str:
+    @wraps(func)
+    def wrapper(*args) -> Any:
 
         if args not in cache_item.keys():
             cache_item[args] = func(*args)
@@ -12,4 +14,4 @@ def cache(func: Callable) -> Callable:
         else:
             print("Getting from cache")
         return cache_item[args]
-    return long_time
+    return wrapper
