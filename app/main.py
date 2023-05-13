@@ -11,5 +11,5 @@ def cache(func: Callable) -> Callable:
             print("Calculating new result")
         else:
             print("Getting from cache")
-        return cache_item[*args]
+        return cache_item[args]
     return long_time
