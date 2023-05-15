@@ -1,10 +1,10 @@
 from typing import Callable, Any
 
 
-def cache(func: Callable) -> Any:
+def cache(func: Callable) -> Callable :
     result_dict = {}
 
-    def wrapper(*args) -> None:
+    def wrapper(*args) -> Any:
         if args in result_dict:
             print("Getting from cache")
         else:
