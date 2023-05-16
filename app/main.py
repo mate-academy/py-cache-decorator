@@ -1,12 +1,12 @@
 import functools
-from typing import Callable, Any, Tuple
+from typing import Callable, Any
 
 
 def cache(func: Callable[..., Any]) -> Callable[..., Any]:
     cache_data = {}
 
     @functools.wraps(func)
-    def wrapper(*args: Tuple[Any], **kwargs: Any) -> Any:
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
         key = (args, frozenset(kwargs.items()))
 
         if key in cache_data:
@@ -19,13 +19,3 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
         return result
 
     return wrapper
-
-
-@cache
-def long_time_func(base: int, exponent: int, modulus: int) -> int:
-    return (base ** exponent ** modulus) % (base * modulus)
-
-
-@cache
-def long_time_func_2(numbers: Tuple[int], power: int) -> Tuple[int]:
-    return tuple(number ** power for number in numbers)
