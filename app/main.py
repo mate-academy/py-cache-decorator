@@ -15,13 +15,3 @@ def cache(func: callable) -> callable:
         return cache_dict[key]
 
     return wrapper
-
-
-@cache
-def long_time_func(aa: int, bb: int, cc: int) -> int:
-    return (aa ** bb ** cc) % (aa * cc)
-
-
-@cache
-def long_time_func_2(n_tuple: tuple, power: int) -> list:
-    return [number ** power for number in n_tuple]
