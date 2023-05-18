@@ -6,7 +6,7 @@ def cache(func: Callable) -> Callable:
     run_log = {}
 
     @wraps(func)
-    def wrapper(*args: Any) -> Callable:
+    def wrapper(*args: Any) -> Any:
         if func.__name__ not in run_log:
             print("Calculating new result")
             func_result = func(*args)
