@@ -3,17 +3,15 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    results = {}
+    cache_results = {}
 
     @functools.wraps(func)
     def wrapper(*args: Any) -> Any:
-        if args not in results:
-            result = func(*args)
-            results[args] = result
+        if args not in cache_results:
+            cache_results[args] = func(*args)
             print("Calculating new result")
-            return result
         else:
             print("Getting from cache")
-            return results[args]
+        return cache_results[args]
 
     return wrapper
