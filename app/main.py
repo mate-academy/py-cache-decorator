@@ -1,5 +1,6 @@
 from functools import wraps
 
+
 def cache(func):
     results = {}
 
