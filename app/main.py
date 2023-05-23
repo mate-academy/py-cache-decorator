@@ -10,9 +10,8 @@ def cache(func: Callable) -> Callable:
         if args in cache_dict:
             print("Getting from cache")
             return cache_dict[args]
-        else:
-            cache_dict[args] = func(*args)
-            print("Calculating new result")
-            return cache_dict[args]
+        cache_dict[args] = func(*args)
+        print("Calculating new result")
+        return cache_dict[args]
 
     return wrapper
