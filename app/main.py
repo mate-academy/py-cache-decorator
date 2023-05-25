@@ -1,14 +1,14 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     stored_data = {}
 
-    def wrapper(*args) -> int:
+    def wrapper(*args) -> Any:
+        message = "Getting from cache"
         if args not in stored_data:
-            print("Calculating new result")
+            message = "Calculating new result"
             stored_data[args] = func(*args)
-            return stored_data[args]
-        print("Getting from cache")
+        print(message)
         return stored_data[args]
     return wrapper
