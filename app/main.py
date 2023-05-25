@@ -6,6 +6,7 @@ def cache(func: Callable) -> Callable:
 
     def wrapper(*args) -> Any:
         if args in some_dict:
+
             print("Getting from cache")
         else:
             print("Calculating new result")
