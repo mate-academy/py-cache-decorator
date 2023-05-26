@@ -9,9 +9,8 @@ def cache(func: Callable) -> Callable:
     def inner(*args) -> Any:
         if args in cached:
             print("Getting from cache")
-            return cached[args]
         else:
             cached[args] = func(*args)
             print("Calculating new result")
-            return cached[args]
+        return cached[args]
     return inner
