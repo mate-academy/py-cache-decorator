@@ -8,8 +8,8 @@ def cache(func):
             return results[key]
         else:
             print("Calculating new result")
-            result = func(*args, **kwargs)
-            results[key] = result
+            res = func(*args, **kwargs)
+            results[key] = res
             return result
 
     return inner
