@@ -1,5 +1,4 @@
 def cache(func):
-    def cache(func: callable) -> callable:
     results = {}
 
     def inner(*args, **kwargs) -> callable:
