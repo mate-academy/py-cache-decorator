@@ -1,5 +1,4 @@
 from typing import Callable, Any
-cached = {}
 
 
 def cache(func: Callable) -> Callable:
@@ -12,10 +11,9 @@ def cache(func: Callable) -> Callable:
         if args in cached_values[func_name].keys():
             print("Getting from cache")
             return cached_values[func_name][args]
-        else:
-            print("Calculating new result")
-            function_result = func(*args)
-            cached_values[func_name][args] = function_result
-            return function_result
+        print("Calculating new result")
+        function_result = func(*args)
+        cached_values[func_name][args] = function_result
+        return function_result
 
     return wrapper
