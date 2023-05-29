@@ -2,15 +2,15 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    result_store = {}
+    result = {}
 
     def wrapper(*args: Any) -> Any:
-        if args not in result_store:
+        if args not in result:
             print("Calculating new result")
-            result_store[args] = func(*args)
+            result[args] = func(*args)
         else:
             print("Getting from cache")
 
-        return result_store.get(args)
+        return result.get(args)
 
     return wrapper
