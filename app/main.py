@@ -1,10 +1,10 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     cache_dictionary = {}
 
-    def inner(*args, **kwargs) -> any:
+    def inner(*args, **kwargs) -> Any:
         cache_item = func.__name__ + "".join(str(args)) + "".join(str(kwargs))
         if cache_item in cache_dictionary:
             print("Getting from cache")
