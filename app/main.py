@@ -11,8 +11,8 @@ def cache(func: Callable) -> Callable:
             return results[key]
         else:
             print("Calculating new result")
-            result = func(*args)
-            results[key] = result
-            return result
+
+        results[key] = func(*args)
+        return results[key]
 
     return wrapper
