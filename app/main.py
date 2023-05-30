@@ -1,10 +1,10 @@
-from typing import Callable, Union
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     cached_data = {}
 
-    def wrapper(*args) -> Union[int, list]:
+    def wrapper(*args) -> Any:
         key = args
         if key in cached_data:
             print("Getting from cache")
