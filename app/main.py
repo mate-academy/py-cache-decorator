@@ -17,13 +17,3 @@ def cache(func: Callable) -> Callable:
             return cash_storage[key_cash]
 
     return wrapper
-
-
-@cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
-
-
-@cache
-def long_time_func_2(n_tuple: tuple, power: int) -> list:
-    return [number ** power for number in n_tuple]
