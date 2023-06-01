@@ -10,10 +10,9 @@ def cache(func: Callable) -> Callable:
             cash_storage[key_cash] = func(*args)
             print("Calculating new result")
 
-            return cash_storage[key_cash]
         else:
             print("Getting from cache")
 
-            return cash_storage[key_cash]
+        return cash_storage[key_cash]
 
     return wrapper
