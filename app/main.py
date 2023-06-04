@@ -1,18 +1,16 @@
 from typing import Callable, Any
 
 
-def cache(func: Callable[..., Any]) -> Callable[..., Any]:
-    memo = {}
+def cache(func: Callable) -> Callable:
+    calculation = {}
 
     def wrapper(*args, **kwargs) -> Any:
         key = (args, tuple(kwargs))
-        if key in memo:
+        if key in calculation:
             print("Getting from cache")
-            return memo[key]
         else:
             print("Calculating new result")
-            res = func(*args, **kwargs)
-            memo[key] = res
-            return res
+            calculation[key] = func(*args, **kwargs)
+        return calculation[key]
 
     return wrapper
