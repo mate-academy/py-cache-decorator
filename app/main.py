@@ -1,17 +1,17 @@
 from typing import Callable, Any
 
-dictionary = {}
 
+def cache(func: Callable) -> Callable:
 
-def cache(func: Callable) -> Any:
+    results = {}
 
     def inner(*args, **kwargs) -> Any:
-        key = func, args
-        if key in dictionary:
+        key = args
+
+        if key in results:
             print("Getting from cache")
-            return dictionary[key]
-        result = func(*args, **kwargs)
-        dictionary[key] = result
+            return results[key]
         print("Calculating new result")
-        return result
+        results[key] = func(*args, **kwargs)
+        return results[key]
     return inner
