@@ -10,7 +10,6 @@ def cache(func: Callable) -> Callable:
             return data_collection[args]
         else:
             print("Calculating new result")
-            data = func(*args)
-            data_collection[args] = data
-            return data
+            data_collection[args] = func(*args)
+        return data_collection[args]
     return inner
