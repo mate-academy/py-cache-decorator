@@ -5,9 +5,9 @@ def cache(func: Callable) -> Callable:
     results = {}
 
     def inner(*args) -> Any:
-        if args in results:
+        if result := results.get(args):
             print("Getting from cache")
-            return results.get(args)
+            return result
 
         print("Calculating new result")
         results[args] = func(*args)
