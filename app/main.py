@@ -1,21 +1,23 @@
 from typing import Callable, Any
 from functools import wraps
-cache_dic = dict()
 
 
 def cache(func: Callable) -> Callable:
+    cache_dic = dict()
+
     @wraps(func)
-    def inner(*args: Any, **kwargs: Any) -> Any:
-        key_cache = func.__name__ + str(args) + str(kwargs)
+    def inner(*args, **kwargs) -> Any:
 
-        if key_cache in cache_dic:
+        key_cach = ", ".join([func.__name__, str(args), str(kwargs)])
+
+        if key_cach in cache_dic:
             print("Getting from cache")
-            return cache_dic[key_cache]
+            return cache_dic[key_cach]
 
-        cache_dic[key_cache] = func(*args, **kwargs)
+        cache_dic[key_cach] = func(*args, **kwargs)
 
         print("Calculating new result")
-        return cache_dic[key_cache]
+        return cache_dic[key_cach]
 
     return inner
 
