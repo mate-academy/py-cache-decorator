@@ -1,29 +1,22 @@
-from typing import Callable
-import time
+from typing import Callable, Any
+from functools import wraps
+cache_dic = dict()
 
 
 def cache(func: Callable) -> Callable:
-    def inner(*args, **kwargs) -> float:
-        if "cache_dic" not in globals():
-            global cache_dic
-            cache_dic = {}
-        if func.__name__ in cache_dic:
-            for elem in cache_dic[func.__name__]:
-                for key, value in elem.items():
-                    if key == str(args):
-                        print("Getting from cache")
-                        return value[1]
+    @wraps(func)
+    def inner(*args: Any, **kwargs: Any) -> Any:
+        key_cache = func.__name__ + str(args) + str(kwargs)
 
-        start = time.time()
-        res = func(*args, **kwargs)
-        end = time.time()
-        result_time = round(end - start, 6)
+        if key_cache in cache_dic:
+            print("Getting from cache")
+            return cache_dic[key_cache]
 
-        cache_dic.setdefault(func.__name__, [])
-        cache_dic[func.__name__].append({str(args): [result_time, res]})
+        cache_dic[key_cache] = func(*args, **kwargs)
 
         print("Calculating new result")
-        return res
+        return cache_dic[key_cache]
+
     return inner
 
 
