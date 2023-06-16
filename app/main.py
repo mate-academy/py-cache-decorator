@@ -13,8 +13,6 @@ def cache(func: Callable) -> Callable:
             return results[key]
         else:
             print("Calculating new result")
-            result = func(*args, **kwargs)
-            results[key] = result
-            return result
+            return results.setdefault(key, func(*args, **kwargs))
 
     return wrapper
