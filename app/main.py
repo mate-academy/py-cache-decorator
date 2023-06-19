@@ -1,10 +1,10 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     list_of_answers = {}
 
-    def calc_or_cache(*args: tuple) -> dict:
+    def calc_or_cache(*args) -> Any:
         if args in list_of_answers.keys():
             print("Getting from cache")
         else:
