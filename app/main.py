@@ -1,19 +1,21 @@
 from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    _cache = dict()
+    cache_dict = dict()
 
+    @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         data = (args, tuple(kwargs.items()))
 
-        if data in _cache:
+        if data in cache_dict:
             print("Getting from cache")
-            return _cache[data]
+            return cache_dict[data]
 
         print("Calculating new result")
         result = func(*args, **kwargs)
-        _cache[data] = result
+        cache_dict[data] = result
 
         return result
 
