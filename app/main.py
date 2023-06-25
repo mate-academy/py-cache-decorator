@@ -1,8 +1,8 @@
 from functools import wraps
-from typing import Any, Tuple, Dict
+from typing import Any, Tuple, Dict, Callable
 
 
-def cache(func: callable) -> callable:
+def cache(func: Callable) -> Callable:
     results: Dict[Tuple[Any, ...], Any] = {}
 
     @wraps(func)
