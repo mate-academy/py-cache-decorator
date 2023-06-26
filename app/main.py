@@ -1,11 +1,13 @@
-from typing import Callable
+from functools import wraps
+from typing import Callable, Any
 
 
 cache_dict = {}
 
 
 def cache(func: Callable) -> Callable:
-    def inner(*args) -> int:
+    @wraps(func)
+    def wrapper(*args: Any) -> int:
         if func not in cache_dict:
             cache_dict[func] = {}
         if args not in cache_dict[func]:
@@ -16,4 +18,4 @@ def cache(func: Callable) -> Callable:
 
         return cache_dict[func][args]
 
-    return inner
+    return wrapper
