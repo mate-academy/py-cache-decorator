@@ -6,15 +6,13 @@ def cache(func: Callable) -> Callable:
 
     def inner(*args) -> Any:
 
-        func_arguments_and_results = storage.get(func)
-        if func in storage and args in func_arguments_and_results:
+        if args in storage:
             print("Getting from cache")
-            res = func_arguments_and_results.get(args)
+            result = storage[args]
         else:
-            res = func(*args)
+            result = func(*args)
             print("Calculating new result")
-            func_arguments_and_results.update({args: res}) if func in storage \
-                else storage.update({func: {args: res}})
-        return res
+            storage[args] = result
+        return result
 
     return inner
