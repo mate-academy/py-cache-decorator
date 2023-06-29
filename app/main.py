@@ -8,18 +8,18 @@ def cache(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs) -> None:
         key = str(args) + str(kwargs)
-        if func.__name__ in launch_cache:
-            if key in launch_cache[func.__name__]:
+        if func in launch_cache:
+            if key in launch_cache[func]:
                 print("Getting from cache")
-                return launch_cache[func.__name__][key]
+                return launch_cache[func][key]
             else:
                 print("Calculating new result")
-                launch_cache[func.__name__][key] = func(*args, **kwargs)
-                return launch_cache[func.__name__][key]
+                launch_cache[func][key] = func(*args, **kwargs)
+                return launch_cache[func][key]
         else:
-            launch_cache[func.__name__] = dict()
+            launch_cache[func] = dict()
             print("Calculating new result")
-            launch_cache[func.__name__][key] = func(*args, **kwargs)
-            return launch_cache[func.__name__][key]
+            launch_cache[func][key] = func(*args, **kwargs)
+            return launch_cache[func][key]
 
     return wrapper
