@@ -2,17 +2,14 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    cach = {}
+    cache_dic = {}
 
     def wrapper(*args: None) -> None:
-        if args in cach:
+        if args in cache_dic:
             print("Getting from cache")
-            # print(cach[args])
-            return cach[args]
         else:
             print("Calculating new result")
             result = func(*args)
-            cach[args] = result
-            # print(result)
-            return result
+            cache_dic[args] = result
+        return cache_dic[args]
     return wrapper
