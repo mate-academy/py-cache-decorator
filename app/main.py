@@ -1,37 +1,31 @@
-from typing import Callable
-from functools import wraps
+from typing import Callable, Any
 
 
-def cache(func):
-    dictionary_with_result = {}
+def cache(func: Callable) -> Callable:
+    cache_dict = {}
 
-    @wraps(func)
-    def check_cache_calls(*args):
-        if func.__name__ not in dictionary_with_result:
-            dictionary_with_result[func.__name__] = {}
-
-        if args in dictionary_with_result[func.__name__]:
-            print("Getting from cache")
-            return dictionary_with_result[func.__name__][args]
-        else:
-            result = func(*args)
-            dictionary_with_result[func.__name__][args] = result
-            print(dictionary_with_result)
+    def wrapper(*args) -> Any:
+        if args not in cache_dict.keys():
+            cache_dict[args] = func(*args)
             print("Calculating new result")
-            print(result)
-            return result
+        else:
+            print("Getting from cache")
+        return cache_dict[args]
 
-    return check_cache_calls
-
-
-@cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
+    return wrapper
 
 
 @cache
-def long_time_func_2(n_tuple: tuple, power: int) -> int:
-    return sum([number ** power for number in n_tuple])
+def func_one(a, b):
+    return a + b
 
 
-long_time_func(1, 2, 3)
+@cache
+def func_2(a, b):
+    return a + b
+
+
+func_one(1, 2)
+func_2(2, 3)
+func_one(1, 2)
+func_2(2, 3)
