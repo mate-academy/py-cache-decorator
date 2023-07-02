@@ -7,6 +7,7 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def wrapper(*args: None) -> None:
+
         if args in cache_data:
             print("Getting from cache")
         else:
