@@ -2,7 +2,7 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    cache_dic = {}
+    cache_dict = {}
 
     def wrapper(*args: None) -> None:
         if args in cache_dic:
