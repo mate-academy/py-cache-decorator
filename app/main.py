@@ -1,11 +1,12 @@
 from functools import wraps
+from typing import Callable
 
 
-def cache(func: callable) -> callable:
+def cache(func: Callable) -> Callable:
     storage = {}
 
     @wraps(func)
-    def inner(*args) -> None:
+    def inner(*args) -> int:
         if args not in storage:
             res = func(*args)
             storage.update({args: res})
