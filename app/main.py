@@ -1,6 +1,10 @@
+from functools import wraps
+
+
 def cache(func: callable) -> callable:
     caches = {}
 
+    @wraps(func)
     def wrapper(*args: tuple) -> None:
         if args in caches:
             print("Getting from cache")
