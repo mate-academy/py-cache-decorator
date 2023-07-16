@@ -1,4 +1,4 @@
-from typing import Callable, Any
+import functools, typing
 
 
 def cachefunc(func: Callable) -> Callable:
