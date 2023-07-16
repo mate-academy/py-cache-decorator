@@ -1,5 +1,5 @@
-from typing import Callable,Any
-import functools
+import functools, typing
+
 
 def cachefunc(func: Callable) -> Callable:
     cached_results = {}
