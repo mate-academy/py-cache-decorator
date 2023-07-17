@@ -1,5 +1,7 @@
-def cache(func):
-    cache_value: dict = {}
+from typing import Callable
+
+def cache(func: Callable) -> Callable:
+    cache_value = {}
 
     def inner(*args):
         if cache_value.get(args) is None:
@@ -7,6 +9,6 @@ def cache(func):
             cache_value[args] = func(*args)
         else:
             print("Getting from cache")
-        return cache_value.get(args)
+        return cache_value[args]
 
     return inner
