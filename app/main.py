@@ -2,7 +2,6 @@ def cache(func):
     cache_value: dict = {}
 
     def inner(*args):
-        nonlocal cache_value
         if cache_value.get(args) is None:
             print("Calculating new result")
             cache_value[args] = func(*args)
