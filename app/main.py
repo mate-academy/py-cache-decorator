@@ -1,7 +1,10 @@
+from typing import Callable
+
+
 def cache(func: tuple) -> str:
     archive = {}
 
-    def inner(*args, **kwargs) -> None:
+    def inner(*args, **kwargs) -> Callable:
         if args not in archive:
             result = func(*args, **kwargs)
             archive[args] = result
