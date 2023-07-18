@@ -1,16 +1,21 @@
-def cache(func):
-    cache_dict = {}
+from functools import wraps
+from typing import Any, Callable, Dict, Tuple
 
-    def wrapper(*args, **kwargs):
-        key = (tuple(args), tuple(kwargs.items()))
+
+def cache(func: Callable[..., Any]) -> Callable[..., Any]: # we use "..." for specifying that the function accepts an arbitrary number of arguments of a particular type.
+    cache_dict: Dict[Tuple, Any] = {}
+
+    @wraps(func)
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
+        key = (args, tuple(kwargs.items()))
 
         if key in cache_dict:
             print("Getting from cache")
             return cache_dict[key]
-        else:
-            print("Calculating new result")
-            result = func(*args, **kwargs)
-            cache_dict[key] = result
-            return result
+
+        print("Calculating new result")
+        result = func(*args)
+        cache_dict[key] = result
+        return result
 
     return wrapper
