@@ -1,10 +1,10 @@
-from typing import Callable
+from typing import Callable, Any
 
 
-def cache(func: tuple) -> str:
+def cache(func: tuple) -> Callable:
     archive = {}
 
-    def inner(*args, **kwargs) -> Callable:
+    def inner(*args, **kwargs) -> Any:
         if args not in archive:
             result = func(*args, **kwargs)
             archive[args] = result
