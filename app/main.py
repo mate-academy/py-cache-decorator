@@ -1,5 +1,3 @@
-import hashlib
-import json
 from typing import Callable, Any
 
 
@@ -7,12 +5,9 @@ def cache(func: Callable) -> Callable:
     cache = {}
 
     def compute_key(args: tuple, kwargs: dict) -> str:
-        key = hashlib.md5(
-            json.dumps(args, sort_keys=True).encode("utf-8")
-        ).hexdigest()
-        key += hashlib.md5(
-            json.dumps(kwargs, sort_keys=True).encode("utf-8")
-        ).hexdigest()
+        arg_str = ",".join(str(arg) for arg in args)
+        kwarg_str = ",".join(f"{key}={value}" for key, value in kwargs.items())
+        key = arg_str + kwarg_str
         return key
 
     def wrapper(*args, **kwargs) -> Any:
