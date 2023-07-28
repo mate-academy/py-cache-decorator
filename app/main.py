@@ -1,17 +1,17 @@
+import functools
 from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     cache = {}
 
-    def compute_key(args: tuple, kwargs: dict) -> str:
-        arg_str = ",".join(str(arg) for arg in args)
-        kwarg_str = ",".join(f"{key}={value}" for key, value in kwargs.items())
-        key = arg_str + kwarg_str
-        return key
-
+    @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Any:
-        key = compute_key(args, kwargs)
+        key = (
+            ",".join(str(arg) for arg in args)
+            + ","
+            + ",".join(f"{key}={value}" for key, value in kwargs.items())
+        )
         if key in cache:
             print("Getting from cache")
             return cache[key]
