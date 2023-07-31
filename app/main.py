@@ -6,10 +6,10 @@ def cache(func: Callable) -> Callable:
     dict_of_results = {}
 
     @wraps(func)
-    def inner(*args: Any) -> Any:
+    def inner(*args, **kwargs) -> Any:
         if args not in dict_of_results:
             print("Calculating new result")
-            dict_of_results[args] = func(*args)
+            dict_of_results[args] = func(*args, **kwargs)
             return dict_of_results[args]
         print("Getting from cache")
         return dict_of_results[args]
