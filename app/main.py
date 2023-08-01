@@ -13,19 +13,3 @@ def cache(func: Callable) -> Callable:
         return cache_dict[args]
 
     return wrapper
-
-
-@cache
-def func_one(a, b):
-    return a + b
-
-
-@cache
-def func_2(a, b):
-    return a + b
-
-
-func_one(1, 2)
-func_2(2, 3)
-func_one(1, 2)
-func_2(2, 3)
