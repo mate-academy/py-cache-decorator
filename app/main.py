@@ -1,16 +1,16 @@
 from typing import Callable, Any
-import functools
+from functools import wraps
 
 
-def cache(func: Callable) -> Any:
+def cache(func: Callable) -> Callable:
     memory = {}
 
-    @functools.wraps(func)
-    def inner(*args) -> Any:
+    @wraps(func)
+    def inner(*args, **kwargs) -> Any:
         if args in memory:
             print("Getting from cache")
             return memory.get(args)
-        res = func(*args)
+        res = func(*args, **kwargs)
         memory[args] = res
         print("Calculating new result")
         return res
