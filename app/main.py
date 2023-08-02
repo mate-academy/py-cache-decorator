@@ -1,10 +1,13 @@
-from typing import Callable
+from typing import Callable, TypeVar
+
+
+T = TypeVar("T")
 
 
 def cache(func: Callable) -> Callable:
     cached_results = {}
 
-    def wrapper(*args, **kwargs) -> list:
+    def wrapper(*args, **kwargs) -> list[T]:
         args_key = args + tuple(kwargs.items())
         if args_key in cached_results:
             print("Getting from cache")
