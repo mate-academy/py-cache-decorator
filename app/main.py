@@ -1,12 +1,14 @@
-def cache(func: callable) -> callable:
+from typing import Callable, Any
+
+
+def cache(func: Callable) -> Callable:
     cached = {}
 
-    def inner(*args: int | float) -> int | list:
+    def inner(*args: Any) -> Any:
         if args not in cached.keys():
             print("Calculating new result")
-            result = func(*args)
-            cached[args] = result
-            return result
+            cached[args] = func(*args)
+            return cached[args]
         else:
             print("Getting from cache")
             return cached[args]
