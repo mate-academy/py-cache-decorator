@@ -19,7 +19,7 @@ def cache(func: Callable) -> Callable:
     return inner
 
 
-def hash_function(function_to_hash: Callable, args: tuple):
+def hash_function(function_to_hash: Callable, args: tuple) -> str:
     """
     Hashing incoming function, using it's name
     and arguments with a string result.
