@@ -14,4 +14,3 @@ def cache(func: Callable) -> Callable:
             return runs_cache[args]
 
     return wrapper
-
