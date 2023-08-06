@@ -1,10 +1,10 @@
-from typing import Callable, Any, Tuple, Dict
+from typing import Callable
 
 
-def cache(func: Callable) -> Callable[[tuple[Any, ...], dict[str, Any]], Any]:
+def cache(func: Callable) -> str:
     cached_results = {}
 
-    def wrapper(*args: Any, **kwargs: Any) -> Any:
+    def wrapper(*args, **kwargs) -> Callable:
         if args in cached_results:
             print("Getting from cache")
             return cached_results[args]
