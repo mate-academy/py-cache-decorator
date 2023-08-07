@@ -1,5 +1,4 @@
-from functools import wraps
-from typing import Callable, ParamSpec, TypeVar
+from typing import Callable, Hashable, ParamSpec, TypeVar
 
 Param = ParamSpec("Param")
 RetType = TypeVar("RetType")
@@ -8,17 +7,10 @@ RetType = TypeVar("RetType")
 def cache(func: Callable[Param, RetType]) -> Callable[Param, RetType]:
     cache_dict: dict = {}
 
-    @wraps(func)
-    def wrapper(*args, **kwargs) -> RetType:
-        for arg in args:
-            try:
-                hash(arg)
-            except TypeError:
-                return func(*args, **kwargs)
-        for value in kwargs.values():
-            try:
-                hash(value)
-            except TypeError:
+    def wrapper(*args: Param.args, **kwargs: Param.kwargs) -> RetType:
+        all_arguments = args + tuple(kwargs.values())
+        for arg in all_arguments:
+            if not isinstance(arg, Hashable):
                 return func(*args, **kwargs)
         signature: tuple = (args, tuple(kwargs.items()))
         if signature in cache_dict:
