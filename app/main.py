@@ -1,7 +1,10 @@
-def cache(func: callable) -> callable:
+from typing import Callable
+
+
+def cache(func: Callable) -> Callable:
     stored_results = {}
 
-    def wrapper(*args) -> callable:
+    def wrapper(*args) -> Callable:
         if args in stored_results:
             print("Getting from cache")
         else:
