@@ -1,7 +1,7 @@
 from typing import Callable
 
 
-def cache(func: Callable) -> None:
+def cache(func: Callable) -> Callable:
     results = {}
 
     def inner(*args) -> Callable:
