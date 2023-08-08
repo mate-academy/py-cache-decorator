@@ -1,7 +1,10 @@
-def cache(func):
+from typing import Callable, Any
+
+
+def cache(func: Callable) -> dict:
     dict_results = {}
 
-    def inner(*args):
+    def inner(*args) -> Any:
         result = None
         if args in dict_results:
             print("Getting from cache")
