@@ -5,10 +5,10 @@ def cache(func: callable) -> callable:
         if args in dict_cache:
             print("Getting from cache")
             return dict_cache[args]
-        else:
-            result = func(*args, **kwargs)
-            dict_cache[args] = result
-            print("Calculating new result")
-            return result
+
+        result = func(*args, **kwargs)
+        dict_cache[args] = result
+        print("Calculating new result")
+        return result
 
     return inner
