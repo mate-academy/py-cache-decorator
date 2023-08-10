@@ -5,13 +5,12 @@ def cache(func: Callable) -> Callable:
     previous_runs = {}
 
     def inner(*args) -> object:
-        hash_key = args
-        if hash_key in previous_runs.keys():
+        if args in previous_runs.keys():
             print("Getting from cache")
-            return previous_runs[hash_key]
+            return previous_runs[args]
         print("Calculating new result")
         result = func(*args)
-        previous_runs[hash_key] = result
+        previous_runs[args] = result
         return result
 
     return inner
