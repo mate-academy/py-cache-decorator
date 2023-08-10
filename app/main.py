@@ -2,7 +2,7 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> int:
-    cache_result = dict()
+    cache_result = {}
 
     def inner(*args: Any) -> Any:
         if args in cache_result:
