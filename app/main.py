@@ -6,12 +6,10 @@ def cache(func: Callable) -> Any:
 
     def wrapper(*args: (int, float, str), **kwargs: (tuple, bool)) -> Any:
         if args not in stored_cache:
-            result = func(*args, **kwargs)
-            stored_cache[args] = result
+            stored_cache[args] = func(*args, **kwargs)
             print("Calculating new result")
-            return result
         else:
             print("Getting from cache")
-            return stored_cache[args]
+        return stored_cache[args]
 
     return wrapper
