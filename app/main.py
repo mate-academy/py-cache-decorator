@@ -1,9 +1,11 @@
 from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     cache_data = dict()
 
+    @wraps(func)
     def wrapper(*args: Any) -> Any:
         if args not in cache_data:
             cache_data[args] = func(*args)
