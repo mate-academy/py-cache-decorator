@@ -6,10 +6,11 @@ def cache(func: Callable) -> Callable:
 
     def wrapper(*args, **kwargs) -> int:
         cache_tuple = (*args, frozenset(kwargs.items()))
-        for cached_args, cached_result in cached.items():
-            if cached_args == cache_tuple:
-                print("Getting from cache")
-                return cached_result
+
+        cached_result = cached.get(cache_tuple)
+        if cached_result is not None:
+            print("Getting from cache")
+            return cached_result
 
         print("Calculating new result")
         result = func(*args, **kwargs)
