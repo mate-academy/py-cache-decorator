@@ -1,6 +1,8 @@
-def cache(func):
+import functools
+from typing import Callable
+def cache(func) -> Callable:
     cached_results = {}
-
+    functools.wraps(func)
     def wrapper(*args):
         if args in cached_results:
             print("Getting from cache")
