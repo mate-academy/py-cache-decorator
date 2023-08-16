@@ -8,10 +8,9 @@ def cache(func: Callable) -> Callable:
         arguments = args + tuple(sorted(kwargs.items()))
         if arguments in caching_place:
             print("Getting from cache")
-            return caching_place[arguments]
         else:
             print("Calculating new result")
             result = func(*args, **kwargs)
             caching_place[arguments] = result
-            return result
+        return caching_place[arguments]
     return wrapper
