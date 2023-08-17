@@ -5,7 +5,6 @@ def cache(func: Callable) -> Callable:
     cache_store = {}
 
     def wrapper(*args, **kwargs) -> Any:
-        nonlocal cache_store
         key = (args, frozenset(kwargs.items()))
         if key in cache_store:
             print("Getting from cache")
@@ -13,7 +12,7 @@ def cache(func: Callable) -> Callable:
         else:
             print("Calculating new result")
             result = func(*args, **kwargs)
-            cache_store.update({key: result})
+            cache_store[key] = result
             return result
 
     return wrapper
