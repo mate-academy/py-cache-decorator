@@ -3,7 +3,8 @@ from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    cache = dict()
+    cache = {}
+
     @wraps(func)
     def wrapper(*args) -> Any:
         if args in cache:
