@@ -7,9 +7,8 @@ def cache(func: Callable) -> Callable:
     def inner(*args, **kwargs) -> Any:
         if (args, tuple(kwargs.items())) in cache_dict:
             print("Getting from cache")
-            return cache_dict[(args, tuple(kwargs.items()))]
         else:
             print("Calculating new result")
             cache_dict[(args, tuple(kwargs.items()))] = func(*args, **kwargs)
-            return cache_dict[(args, tuple(kwargs.items()))]
+        return cache_dict[(args, tuple(kwargs.items()))]
     return inner
