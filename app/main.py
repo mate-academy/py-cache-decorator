@@ -1,9 +1,11 @@
 from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     cash_dict = {}
 
+    @wraps(func)
     def wrapper(*args) -> Any:
         if args in cash_dict:
             print("Getting from cache")
@@ -13,4 +15,5 @@ def cache(func: Callable) -> Callable:
             result = func(*args)
             cash_dict[args] = result
         return result
+
     return wrapper
