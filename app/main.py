@@ -20,7 +20,10 @@ def cache(func: Callable) -> Callable:
             }]
 
             return result
-        elif args not in [value["arguments"] for value in caching_result[func.__name__]]:
+        elif args not in [
+            value["arguments"]
+            for value in caching_result[func.__name__]
+        ]:
             print("Calculating new result")
 
             result = func(*args)
