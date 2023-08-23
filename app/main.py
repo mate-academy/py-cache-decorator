@@ -39,19 +39,3 @@ def cache(func: Callable) -> Callable:
                     return item["result"]
 
     return wrapper
-
-
-@cache
-def long_time(*args):
-    result = 1
-    for i in args:
-        result *= i
-    return result
-
-
-long_time(2, 2)
-long_time(2, 2)
-long_time(3, 2)
-long_time(4, 2)
-long_time(5, 2)
-long_time(3, 2)
