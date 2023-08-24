@@ -3,42 +3,21 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    caching_result = {}
-    wraps(func)
+    caching_result = []
 
-    def wrapper(*args: tuple) -> Any:
-        nonlocal caching_result
+    @wraps(func)
+    def wrapper(*args) -> Any:
+        for item in caching_result:
+            if args in item:
+                print("Getting from cache")
+                return item[args]
 
-        if func.__name__ not in caching_result.keys():
-            print("Calculating new result")
+        print("Calculating new result")
+        result = func(*args)
+        caching_result.append({
+            args: result
+        })
 
-            result = func(*args)
-
-            caching_result[func.__name__] = [{
-                "arguments": args,
-                "result": result
-            }]
-
-            return result
-        elif args not in [
-            value["arguments"]
-            for value in caching_result[func.__name__]
-        ]:
-            print("Calculating new result")
-
-            result = func(*args)
-
-            caching_result[func.__name__].append({
-                "arguments": args,
-                "result": result
-            })
-
-            return result
-        else:
-            print("Getting from cache")
-
-            for item in caching_result[func.__name__]:
-                if item["arguments"] == args:
-                    return item["result"]
+        return result
 
     return wrapper
