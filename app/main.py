@@ -1,9 +1,11 @@
 from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     results_cache = {}
 
+    @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         key = (args, tuple(kwargs.items()))
 
