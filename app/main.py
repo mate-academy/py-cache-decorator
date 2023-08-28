@@ -10,9 +10,8 @@ def cache(func: Callable) -> Callable:
         arguments = args + tuple(kwargs.items())
         if arguments in results:
             print("Getting from cache")
-            return results[arguments]
         else:
-            result = results.setdefault(arguments, func(*args, **kwargs))
+            results[arguments] = func(*args, **kwargs)
             print("Calculating new result")
-        return result
+        return results[arguments]
     return wrapper
