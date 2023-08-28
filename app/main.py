@@ -7,12 +7,10 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args, **kwargs) -> Callable:
         if args in cache_results:
             print("Getting from cache")
-            return cache_results[args]
         else:
             print("Calculating new result")
-            result = func(*args, **kwargs)
-            cache_results[args] = result
-        return result
+            cache_results[args] = func(*args, **kwargs)
+        return cache_results[args]
     return wrapper
 
 
