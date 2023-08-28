@@ -14,3 +14,4 @@ def cache(func: Callable) -> Callable:
             func_dict[args] = func(*args)
         return func_dict[args]
     return wrapper
+
