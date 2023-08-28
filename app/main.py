@@ -3,20 +3,17 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    caching_result = []
+    caching_result = {}
 
     @wraps(func)
     def wrapper(*args) -> Any:
-        for item in caching_result:
-            if args in item:
-                print("Getting from cache")
-                return item[args]
+        if args in caching_result:
+            print("Getting from cache")
+            return caching_result[args]
 
         print("Calculating new result")
         result = func(*args)
-        caching_result.append({
-            args: result
-        })
+        caching_result[args] = result
 
         return result
 
