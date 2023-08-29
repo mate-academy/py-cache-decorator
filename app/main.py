@@ -3,8 +3,7 @@ from typing import Any, Tuple, Dict, Callable
 
 
 def cache(func: Callable) -> Callable:
-    results: \
-        Dict[Tuple[Any, ...], Any] = {}
+    results: Dict[Tuple[Any, ...], Any] = {}
 
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
