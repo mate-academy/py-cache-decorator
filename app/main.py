@@ -6,6 +6,7 @@ def cache(func: Callable) -> Callable:
     results: Dict[Tuple[Any, ...], Any] = {}
 
     @wraps(func)
+
     def wrapper(*args: Any, **kwargs: Any) -> Any:
         arguments = args + tuple(kwargs.items())
         if arguments in results:
