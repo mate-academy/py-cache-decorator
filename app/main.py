@@ -1,11 +1,9 @@
-from functools import wraps
 from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     cache_dict = {}
 
-    @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         input_args = (args, frozenset(kwargs.items()))
         if input_args in cache_dict:
