@@ -2,7 +2,7 @@ from typing import Callable, Any
 from functools import wraps
 
 
-def cache(func: Callable) -> Callable:
+def cache(func: Callable) -> Any:
     cash_dict = {}
 
     @wraps(func)
