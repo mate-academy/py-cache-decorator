@@ -6,7 +6,7 @@ def cache(func: Callable) -> Callable:
     cash_dict = {}
 
     @wraps(func)
-    def wrapper(*args) -> Any:
+    def inner(*args) -> Callable:
         if args in cash_dict:
             print("Getting from cache")
             result = cash_dict[args]
@@ -16,4 +16,4 @@ def cache(func: Callable) -> Callable:
             cash_dict[args] = result
         return result
 
-    return wrapper
+    return inner
