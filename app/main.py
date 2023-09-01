@@ -1,5 +1,5 @@
 def cache(func: callable) -> callable:
-    cache = {}
+    cache = dict({})
 
     def inner(*args) -> callable:
         if args in cache:
