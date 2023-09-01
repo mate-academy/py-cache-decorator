@@ -1,16 +1,19 @@
 from typing import Callable, Any
+from functools import wraps
 
 
-def cache(func: Callable) -> callable:
-    cache_dict = {}
+def cache(func: Callable) -> Callable:
+    cash_dict = {}
 
-    def inner(*args) -> Any:
-        if args not in cache_dict:
-            cache_dict[args] = func(*args)
-            print("Calculating new result")
-            return cache_dict.get(args)
-        else:
+    @wraps(func)
+    def wrapper(*args) -> Any:
+        if args in cash_dict:
             print("Getting from cache")
-            return cache_dict.get(args)
+            result = cash_dict[args]
+        else:
+            print("Calculating new result")
+            result = func(*args)
+            cash_dict[args] = result
+        return result
 
-    return inner
+    return wrapper
