@@ -1,4 +1,5 @@
 from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
@@ -6,6 +7,7 @@ def cache(func: Callable) -> Callable:
     arg_cache = []
     kwargs_cache = []
 
+    @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         nonlocal cached, arg_cache, kwargs_cache
 
