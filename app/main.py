@@ -5,7 +5,6 @@ def cache(func: Callable) -> callable:
     cache_dict = {}
 
     def inner(*args) -> Any:
-        nonlocal cache_dict
         if args not in cache_dict:
             cache_dict[args] = func(*args)
             print("Calculating new result")
