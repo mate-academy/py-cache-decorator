@@ -1,12 +1,12 @@
-from typing import Callable, Any
+
 from functools import wraps
 
 
-def cache(func: Callable) -> Any:
+def cache(func: callable) -> callable:
     cache = {}
 
     @wraps(func)
-    def inner(*args) -> Any:
+    def inner(*args) -> callable:
         if args in cache:
             print("Getting from cache")
         else:
