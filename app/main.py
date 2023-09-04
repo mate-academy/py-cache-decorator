@@ -10,8 +10,8 @@ def cache(func: Callable) -> Callable:
         key = (args, tuple(kwargs.items()))
         if key in repeating_data:
             print("Getting from cache")
-            return repeating_data[key]
-        print("Calculating new result")
-        repeating_data[key] = func(*args, **kwargs)
+        else:
+            print("Calculating new result")
+            repeating_data[key] = func(*args, **kwargs)
         return repeating_data[key]
     return inner
