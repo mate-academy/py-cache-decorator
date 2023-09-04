@@ -9,9 +9,7 @@ def cache(func: callable) -> callable:
         if args not in cache_store.keys():
             print("Calculating new result")
             cache_store[*args] = func(*args)
-            return cache_store[*args]
         else:
             print("Getting from cache")
-            return cache_store[*args]
-
+        return cache_store[*args]
     return wrapper
