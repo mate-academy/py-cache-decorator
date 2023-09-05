@@ -1,10 +1,11 @@
 from typing import Callable
+from typing import Any
 
 
 def cache(func: Callable) -> Callable:
     hash_table = {}
 
-    def inner(*args) -> None:
+    def inner(*args: Any) -> None:
         key = str(args)
         if key in hash_table:
             print("Getting from cache")
