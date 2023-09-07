@@ -1,7 +1,7 @@
 from typing import Callable
 
 
-def cache(func: Callable) -> Callable:
+def cache(func: Any) -> Any:
     save_cache = {}
 
     def decorator(*args: dict) -> Callable:
