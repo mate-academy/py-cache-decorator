@@ -1,10 +1,10 @@
-from typing import Callable
+from typing import Callable, Any
 
 
-def cache(func: Callable) -> Callable:
+def cache(func: Callable[..., Any]) -> Callable[..., Any]:
     func_cache = {}
 
-    def wrapper(*args, **kwargs) -> dict:
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
         key = (args, tuple(kwargs.items()))
 
         if key in func_cache:
