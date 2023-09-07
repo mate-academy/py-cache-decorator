@@ -13,4 +13,3 @@ def cache(func: str) -> any:
             cache[key] = result
             return result
     return wrapper
-
