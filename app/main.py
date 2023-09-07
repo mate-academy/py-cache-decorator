@@ -1,10 +1,10 @@
 from typing import Callable
 
 
-def cache(func: Any) -> Any:
+def cache(func: Callable[..., Any]) -> Callable[..., Any]:
     save_cache = {}
 
-    def decorator(*args: dict) -> Callable:
+    def decorator(*args) -> Callable:
 
         if args not in save_cache:
             print("Calculating new result")
