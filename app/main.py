@@ -1,5 +1,5 @@
 from typing import Callable
-result_cache = {}  # Словарь для кэшированных результатов
+result_cache = {}
 
 
 def cache(func: Callable) -> Callable:
@@ -8,7 +8,6 @@ def cache(func: Callable) -> Callable:
         if name_cache in result_cache:
             print("Getting from cache")
             return result_cache[name_cache]
-
         else:
             result = func(*args, **kwargs)
             result_cache[name_cache] = result
