@@ -1,9 +1,9 @@
-from typing import Callable
+from typing import Callable, Any
 result_cache = {}
 
 
-def cache(func: Callable) -> Callable:
-    def new_result(*args, **kwargs) -> None:
+def cache(func: Callable) -> Any:
+    def new_result(*args, **kwargs) -> Any:
         name_cache = func, args
         if name_cache in result_cache:
             print("Getting from cache")
