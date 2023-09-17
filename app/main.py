@@ -1,18 +1,18 @@
-from typing import Callable
+from functools import wraps
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    results = {}
+    cache_results = {}
 
-    def wrapper(*args, **kwargs) -> dict:
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> Any:
         key = (args, tuple(kwargs.items()),)
-        if key in results:
+        if key in cache_results:
             print("Getting from cache")
-            result = results[key]
         else:
-            result = func(*args, **kwargs)
-            results[key] = result
+            cache_results[key] = func(*args, **kwargs)
             print("Calculating new result")
-        return result
+        return cache_results[key]
 
     return wrapper
