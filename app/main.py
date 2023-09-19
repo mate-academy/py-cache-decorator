@@ -6,7 +6,7 @@ def cache(func: Callable) -> Callable:
     result: dict = {}
 
     @wraps(func)
-    def inner(*args) -> list:
+    def inner(*args) -> int:
         if args not in result.keys():
             result[args] = func(*args)
             print("Calculating new result")
