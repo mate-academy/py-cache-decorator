@@ -11,7 +11,6 @@ def cache(func: Callable) -> Callable:
         if key in cache_dict:
             print("Getting from cache")
             return cache_dict[key]
-        # else:
         print("Calculating new result")
         result = func(*args, **kwargs)
         cache_dict[key] = result
