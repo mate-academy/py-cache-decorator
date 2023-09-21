@@ -1,23 +1,22 @@
 from typing import Callable
 
-results_list = []
-
 
 def cache(func: Callable) -> Callable:
+    results_list = []
+
     def inner(*args) -> Callable:
-        global results_list
+        nonlocal results_list
         for result in results_list:
-            if (result["arguments"] == [*args]
-                    and result["id_func"] == id(func)):
+            if result["arguments"] == [*args]:
                 print("Getting from cache")
                 return result["result_func"]
         results_list += [
             {
                 "arguments": [*args],
-                "result_func": func(*args),
-                "id_func": id(func)
+                "result_func": func(*args)
             }
         ]
         print("Calculating new result")
         return results_list[-1].get("result_func")
+
     return inner
