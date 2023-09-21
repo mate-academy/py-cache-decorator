@@ -7,10 +7,10 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def inner(*args, **kwargs) -> int:
-        if args not in result.keys():
-            result[args] = func(*args, **kwargs)
+        if str(args) + str(kwargs.values()) not in result.keys():
+            result[str(args) + str(kwargs.values())] = func(*args, **kwargs)
             print("Calculating new result")
         else:
             print("Getting from cache")
-        return result[args]
+        return result[str(args) + str(kwargs.values())]
     return inner
