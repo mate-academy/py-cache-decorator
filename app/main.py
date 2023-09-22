@@ -1,7 +1,7 @@
-def cache(func):
+def cache(func: callable) -> callable:
     store_result = {}
 
-    def inner(*args):
+    def inner(*args) -> tuple:
         tuple_parames = args
         if tuple_parames in store_result.keys():
             print("Getting from cache")
@@ -15,8 +15,8 @@ def cache(func):
 
 
 @cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
+def long_time_func(num_1: int, num_2: int, num_3: int) -> int:
+    return (num_1 ** num_2 ** num_3) % (num_1 * num_3)
 
 
 @cache
