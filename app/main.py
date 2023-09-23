@@ -1,10 +1,10 @@
-from typing import Callable, Union
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     cache_storage = {}
 
-    def inner(*args) -> Union[int, float, str, tuple, bool]:
+    def inner(*args) -> Any:
         if func not in cache_storage:
             cache_storage[func] = {}
 
