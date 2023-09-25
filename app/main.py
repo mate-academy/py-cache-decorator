@@ -9,8 +9,7 @@ def cache(func: Callable) -> Callable:
         if parameters in cache_dict:
             print("Getting from cache")
             return cache_dict[parameters]
-        if parameters not in cache_dict:
-            print("Calculating new result")
-            cache_dict[parameters] = func(*args, **kwargs)
-            return cache_dict[parameters]
+        print("Calculating new result")
+        cache_dict[parameters] = func(*args, **kwargs)
+        return cache_dict[parameters]
     return wrapper
