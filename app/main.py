@@ -1,15 +1,16 @@
 from typing import Callable, Any
+import functools
 
 
 def cache(func: Callable) -> Callable:
-    archive_functions = {}
+    archive_args = {}
 
+    @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Any:
-        key = (func, *args)
-        if key in archive_functions:
+        if args in archive_args:
             print("Getting from cache")
         else:
-            archive_functions[key] = func(*args, **kwargs)
+            archive_args[args] = func(*args, **kwargs)
             print("Calculating new result")
-        return archive_functions[key]
+        return archive_args[args]
     return wrapper
