@@ -1,7 +1,7 @@
-def cache(func):
+def cache(func: int) -> int:
     cache_dict = {}
 
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> int:
         cache_key = (args, frozenset(kwargs.items()))
 
         if cache_key in cache_dict:
