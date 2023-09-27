@@ -6,6 +6,7 @@ with this data. Data can be repeated.
 To not re-run function with repeatable data, it will be good to store
 results of completed runs.
 
+
 Write decorator `cache` that stores results of completed runs with
 different arguments, number of arguments can be also different.
 If decorated function runs with repeating arguments it should return stored
