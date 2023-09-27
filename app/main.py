@@ -11,6 +11,7 @@ def cache(func: Callable) -> Callable:
         if key not in memory:
             memory[key] = func(*args)
             print("Calculating new result")
+
             return memory[key]
         else:
             print("Getting from cache")
