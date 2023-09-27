@@ -1,6 +1,19 @@
-from typing import Callable
+from typing import Callable, Any
+import functools
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    memory = {}
+
+    @functools.wraps(func)
+    def wrapper_cache(*args) -> Any:
+        key = args
+        if key not in memory:
+            memory[key] = func(*args)
+            print("Calculating new result")
+            return memory[key]
+        else:
+            print("Getting from cache")
+            return memory[key]
+
+    return wrapper_cache
