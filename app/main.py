@@ -5,9 +5,8 @@ def cache(func: Callable) -> Callable:
     cached_info = {}
 
     def inner(*args, **kwargs) -> int:
-        # Щоб унеможливити зміну ключа кешу, довелося перетворити
-        # ключові аргументи у tuple
-        set_key = (args, tuple(sorted(kwargs.items())))
+        sorted_kwargs = tuple(sorted(kwargs.items()))
+        set_key = (args, sorted_kwargs)
         if set_key in cached_info:
             print("Getting from cache")
             return cached_info[set_key]
