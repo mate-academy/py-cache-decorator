@@ -4,7 +4,7 @@ from typing import Callable
 def cache(func: Callable) -> Callable:
     stored_runs = {}
 
-    def wrapper(*args):
+    def wrapper(*args) -> int:
         if args in stored_runs:
             print("Getting from cache")
             return stored_runs[args]
