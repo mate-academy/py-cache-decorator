@@ -5,8 +5,8 @@ def cache(func: Callable) -> Callable:
     caching_results = {}
 
     def wrapper(*args) -> Any:
-        key_cach = args
-        if key_cach in caching_results.keys():
+        cach_key = args
+        if cach_key in caching_results.keys():
             print("Getting from cache")
             return caching_results[args]
         else:
