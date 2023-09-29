@@ -1,6 +1,7 @@
 from typing import Callable
 
 
+
 def cache(func: Callable) -> Callable:
     from functools import wraps
     cached_results = {}
