@@ -2,17 +2,14 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    cached_arguments = []
-    cached_results = []
+    cached_results = {}
 
-    def wrapper(*args, **kwargs) -> int:
-        if args in cached_arguments or kwargs in cached_arguments:
+    def wrapper(*args) -> int:
+        if args in cached_results:
             print("Getting from cache")
-            return cached_results[cached_arguments.index(args)]
         else:
-            cached_arguments.append(args)
-            cached_results.append(func(*args, **kwargs))
+            cached_results[args] = func(*args)
             print("Calculating new result")
-            return cached_results[-1]
+        return cached_results[args]
 
     return wrapper
