@@ -1,26 +1,15 @@
 from typing import Callable, Any
-from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    cached = []
-    arg_cache = []
 
-    @wraps(func)
+    cache_dict = {}
+
     def wrapper(*args) -> Any:
-        nonlocal cached, arg_cache
-
-        if args not in arg_cache:
-            print("Calculating new result")
-            result = func(*args)
-            cached.append(result)
-            arg_cache.append(args)
-
-            return result
-
-        else:
+        if args in cache_dict:
             print("Getting from cache")
-
-        return cached[arg_cache.index(args)]
-
+        else:
+            print("Calculating new result")
+            cache_dict[args] = func(*args)
+        return cache_dict[args]
     return wrapper
