@@ -6,19 +6,8 @@ def cache(func: callable) -> callable:
         if tuple_parames in store_result.keys():
             print("Getting from cache")
             return store_result[tuple_parames]
-        else:
-            print("Calculating new result")
-            store_result[tuple_parames] = func(*args)
-            return store_result[tuple_parames]
+        print("Calculating new result")
+        store_result[tuple_parames] = func(*args)
+        return store_result[tuple_parames]
 
     return inner
-
-
-@cache
-def long_time_func(num_1: int, num_2: int, num_3: int) -> int:
-    return (num_1 ** num_2 ** num_3) % (num_1 * num_3)
-
-
-@cache
-def long_time_func_2(n_tuple: tuple, power: int) -> list:
-    return [number ** power for number in n_tuple]
