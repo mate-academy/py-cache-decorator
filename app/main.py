@@ -2,16 +2,16 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    cached_data = {}
+    cached = {}
 
     def inner(*args, **kwargs) -> None:
-        if args in cached_data.keys():
+        if args in cached.keys():
             print("Getting from cache")
         else:
             new_cache = func(*args)
-            cached_data[args] = new_cache
+            cached[args] = new_cache
             print("Calculating new result")
 
-        return func(*args) if args not in cached_data.keys() else cached_data[args]
+        return func(*args) if args not in cached.keys() else cached[args]
 
     return inner
