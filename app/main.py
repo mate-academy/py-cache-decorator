@@ -9,9 +9,8 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args, **kwargs) -> Any:
         if f"{args}, {kwargs}" in database.keys():
             print("Getting from cache")
-            return database[f"{args}, {kwargs}"]
         else:
             print("Calculating new result")
             database[f"{args}, {kwargs}"] = func(*args, **kwargs)
-            return database[f"{args}, {kwargs}"]
+        return database[f"{args}, {kwargs}"]
     return wrapper
