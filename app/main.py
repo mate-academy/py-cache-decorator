@@ -4,11 +4,11 @@ from typing import Callable
 def cache(func: Callable) -> Callable:
     data = {}
 
-    def inner(*args) -> None:
+    def inner(*args) -> int:
         if args in data:
             print("Getting from cache")
-            return data[args]
-        print("Calculating new result")
-        data[args] = func(*args)
+        else:
+            print("Calculating new result")
+            data[args] = func(*args)
         return data[args]
     return inner
