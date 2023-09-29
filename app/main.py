@@ -6,11 +6,12 @@ def cache(func: Callable) -> Callable:
 
     def inner(*args) -> any:
 
-        if args not in data:
+        if args in data:
+            print("Getting from cache")
+        else:
             data[args] = func(*args)
-            print("Calculating new result\n")
-        elif args in data:
-            print("Getting from cache\n")
+            print("Calculating new result")
+
         return data[args]
 
     return inner
