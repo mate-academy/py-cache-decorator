@@ -19,9 +19,10 @@ def cache(func: Callable) -> Callable:
 
 
 @cache
-def expensive_function(param1: int, param2: int) -> int:
-    return param1 + param2
+def long_time_func(arg1: int, arg2: int, arg3: int) -> int:
+    return (arg1 ** arg2 ** arg3) % (arg1 * arg3)
 
 
-def another_expensive_function(arg1: int, arg2: int, arg3: int) -> int:
-    return arg1 * arg2 * arg3
+@cache
+def long_time_func_2(n_tuple: tuple, power: int) -> int:
+    return [number ** power for number in n_tuple]
