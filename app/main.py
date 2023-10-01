@@ -4,7 +4,7 @@ from typing import Callable, Any
 def cache(func: Callable) -> Callable:
     cache_data = {}
 
-    def wrapper(*args, **kwargs) -> Any:
+    def wrapper(*args) -> Any:
         nonlocal cache_data
         name = func.__name__
 
