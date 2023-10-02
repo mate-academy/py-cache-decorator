@@ -2,13 +2,13 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    data = {}
+    saved_cache = {}
 
-    def inner(*args) -> int:
-        if args in data:
+    def inner(*args) -> any:
+        if args in saved_cache:
             print("Getting from cache")
         else:
             print("Calculating new result")
-            data[args] = func(*args)
-        return data[args]
+            saved_cache[args] = func(*args)
+        return saved_cache[args]
     return inner
