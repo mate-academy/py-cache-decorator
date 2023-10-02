@@ -1,6 +1,13 @@
-from typing import Callable
+def cache(func: callable) -> callable:
+    store_result = {}
 
+    def inner(*args) -> tuple:
+        tuple_parames = args
+        if tuple_parames in store_result.keys():
+            print("Getting from cache")
+            return store_result[tuple_parames]
+        print("Calculating new result")
+        store_result[tuple_parames] = func(*args)
+        return store_result[tuple_parames]
 
-def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    return inner
