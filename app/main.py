@@ -9,7 +9,7 @@ def cache(func: Callable) -> Callable:
         if args not in cache_dict:
             cache_dict[args] = func(*args)
             print("Calculating new result")
-            return cache_dict[args]
-        print("Getting from cache")
+        else:
+            print("Getting from cache")
         return cache_dict[args]
     return inner
