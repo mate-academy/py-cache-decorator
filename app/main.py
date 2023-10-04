@@ -9,13 +9,11 @@ def cache(func: Callable) -> Callable:
             isinstance(arg, (tuple, str, int, float, bool))
             for arg in args
         ]):
-            if args in previous_args.keys():
+            if args in previous_args:
                 print("Getting from cache")
-                return previous_args[args]
             else:
-                func_result = func(*args)
-                previous_args[args] = func_result
+                previous_args[args] = func(*args)
                 print("Calculating new result")
-                return func_result
+            return previous_args[args]
 
     return inner
