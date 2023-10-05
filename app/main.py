@@ -3,9 +3,9 @@ import functools
 
 
 def cache(func: Callable) -> Callable:
-    functools.wraps(func)
     cache_memory = {}
 
+    @functools.wraps(func)
     def wrapper(*args) -> Any:
         if args not in cache_memory:
             cache_memory[args] = func(*args)
