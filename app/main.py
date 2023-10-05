@@ -1,11 +1,11 @@
 from typing import Callable, Any
-import functools
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     cache_memory = {}
 
-    @functools.wraps(func)
+    @wraps(func)
     def wrapper(*args) -> Any:
         if args not in cache_memory:
             cache_memory[args] = func(*args)
