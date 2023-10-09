@@ -1,19 +1,17 @@
 from typing import Callable
 
 
-cache_history = dict()
-
-
 def cache(func: Callable) -> Callable:
+    cache_history = dict()
     def wrapper(*args) -> str:
-        func_name = f"{func}({args})"
+        # func_name = f"{func}({args})"
 
-        if func_name in cache_history:
+        if f"{func}({args})" in cache_history:
             print("Getting from cache")
         else:
             print("Calculating new result")
-            cache_history[func_name] = func(*args)
+            cache_history[f"{func}({args})"] = func(*args)
 
-        return cache_history[func_name]
+        return cache_history[f"{func}({args})"]
 
     return wrapper
