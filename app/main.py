@@ -2,16 +2,16 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
+    results = {}
     def inner(*args) -> None:
-        results = {}
-        for arg in args:
-            if arg in results:
-                print("Getting from cache")
-                print(results[arg])
-            else:
-                results.update({arg: func(*args)})
+        nonlocal results
+        if args in results:
+            print("Getting from cache")
+            print(results[args])
+        else:
+            results.update({args: func(*args)})
     return inner
 
 
 @cache
-def long_time_func(*args) -> None:
+def do_something(*args) -> None:
