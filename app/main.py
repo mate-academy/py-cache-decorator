@@ -8,10 +8,10 @@ def cache(func: Callable) -> Callable:
 
         if args in cache_data:
             print("Getting from cache")
-            return cache_data[args]
         else:
             print("Calculating new result")
             cache_data[args] = func(*args)
-            return cache_data[args]
+
+        return cache_data[args]
 
     return inner
