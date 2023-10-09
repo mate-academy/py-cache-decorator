@@ -1,11 +1,10 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     cache_history = dict()
 
-    def wrapper(*args) -> str:
-        # func_name = f"{func}({args})"
+    def wrapper(*args) -> Any:
 
         if args in cache_history:
             print("Getting from cache")
