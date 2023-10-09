@@ -10,7 +10,7 @@ def cache(func: Callable) -> Callable:
             print("Getting from cache")
         else:
             print("Calculating new result")
-            results.update({args: func(*args)})
+            results[args] = func(*args)
 
         return results[args]
 
