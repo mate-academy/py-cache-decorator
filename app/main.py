@@ -8,12 +8,10 @@ def cache(func: Callable) -> Callable:
         nonlocal results
         if args in results:
             print("Getting from cache")
-            print(results[args])
         else:
             print("Calculating new result")
             results.update({args: func(*args)})
+
+        return results[*args]
+
     return inner
-
-
-@cache
-def do_something(*args) -> None:
