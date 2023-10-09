@@ -3,6 +3,7 @@ from typing import Callable
 
 def cache(func: Callable) -> Callable:
     cache_history = dict()
+
     def wrapper(*args) -> str:
         # func_name = f"{func}({args})"
 
