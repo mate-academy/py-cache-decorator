@@ -5,16 +5,13 @@ def cache(func: Callable) -> Callable:
     cache_data = {}
 
     def inner(*args) -> Any:
-        if func not in cache_data:
-            cache_data[func] = {}
 
-        if args in cache_data[func]:
+        if args in cache_data:
             print("Getting from cache")
-            return cache_data[func][args]
+            return cache_data[args]
         else:
             print("Calculating new result")
-            result_of_func = func(*args)
-            cache_data[func][args] = result_of_func
-            return result_of_func
+            cache_data[args] = func(*args)
+            return cache_data[args]
 
     return inner
