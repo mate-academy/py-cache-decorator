@@ -17,6 +17,6 @@ def cache(func: Callable) -> Callable:
         else:
             print("Getting from cache")
 
-        return result
+        return cached_results[key]
 
     return wrapper
