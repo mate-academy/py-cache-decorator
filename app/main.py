@@ -4,7 +4,7 @@ from typing import Callable, Any
 def cache(func: Callable) -> Callable:
     cached = {}
 
-    def inner(*args: Any) -> Any:
+    def inner(*args: Any) -> int:
         if args not in cached:
             print("Calculating new result")
             result = func(*args)
@@ -12,8 +12,6 @@ def cache(func: Callable) -> Callable:
             return result
         else:
             print("Getting from cache")
-            for key, value in cached.items():
-                if key == args:
-                    return value
+            return cached[args]
 
     return inner
