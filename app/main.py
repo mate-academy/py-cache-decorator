@@ -4,14 +4,14 @@ from typing import Callable, Any
 def cache(func: Callable) -> Callable:
     cached = {}
 
-    def inner(*args: Any) -> int:
+    def inner(*args: Any) -> Any:
         if args not in cached:
             print("Calculating new result")
             result = func(*args)
-            cached[args] = result
+            cached[args] = func(*args)
             return result
-        else:
-            print("Getting from cache")
-            return cached[args]
+
+        print("Getting from cache")
+        return cached[args]
 
     return inner
