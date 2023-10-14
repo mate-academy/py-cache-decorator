@@ -1,17 +1,17 @@
-from typing import Callable
+from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     storage_dictionary = {}
 
-    def inner_function(*args, **kwargs) -> Callable:
+    @wraps(func)
+    def inner_function(*args, **kwargs) -> Any:
         key = (args, tuple(kwargs.items()))
         if key in storage_dictionary:
             print("Getting from cache")
-            return storage_dictionary[key]
         else:
-            result = func(*args, **kwargs)
-            storage_dictionary[key] = result
+            storage_dictionary[key] = func(*args, **kwargs)
             print("Calculating new result")
-            return result
+        return storage_dictionary[key]
     return inner_function
