@@ -8,12 +8,10 @@ def cache(func: Callable) -> Callable:
         args_tuple = args + tuple(kwargs.items())
         if args_tuple in results_cache:
             print("Getting from cache")
-            return results_cache[args_tuple]
         else:
-            result = func(*args, **kwargs)
-            results_cache[args_tuple] = result
+            results_cache[args_tuple] = func(*args, **kwargs)
             print("Calculating new result")
-            return result
+        return results_cache[args_tuple]
 
     return wrapper
 
