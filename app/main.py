@@ -5,15 +5,16 @@ def cache(func: Callable) -> Callable:
     cache_dict = {}
 
     def wrapper(*args, **kwargs) -> int:
-        args_key = tuple(args)
-        if args_key in cache_dict:
+
+        if args in cache_dict:
             print("Getting from cache")
-            return cache_dict[args_key]
-        else:
-            result = func(*args, **kwargs)
-            cache_dict[args_key] = result
-            print("Calculating new result")
-            return result
+            return cache_dict[args]
+
+        result = func(*args, **kwargs)
+        cache_dict[args] = result
+        print("Calculating new result")
+        return result
+
     return wrapper
 
 
@@ -29,7 +30,3 @@ def long_time_func_2(n_tuple: tuple, power: int) -> int:
 
 long_time_func(1, 2, 3)
 long_time_func(2, 2, 3)
-long_time_func_2((5, 6, 7), 5)
-long_time_func(1, 2, 3)
-long_time_func_2((5, 6, 7), 10)
-long_time_func_2((5, 6, 7), 10)
