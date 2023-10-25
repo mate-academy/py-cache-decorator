@@ -2,16 +2,17 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    collected_dictionary = {}
+    cached_results = {}
 
     def wrapper(*args, **kwargs) -> dict:
         dict_key = (func, args, frozenset(kwargs.items()))
-        if dict_key in collected_dictionary:
+        if dict_key in cached_results:
             print("Getting from cache")
-            return collected_dictionary[dict_key]
-        else:
-            print("Calculating new result")
-            result = func(*args, **kwargs)
-            collected_dictionary[dict_key] = result
-            return result
+            return cached_results[dict_key]
+
+        print("Calculating new result")
+        result = func(*args, **kwargs)
+        cached_results[dict_key] = result
+        return result
+
     return wrapper
