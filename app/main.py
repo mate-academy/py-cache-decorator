@@ -1,10 +1,12 @@
 from typing import Callable, Any
+from functools import wraps
 
 
 cached_func = {}
 
 
 def cache(func: Callable) -> Callable:
+    @wraps(func)
     def inner(*args, **kwargs) -> Any:
         key = (func, args, frozenset(kwargs.items()))
         if key in cached_func:
