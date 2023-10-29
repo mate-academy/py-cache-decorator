@@ -2,7 +2,7 @@ from typing import Any, Callable
 
 
 def cache(func: Callable) -> Callable:
-    funct_results_cache = {}
+    cached_value = {}
 
     def wpapper_func(*args) -> Any:
         if args in funct_results_cache.keys():
