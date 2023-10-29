@@ -2,13 +2,13 @@ from typing import Any, Callable
 
 
 def cache(func: Callable) -> Callable:
-    funct_results_cache = {}
+    cached_value = {}
 
     def wpapper_func(*args) -> Any:
-        if args in funct_results_cache.keys():
+        if args in cached_value.keys():
             print("Getting from cache")
         else:
             print("Calculating new result")
-            funct_results_cache[args] = func(*args)
-        return funct_results_cache[args]
+            cached_value[args] = func(*args)
+        return cached_value[args]
     return wpapper_func
