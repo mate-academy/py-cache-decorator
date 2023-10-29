@@ -1,4 +1,4 @@
-from typing import Callable, Any
+from typing import Any, Callable
 
 
 def cache(func: Callable) -> Callable:
@@ -12,8 +12,3 @@ def cache(func: Callable) -> Callable:
             agrums_and_results_dict[args] = func(*args)
         return agrums_and_results_dict[args]
     return wpapper_func
-
-
-# @cache
-# def long_time_func(a: int, b: int, c: int) -> int:
-#     return (a ** b ** c) % (a * c)
