@@ -13,7 +13,7 @@ def cache(func: Callable) -> Callable:
         else:
             print("Getting from cache")
             result = used_arguments[args]
+        
         return result
+    
     return wrapper
-
-
