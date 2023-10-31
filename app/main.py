@@ -5,7 +5,6 @@ def cache(func: Callable) -> Callable:
     cache_data = {}
 
     def inner(*arg, **kwarg) -> Callable:
-        # nonlocal cache_data
         if arg in cache_data:
             print("Getting from cache")
             return cache_data[arg]
