@@ -1,18 +1,18 @@
 from typing import Callable, Any
 
 
-data = []
-
-
 def cache(func: Callable) -> Callable:
+    data = {}
+
     def inner(*args: Any) -> Callable:
-        for el in data:
-            if el["args"] == args and el["func"] == func:
-                print("Getting from cache")
-                return el["result"]
-        result = func(*args)
-        print("Calculating new result")
-        data.append({"args": args, "func": func, "result": result})
-        return result
+        key = (func.__name__, args)
+        if key in data:
+            print("Getting from cache")
+            return data[key]
+        else:
+            result = func(*args)
+            print("Calculating new result")
+            data[key] = result
+            return result
 
     return inner
