@@ -5,7 +5,7 @@ def cache(func: Callable) -> Callable:
     data = {}
 
     def inner(*args: Any) -> Callable:
-        key = (func.__name__, args)
+        key = (args)
         if key in data:
             print("Getting from cache")
             result = data[key]
