@@ -15,5 +15,4 @@ def cache(func: Callable) -> Callable:
             catalog_dict[args] = result
             return result
 
-
     return wrapper
