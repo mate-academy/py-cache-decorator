@@ -2,20 +2,16 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    cache = []
+    cache_dict = {}
 
     def wrapper(*args) -> None:
-        for data in cache:
-            if data["arguments"] == args:
+        for cache_key in cache_dict.keys():
+            if cache_key == args:
                 print("Getting from cache")
-                return data.get("result")
+                return cache_dict.get(cache_key)
 
         results = func(*args)
-        add_cache = {
-            "arguments": args,
-            "result": results
-        }
-        cache.append(add_cache)
+        cache_dict[args] = results
         print("Calculating new result")
 
         return results
