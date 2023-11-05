@@ -1,9 +1,11 @@
 from typing import Callable
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     catalog_dict = {}
 
+    @wraps(func)
     def wrapper(*args) -> None:
 
         if args in catalog_dict:
