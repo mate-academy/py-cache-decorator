@@ -1,15 +1,17 @@
-from typing import Callable
+from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    items_dic = {}
+    cached_items = {}
 
-    def wrapper(*args) -> int:
-        if args not in items_dic:
+    @wraps(func)
+    def wrapper(*args) -> Any:
+        if args not in cached_items:
             print("Calculating new result")
-            res = func(*args)
-            items_dic[args] = res
-            return res
+            new_result = func(*args)
+            cached_items[args] = new_result
+            return new_result
         print("Getting from cache")
-        return items_dic.get(args)
+        return cached_items.get(args)
     return wrapper
