@@ -9,8 +9,7 @@ def cache(func: Callable) -> Callable:
             print("Getting from cache")
             return results[args]
         print("Calculating new result")
-        temp_res = func(*args)
-        results[args] = temp_res
-        return temp_res
+        results[args] = func(*args)
+        return results[args]
 
     return inner
