@@ -13,5 +13,3 @@ def cache(func: Callable) -> Callable:
         inner_cache[args + tuple(kwargs.values())] = result
         return result
     return inner
-
-
