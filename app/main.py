@@ -10,10 +10,8 @@ def cache(func: Callable) -> None:
         cache_key = (args, frozenset(kwargs.items()))
         if cache_key in cache_memory:
             print("Getting from cache")
-            return cache_memory[cache_key]
         else:
-            result = func(*args, **kwargs)
-            cache_memory[cache_key] = result
+            cache_memory[cache_key] = func(*args, **kwargs)
             print("Calculating new result")
-            return result
+        return cache_memory[cache_key]
     return wrapper
