@@ -1,9 +1,10 @@
 from typing import Callable
 
+
 def cache(func: Callable) -> Callable:
     arguments_dictionary = {}
 
-    def inner(*args, **kwargs):
+    def inner(*args, **kwargs) -> None:
         arguments = args + tuple(kwargs.items())
         if arguments not in arguments_dictionary:
             arguments_dictionary[arguments] = func(*args, **kwargs)
@@ -13,4 +14,3 @@ def cache(func: Callable) -> Callable:
         return arguments_dictionary[arguments]
 
     return inner
-
