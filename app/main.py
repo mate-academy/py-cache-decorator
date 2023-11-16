@@ -5,7 +5,7 @@ def cache(func: Callable) -> Callable:
     arguments_dictionary = {}
 
     def inner(*args, **kwargs) -> None:
-        arguments = args + tuple(kwargs.items())
+        arguments = (args, frozenset(kwargs.items()))
         if arguments not in arguments_dictionary:
             arguments_dictionary[arguments] = func(*args, **kwargs)
             print("Calculating new result")
