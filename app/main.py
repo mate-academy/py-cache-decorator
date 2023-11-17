@@ -1,10 +1,10 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     arguments_dictionary = {}
 
-    def inner(*args, **kwargs) -> None:
+    def inner(*args, **kwargs) -> Any:
         arguments = (args, frozenset(kwargs.items()))
         if arguments not in arguments_dictionary:
             arguments_dictionary[arguments] = func(*args, **kwargs)
