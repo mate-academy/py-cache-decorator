@@ -1,29 +1,17 @@
-from typing import Callable
+from typing import Callable, Any
 
 
-def cache(func: Callable) -> Callable:
-    cache_for_funk = {}
-    cache_for_funk2 = {}
+def cache(func: Callable) -> Any:
+    cache_for_func = {}
 
-    def inner(*arg) -> Callable:
-        if len(arg) == 3:
-            a, b, c = arg
-            if (a, b, c) in cache_for_funk:
-                print("Getting from cache")
-                result = cache_for_funk[(a, b, c)]
-            else:
-                print("Calculating new result")
-                result = func(a, b, c)
-                cache_for_funk[(a, b, c)] = result
-            return result
+    def inner(*args: Any) -> int:
+        key_cache = args
+        if key_cache in cache_for_func:
+            print("Getting from cache")
+            result = cache_for_func[key_cache]
         else:
-            n_tuple, power = arg
-            if (n_tuple, power) in cache_for_funk2:
-                print("Getting from cache")
-                result = cache_for_funk2[(n_tuple, power)]
-            else:
-                print("Calculating new result")
-                result = func(n_tuple, power)
-                cache_for_funk2[n_tuple, power] = result
-            return result
+            print("Calculating new result")
+            result = func(*args)
+            cache_for_func[key_cache] = result
+        return result
     return inner
