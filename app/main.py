@@ -4,7 +4,7 @@ from typing import Callable, Any
 def cache(func: Callable) -> Any:
     cache_for_func = {}
 
-    def inner(*args: Any) -> int:
+    def inner(*args: Any) -> Any:
         key_cache = args
         if key_cache in cache_for_func:
             print("Getting from cache")
