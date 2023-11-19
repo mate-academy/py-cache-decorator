@@ -7,10 +7,9 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def wrapper(*args) -> int:
-        for key_arg in cached_funcs:
-            if args == key_arg:
-                print("Getting from cache")
-                return cached_funcs[args]
+        if args in cached_funcs:
+            print("Getting from cache")
+            return cached_funcs[args]
 
         print("Calculating new result")
         res = func(*args)
