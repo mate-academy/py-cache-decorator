@@ -1,19 +1,19 @@
 from typing import Callable
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
 
-    results = []
+    cache_dictionary = {}
 
+    @wraps(func)
     def wrapper(*args) -> any:
-        for result in results:
-            if result["func"] == func and result["args"] == args:
-                print("Getting from cache")
-                return result["output"]
+        if args in cache_dictionary.keys():
+            print("Getting from cache")
+            return cache_dictionary[args]
 
         print("Calculating new result")
-        new_result = {"func": func, "args": args, "output": func(*args)}
-        results.append(new_result)
-        return new_result["output"]
+        cache_dictionary[args] = func(*args)
+        return cache_dictionary[args]
 
     return wrapper
