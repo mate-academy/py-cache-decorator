@@ -3,24 +3,18 @@ from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    cached_func_names = []
-    cached_func_args = []
-    cached_func_res = []
+    cached_funcs = {}
 
     @wraps(func)
     def wrapper(*args) -> int:
-        func_name = func.__name__
-        for i in range(len(cached_func_names)):
-            if func_name == cached_func_names[i]:
-                if args == cached_func_args[i]:
-                    print("Getting from cache")
-                    return cached_func_res[i]
+        for key_arg in cached_funcs:
+            if args == key_arg:
+                print("Getting from cache")
+                return cached_funcs[args]
 
         print("Calculating new result")
         res = func(*args)
-        cached_func_names.append(func_name)
-        cached_func_args.append(args)
-        cached_func_res.append(res)
+        cached_funcs[args] = res
 
         return res
 
