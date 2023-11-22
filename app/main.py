@@ -10,8 +10,8 @@ def cache(func: Callable) -> Callable:
             cache_dict[key] = func(*args, **kwargs)
             print("Calculating new result")
             return cache_dict[key]
-        else:
-            print("Getting from cache")
-            return cache_dict[key]
+
+        print("Getting from cache")
+        return cache_dict[key]
 
     return inner
