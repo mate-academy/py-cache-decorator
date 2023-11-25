@@ -2,21 +2,20 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    list_of_functions = []
-    list_of_results = []
+    dict_of_functions = {}
 
     def wrapper(*args: object, **kwargs: object) -> object:
-        if [func.__name__, args, kwargs] in list_of_functions:
+        if ((func.__name__, args, frozenset(kwargs.items()))
+                in dict_of_functions):
             print("Getting from cache")
-            return list_of_results[
-                list_of_functions.index([func.__name__, args, kwargs])
-            ]
         else:
             print("Calculating new result")
-            list_of_functions.append([func.__name__, args, kwargs])
-            list_of_results.append(func(*args, **kwargs))
-            return list_of_results[
-                list_of_functions.index([func.__name__, args, kwargs])
-            ]
+            dict_of_functions[
+                (func.__name__, args, frozenset(kwargs.items()))
+            ] = func(*args, **kwargs)
+
+        return dict_of_functions[
+            (func.__name__, args, frozenset(kwargs.items()))
+        ]
 
     return wrapper
