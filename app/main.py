@@ -1,17 +1,20 @@
-from typing import Callable
+from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    cash = {}
+    cache_storage = {}
 
-    def inner(*args) -> int:
-        if cash.get(f"({func},{args})") is None:
+    @wraps(func)
+    def inner(*args) -> Any:
+        cached_key = (func, args)
+        if cache_storage.get(cached_key) is None:
             result = func(*args)
-            cash[f"({func},{args})"] = result
+            cache_storage[cached_key] = result
             print("Calculating new result")
             return result
 
         print("Getting from cache")
-        return cash.get(f"({func},{args})")
+        return cache_storage.get(cached_key)
 
     return inner
