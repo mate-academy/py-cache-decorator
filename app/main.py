@@ -9,10 +9,9 @@ def cache(func: Callable) -> Callable:
     def inner(*args) -> Any:
         cached_key = (func, args)
         if cache_storage.get(cached_key) is None:
-            result = func(*args)
-            cache_storage[cached_key] = result
+            cache_storage[cached_key] = func(*args)
             print("Calculating new result")
-            return result
+            return cache_storage[cached_key]
 
         print("Getting from cache")
         return cache_storage.get(cached_key)
