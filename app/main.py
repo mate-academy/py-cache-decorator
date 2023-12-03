@@ -1,9 +1,11 @@
 from typing import Callable
+import functools
 
 
 def cache(func: Callable) -> Callable:
     cache_dict = {}
 
+    @functools.wraps(func)
     def wrapper(*args, **kwargs) -> None:
         key = (frozenset(args), frozenset(kwargs.items()))
         if key not in cache_dict:
