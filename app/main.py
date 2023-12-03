@@ -6,11 +6,7 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
 
     @wraps(func)
     def wrapper(*args: Any) -> Any:
-        if args in results:
-            print("Getting from cache")
-            return results[args]
-        else:
-            print("Calculating new result")
-            return results.setdefault(args, func(*args))
+        print("Getting from cache" if args in results else "Calculating new result")
+        return results.setdefault(args, func(*args))
 
     return wrapper
