@@ -2,14 +2,15 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    dict_ = {}
+    cache_memory = {}
 
-    def inner(*args) -> Callable:
-        if args in dict_:
+    def inner(*args, **kwargs) -> Callable:
+        key = args + tuple(kwargs.values())
+        if key in cache_memory:
             print("Getting from cache")
         else:
-            result = func(*args)
-            dict_[args] = result
+            result = func(*key)
+            cache_memory[key] = result
             print("Calculating new result")
-        return dict_[args]
+        return cache_memory[key]
     return inner
