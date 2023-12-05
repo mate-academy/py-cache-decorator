@@ -8,7 +8,7 @@ def cache(func: Callable) -> Callable:
         if args in store_results.keys():
             print("Getting from cache")
         else:
-            store_results.update({args: func(*args)})
+            store_results[args] = func(*args)
             print("Calculating new result")
         return store_results[args]
     return inner
