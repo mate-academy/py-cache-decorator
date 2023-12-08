@@ -20,7 +20,7 @@ def cache(func: Callable) -> Callable:
         if args not in result_dict:
             print("Calculating new result")
             result_value = func(*args, **kwargs)
-            result_dict[*args] = result_value
+            result_dict[args] = result_value
             return result_value
         else:
             print("Getting from cache")
