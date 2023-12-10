@@ -7,9 +7,7 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
-        key = args
-        if kwargs:
-            key += (kwargs.items())
+        key = args + tuple(kwargs.items())
 
         if key not in result_dict:
             print("Calculating new result")
