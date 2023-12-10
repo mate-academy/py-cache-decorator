@@ -11,8 +11,7 @@ def cache(func: Callable) -> Callable:
 
         if key not in result_dict:
             print("Calculating new result")
-            result_value = func(*args, **kwargs)
-            result_dict[key] = result_value
+            result_dict[key] = result_value = func(*args, **kwargs)
             return result_value
 
         print("Getting from cache")
