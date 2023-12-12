@@ -13,8 +13,7 @@ def cache(func: Callable) -> Callable:
             return func_cache[args]
 
         print("Calculating new result")
-        result = func(*args)
-        func_cache[args] = result
-        return result
+        func_cache[args] = func(*args)
+        return func_cache[args]
 
     return wrapper
