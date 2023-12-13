@@ -1,9 +1,11 @@
 from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     results_cache = {}
 
+    @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
         key = (args, frozenset(kwargs.items()))
         if key in results_cache:
