@@ -7,17 +7,15 @@ def cache(func: Callable) -> Callable:
 
     def inner(*args) -> Callable:
 
-        data_key = args
-
-        if data_key in cache_results.keys():
+        if args in cache_results.keys():
 
             print("Getting from cache")
-            return cache_results[data_key]
+            return cache_results[args]
 
         print("Calculating new result")
 
-        cache_results[data_key] = func(*args)
+        cache_results[args] = func(*args)
 
-        return cache_results[data_key]
+        return cache_results[args]
 
     return inner
