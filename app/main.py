@@ -7,7 +7,7 @@ def cache(func: Callable) -> Callable:
 
     def inner(*args) -> Callable:
 
-        data_key = args, func.__name__
+        data_key = args
 
         if data_key in cache_results.keys():
 
@@ -16,9 +16,8 @@ def cache(func: Callable) -> Callable:
 
         print("Calculating new result")
 
-        result = func(*args)
-        cache_results[data_key] = result
+        cache_results[data_key] = func(*args)
 
-        return result
+        return cache_results[data_key]
 
     return inner
