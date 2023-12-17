@@ -7,14 +7,14 @@ def cache(func: Callable) -> Callable:
 
     @functools.wraps(func)
     def cache_wrapper(*args, **kwargs) -> Callable:
-        func_args = args + tuple(f"{k}={v}" for k, v in kwargs.items())
+        func_args = args + tuple(kwargs.values())
 
         if func_args in cache_dict:
             print("Getting from cache")
-            return cache_dict[func_args]
         else:
             cache_dict[func_args] = func(*args, **kwargs)
             print("Calculating new result")
-            return cache_dict[func_args]
+
+        return cache_dict[func_args]
 
     return cache_wrapper
