@@ -8,10 +8,8 @@ def cache(func: Callable) -> Callable:
 
         if args in result_dict:
             print("Getting from cache")
-            return result_dict[args]
         else:
-            result = func(*args, **kwargs)
-            result_dict[args] = result
+            result_dict[args] = func(*args, **kwargs)
             print("Calculating new result")
-            return result
+        return result_dict[args]
     return inner
