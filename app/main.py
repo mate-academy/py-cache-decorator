@@ -14,13 +14,3 @@ def cache(func: Callable) -> Callable:
         return memory[key]
 
     return inner
-
-
-@cache
-def long_time_func(alfa: int, bravo: int, coco: int) -> int:
-    return (alfa ** bravo ** coco) % (alfa * coco)
-
-
-@cache
-def long_time_func_2(n_tuple: tuple, power: int) -> int:
-    return [number ** power for number in n_tuple]
