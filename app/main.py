@@ -2,7 +2,6 @@ from typing import Callable, Any
 
 def cache(func: Callable) -> Callable:
     cache_data = {}
-
     def inner(*args) -> Any:
         if not cache_data.get(func.__name__):
             result = func(*args)
