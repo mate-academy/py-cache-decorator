@@ -1,10 +1,7 @@
 from typing import Callable, Any
 
-cache_data = {}
-
-
 def cache(func: Callable) -> Callable:
-    global cache_data
+    cache_data = {}
 
     def inner(*args) -> Any:
         if not cache_data.get(func.__name__):
@@ -49,3 +46,5 @@ def cache(func: Callable) -> Callable:
 # long_time_func_2("Hello", "Mark")
 # long_time_func_3((10, 20, 30), "wow, numbers!")
 # long_time_func_3((10, 20, 30), "egh, numbers...")
+#
+
