@@ -4,7 +4,7 @@ from typing import Callable
 def cache(func: Callable) -> Callable:
     cache = {}
 
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> Any:
         function_calling = (func.__name__, args, frozenset(kwargs.items()))
         if function_calling in cache:
             print("Getting from cache")
