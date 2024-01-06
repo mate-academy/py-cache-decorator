@@ -1,12 +1,12 @@
-import functools
+from functools import wraps
 from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    functools.wraps
     cached_results = {}
 
-    def wrapper(*args, **kwargs) -> None:
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> int:
         cache_key = (func.__name__, args, frozenset(kwargs.items()))
 
         if cache_key in cached_results:
