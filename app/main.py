@@ -5,7 +5,8 @@ import functools
 def cache(func: Callable) -> Callable:
     cache = {}
 
-    def wrapper(*args, **kwargs) -> dict:
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs) -> Any:
         key = (args, frozenset(kwargs.items()))
 
         if key in cache:
