@@ -1,7 +1,9 @@
+import functools
 from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
+    functools.wraps
     cached_results = {}
 
     def wrapper(*args, **kwargs) -> None:
@@ -11,9 +13,7 @@ def cache(func: Callable) -> Callable:
             print("Getting from cache")
             return cached_results[cache_key]
 
-        result = func(*args, **kwargs)
         print("Calculating new result")
-        cached_results[cache_key] = result
-        return result
-
+        cached_results[cache_key] = func(*args, **kwargs)
+        return cached_results[cache_key]
     return wrapper
