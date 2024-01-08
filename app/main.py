@@ -1,6 +1,17 @@
-from typing import Callable
+from typing import Callable, Union
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    history = {}
+
+    def inner(*args: Union[int, tuple]) -> None:
+        # (mx: The use of `|` for type annotations, was added in Python 3.10)
+        if args in history:
+            print("Getting from cache")
+            return history[args]
+        else:
+            print("Calculating new result")
+            result = func(*args)
+            history[args] = result
+            return result
+    return inner
