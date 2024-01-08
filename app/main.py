@@ -4,7 +4,7 @@ from typing import Callable, Union
 def cache(func: Callable) -> Callable:
     history = {}
 
-    def inner(*args: Union[int, tuple]) -> None:
+    def inner(*args: tuple) -> None:
         # (mx: The use of `|` for type annotations, was added in Python 3.10)
         if args in history:
             print("Getting from cache")
