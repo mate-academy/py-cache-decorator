@@ -1,9 +1,11 @@
 from typing import Callable, Any
+import functools
 
 
 def cache(func: Callable) -> Callable:
     result_dict = {}
 
+    @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         key = (args, frozenset(kwargs.items()))
 
