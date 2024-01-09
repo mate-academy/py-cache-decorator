@@ -4,7 +4,7 @@ from typing import Callable, Any
 def cache(func: Callable) -> Callable:
     def wrapper(*args, **kwargs) -> Any:
         func_name = func.__name__
-        key_args = args
+        key_args = args + tuple(kwargs.items())
 
         if func_name not in wrapper.results:
             wrapper.results[func_name] = {}
