@@ -1,12 +1,12 @@
 from functools import wraps
-from typing import Callable, Tuple, Union
+from typing import Any, Callable, Tuple, Union
 
 
 def cache(func: Callable) -> Callable:
     results = {}
 
     @wraps(func)
-    def wrapper(*args: Union[int, float, str, bool, Tuple]):
+    def wrapper(*args: Union[int, float, str, bool, Tuple]) -> Any:
         if args in results:
             print("Getting from cache")
 
