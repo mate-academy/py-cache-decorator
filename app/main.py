@@ -1,10 +1,12 @@
 from typing import Callable
+import functools
 
 
 def cache(func: Callable) -> Callable:
     memory = {}
 
-    def inner(*args) -> dict:
+    @functools.wraps(func)
+    def inner(*args, **kwargs) -> dict:
         if args in memory.keys():
             print("Getting from cache")
         else:
