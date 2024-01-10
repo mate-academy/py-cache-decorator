@@ -7,8 +7,7 @@ def cache(func: Callable) -> Callable:
 
         if key not in wrapper.results:
             value_result = func(*args, **kwargs)
-            new_dict = {key: value_result}
-            wrapper.results.update(new_dict)
+            wrapper.results[key] = value_result
             print("Calculating new result")
 
         else:
