@@ -9,10 +9,10 @@ def cache(func: Callable) -> Callable:
         if key in cached_results:
             print("Getting from cache")
             return cached_results[key]
-        else:
-            result = func(*args, **kwargs)
-            cached_results[key] = result
-            print("Calculating new result")
-            return result
+
+        result = func(*args, **kwargs)
+        cached_results[key] = result
+        print("Calculating new result")
+        return result
 
     return wrapper
