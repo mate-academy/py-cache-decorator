@@ -5,7 +5,6 @@ def cache(func: Callable) -> Callable:
     results_cache = {}
 
     def inner(*args) -> Any:
-
         if args in results_cache:
             print("Getting from cache")
         else:
