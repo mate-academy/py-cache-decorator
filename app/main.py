@@ -8,13 +8,13 @@ def cache(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs) -> Callable:
         key = (args, frozenset(kwargs.items()))
-        if key in cache_dict:
+        result = cache_dict.get(key)
+        if result is not None:
             print("Getting from cache")
-            return cache_dict[key]
-        else:
-            print("Calculating new result")
-            result = func(*args, **kwargs)
-            cache_dict[key] = result
             return result
+        print("Calculating new result")
+        result = func(*args, **kwargs)
+        cache_dict[key] = result
+        return result
 
     return wrapper
