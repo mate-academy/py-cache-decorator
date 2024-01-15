@@ -4,7 +4,7 @@ from typing import Callable
 def cache(func: Callable) -> Callable:
     results = {}
 
-    def inner(*args) -> None:
+    def inner(*args) -> dict:
 
         if args in results:
             print("Getting from cache")
@@ -26,11 +26,3 @@ def long_time_func(first: int, second: int, third: int) -> int:
 @cache
 def long_time_func_2(n_tuple: tuple, power: int) -> int:
     return [number ** power for number in n_tuple]
-
-
-long_time_func(1, 2, 3)
-long_time_func(2, 2, 3)
-long_time_func_2((5, 6, 7), 5)
-long_time_func(1, 2, 3)
-long_time_func_2((5, 6, 7), 10)
-long_time_func_2((5, 6, 7), 10)
