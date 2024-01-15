@@ -2,9 +2,9 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    cache_dict = {} # I want to create dict
+    cache_dict = {}
 
-    def wrapper (*args):
+    def wrapper(*args) -> Callable:
 
         key = (func.__name__, args)
 
