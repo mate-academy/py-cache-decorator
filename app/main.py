@@ -1,6 +1,6 @@
 from typing import Callable
 from functools import wraps
-
+from functools import wraps
 
 def cache(func: Callable) -> Callable:
     cache_dict = {}
