@@ -8,8 +8,7 @@ def cache(func: Callable) -> Callable:
     def inner(*args, **kwargs) -> Callable:
         combined_arguments = (args, frozenset(kwargs.items()))
         if combined_arguments not in data_base:
-            result = func(*args, **kwargs)
-            data_base[combined_arguments] = result
+            result = data_base[combined_arguments] = func(*args, **kwargs)
             print("Calculating new result")
         else:
             print("Getting from cache")
