@@ -1,9 +1,6 @@
 from typing import Callable, Any
 
 
-from typing import Callable, Any
-
-
 def cache(func: Callable) -> Callable:
     cache_values = []
     result_values = []
