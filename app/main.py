@@ -5,7 +5,6 @@ from functools import wraps
 def cache(func: Callable) -> Callable:
     result = {}
 
-
     @wraps(func)
     def wrapper(*args, **kwargs):
         key = (args, tuple(kwargs.items()))
@@ -19,5 +18,4 @@ def cache(func: Callable) -> Callable:
             return cache_func
 
     return wrapper
-
     pass
