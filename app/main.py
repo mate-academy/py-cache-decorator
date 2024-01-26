@@ -2,6 +2,7 @@ from typing import Callable
 from functools import wraps
 from typing import Any
 
+
 def cache(func: Callable) -> Callable:
     result = {}
 
