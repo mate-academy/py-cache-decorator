@@ -1,8 +1,10 @@
 from typing import Callable
 from functools import wraps
 
+
 def cache(func: Callable) -> Callable:
     caching_result = {}
+
     @wraps(func)
     def wrapper(*args) -> Callable:
         if args in caching_result:
