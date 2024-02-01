@@ -6,7 +6,8 @@ def cache(func: Callable) -> Callable:
     cached_results = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs) -> None:  # Not sure what return type annotation to use here
+    def wrapper(*args, **kwargs) -> None:
+        # Not sure what return type annotation to use above
         key = (func.__name__, args, tuple(kwargs.items()))
 
         if key in cached_results:
