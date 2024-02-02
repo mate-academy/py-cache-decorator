@@ -1,9 +1,11 @@
 from typing import Callable
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     results_cache = {}
 
+    @wraps(func)
     def wrapper(*args, **kwargs) -> Callable:
         key = (args, frozenset(kwargs.items()))
         if key in results_cache:
@@ -16,13 +18,3 @@ def cache(func: Callable) -> Callable:
             return result
 
     return wrapper
-
-
-@cache
-def long_time_func(aa: int, bb: int, cc: int) -> int:
-    return (aa ** bb ** cc) % (aa * cc)
-
-
-@cache
-def long_time_func_2(n_tuple: tuple, power: int) -> int:
-    return [number ** power for number in n_tuple]
