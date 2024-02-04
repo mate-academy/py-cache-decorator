@@ -1,18 +1,17 @@
 from typing import Callable
 
 
-cash = []
-
-
 def cache(func: Callable) -> Callable:
+    cash = {}
+
     def wrapper(*args) -> int:
         for item in cash:
-            if item[0] == func and item[1] == args:
+            if f"{func}, {args}" in cash:
                 print("Getting from cache")
-                return item[2]
+                return cash[f"{func}, {args}"]
         else:
             print("Calculating new result")
             result = func(*args)
-            cash.append([func, args, result])
+            cash[f"{func}, {args}"] = result
             return result
     return wrapper
