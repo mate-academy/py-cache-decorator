@@ -1,17 +1,18 @@
-from typing import Callable
+from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
+
     cash = {}
 
-    def wrapper(*args, **kwargs) -> int:
-        for item in cash:
-            if f"{func}, {args}" in cash:
-                print("Getting from cache")
-                return cash[f"{func}, {args}"]
-        else:
-            print("Calculating new result")
-            result = func(*args, **kwargs)
-            cash[f"{func}, {args}"] = result
-            return result
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> int | Any:
+        if f"{func}, {args}" in cash:
+            print("Getting from cache")
+            return cash[f"{func}, {args}"]
+        print("Calculating new result")
+        result = func(*args, **kwargs)
+        cash[f"{func}, {args}"] = result
+        return result
     return wrapper
