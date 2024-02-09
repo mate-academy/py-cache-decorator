@@ -1,5 +1,6 @@
 from typing import Callable
 from functools import wraps
+import time
 
 
 def cache(func: Callable) -> Callable:
@@ -17,6 +18,6 @@ def cache(func: Callable) -> Callable:
                 add = False
         if add:
             cache_dict[args] = func(*args)
-        return func(*args)
+        return cache_dict[args]
 
     return inner
