@@ -1,6 +1,5 @@
 from typing import Callable
 from functools import wraps
-import time
 
 
 def cache(func: Callable) -> Callable:
