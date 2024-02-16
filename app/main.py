@@ -1,9 +1,11 @@
 from typing import Callable
+import functools
 
 
 def cache(func: Callable) -> Callable:
     storage = {}
 
+    @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Callable:
         key = (func.__name__, args, frozenset(kwargs.items()))
 
@@ -12,7 +14,5 @@ def cache(func: Callable) -> Callable:
             storage[key] = func(*args, **kwargs)
         else:
             print("Getting from cache")
-
         return storage[key]
-
     return wrapper
