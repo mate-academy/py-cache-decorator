@@ -4,7 +4,7 @@ from typing import Callable
 def cache(func: Callable) -> Callable:
     results_value_cashe = {}
 
-    def wrapper(*args, **kwargs) -> Callable:
+    def wrapper_function(*args, **kwargs) -> Callable:
         key = (args, frozenset(kwargs.items()))
         if key in results_value_cashe:
             print("Getting from cache")
@@ -14,4 +14,4 @@ def cache(func: Callable) -> Callable:
             result = func(*args, **kwargs)
             results_value_cashe[key] = result
             return result
-    return wrapper
+    return wrapper_function
