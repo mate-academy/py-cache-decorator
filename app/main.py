@@ -16,3 +16,4 @@ def cache(func: Callable) -> Callable:
         return tempe_big[tempe_small]
 
     return wrapper
+
