@@ -1,8 +1,8 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> Any:
         key = (args, frozenset(kwargs.items()))
 
         if key in wrapper.cache_storage:
