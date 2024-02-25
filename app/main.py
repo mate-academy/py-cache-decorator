@@ -12,4 +12,4 @@ def cache(func: Callable) -> Callable:
         print("Calculating new result")
         return cached_data[args]
 
-    return searcher
+    return wrapper
