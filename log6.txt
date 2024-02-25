@@ -1,0 +1,268 @@
+============================= test session starts ==============================
+platform linux -- Python 3.8.10, pytest-7.1.3, pluggy-1.4.0 -- /home/oleg/Desktop/mate/Python/py-cache-decorator/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/oleg/Desktop/mate/Python/py-cache-decorator
+collecting ... collected 6 items
+
+tests/test_main.py::test_cache_single_function FAILED                    [ 16%]
+tests/test_main.py::test_cache_multiple_functions FAILED                 [ 33%]
+tests/test_main.py::test_cache_returns_correct_value PASSED              [ 50%]
+tests/test_main.py::test_cache_depends_on_different_functions FAILED     [ 66%]
+tests/test_main.py::test_deco_returns_cached_value PASSED                [ 83%]
+tests/test_main.py::test_unnecessary_comment PASSED                      [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_cache_single_function __________________________
+
+    def test_cache_single_function():
+        @cache
+        def long_time_func(a, b, c):
+            return (a ** b ** c) % (a * c)
+    
+        f = io.StringIO()
+    
+        with redirect_stdout(f):
+            long_time_func(1, 2, 3)
+            long_time_func(2, 2, 3)
+            long_time_func(1, 2, 3)
+            long_time_func(3, 4, 5)
+            long_time_func(3, 4, 5)
+    
+        out = f.getvalue()
+    
+        output = (
+            "Calculating new result\n"
+            "Calculating new result\n"
+            "Getting from cache\n"
+            "Calculating new result\n"
+            "Getting from cache\n"
+        )
+    
+>       assert (
+                out == output
+        ), f"""
+                    output must be:
+                    {output},
+    
+                    while calls are:
+                        long_time_func(1, 2, 3)
+                        long_time_func(2, 2, 3)
+                        long_time_func(1, 2, 3)
+                        long_time_func(3, 4, 5)
+                        long_time_func(3, 4, 5)
+                """
+E       AssertionError: 
+E                         output must be:
+E                         Calculating new result
+E         Calculating new result
+E         Getting from cache
+E         Calculating new result
+E         Getting from cache
+E         ,
+E         
+E                         while calls are:  
+E                             long_time_func(1, 2, 3)
+E                             long_time_func(2, 2, 3)
+E                             long_time_func(1, 2, 3)
+E                             long_time_func(3, 4, 5)
+E                             long_time_func(3, 4, 5)
+E                     
+E       assert ('{}\n'\n 'Ok  i= 0 long_time_func(1, 2, 3)\n'\n "{'long_time_func(1, 2, 3)': 1}\n"\n 'Ok  i= 1 long_time_func(2, 2, 3)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4}\n"\n 'Not Ok  i= 2 long_time_func(1, 2, 3)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4}\n"\n 'Ok  i= 3 long_time_func(3, 4, 5)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n "'long_time_func(3, 4, 5)': 6}\n"\n 'Not Ok  i= 4 long_time_func(3, 4, 5)\n') == ('Calculating new result\n'\n 'Calculating new result\n'\n 'Getting from cache\n'\n 'Calculating new result\n'\n 'Getting from cache\n')
+E         - Calculating new result
+E         - Calculating new result
+E         - Getting from cache
+E         - Calculating new result
+E         - Getting from cache
+E         + {}
+E         + Ok  i= 0 long_time_func(1, 2, 3)
+E         + {'long_time_func(1, 2, 3)': 1}
+E         + Ok  i= 1 long_time_func(2, 2, 3)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4}
+E         + Not Ok  i= 2 long_time_func(1, 2, 3)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4}
+E         + Ok  i= 3 long_time_func(3, 4, 5)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6}
+E         + Not Ok  i= 4 long_time_func(3, 4, 5)
+
+tests/test_main.py:33: AssertionError
+________________________ test_cache_multiple_functions _________________________
+
+    def test_cache_multiple_functions():
+        @cache
+        def long_time_func(a, b, c):
+            return (a ** b ** c) % (a * c)
+    
+        @cache
+        def long_time_func_2(text_1, text_2):
+            return f"{text_1.upper()}, {text_2.lower()}"
+    
+        @cache
+        def long_time_func_3(n_list, text):
+            return f"{[i ** 2 for i in n_list]}, {text}"
+    
+        f = io.StringIO()
+    
+        with redirect_stdout(f):
+            long_time_func(1, 2, 3)
+            long_time_func(1, 2, 3)
+            long_time_func(1, 2, 3)
+            long_time_func_3((10, 20, 30), "wow, numbers!")
+            long_time_func(2, 2, 3)
+            long_time_func_2("Hello", "world")
+            long_time_func(1, 2, 3)
+            long_time_func_2("Hello", "Mark")
+            long_time_func_2("Hello", "Mark")
+            long_time_func_3((10, 20, 30), "wow, numbers!")
+            long_time_func_3((10, 20, 30), "egh, numbers...")
+    
+        out = f.getvalue()
+    
+        output = (
+            "Calculating new result\n"
+            "Getting from cache\n"
+            "Getting from cache\n"
+            "Calculating new result\n"
+            "Calculating new result\n"
+            "Calculating new result\n"
+            "Getting from cache\n"
+            "Calculating new result\n"
+            "Getting from cache\n"
+            "Getting from cache\n"
+            "Calculating new result\n"
+        )
+    
+>       assert (
+            out == output
+        ), f"""
+                output must be:
+                {output},
+    
+                while calls are:
+                long_time_func(1, 2, 3)
+                long_time_func(1, 2, 3)
+                long_time_func(1, 2, 3)
+                long_time_func_3((10, 20, 30), 'wow, numbers!')
+                long_time_func(2, 2, 3)
+                long_time_func_2("Hello", "world")
+                long_time_func(1, 2, 3)
+                long_time_func_2("Hello", "Mark")
+                long_time_func_2("Hello", "Mark")
+                long_time_func_3((10, 20, 30), 'wow, numbers!')
+                long_time_func_3((10, 20, 30), 'egh, numbers...')
+            """
+E       AssertionError: 
+E                     output must be:
+E                     Calculating new result
+E         Getting from cache
+E         Getting from cache
+E         Calculating new result
+E         Calculating new result
+E         Calculating new result
+E         Getting from cache
+E         Calculating new result
+E         Getting from cache
+E         Getting from cache
+E         Calculating new result
+E         ,
+E         
+E                     while calls are:  
+E                     long_time_func(1, 2, 3)
+E                     long_time_func(1, 2, 3)
+E                     long_time_func(1, 2, 3)
+E                     long_time_func_3((10, 20, 30), 'wow, numbers!')
+E                     long_time_func(2, 2, 3)
+E                     long_time_func_2("Hello", "world")
+E                     long_time_func(1, 2, 3)
+E                     long_time_func_2("Hello", "Mark")
+E                     long_time_func_2("Hello", "Mark")
+E                     long_time_func_3((10, 20, 30), 'wow, numbers!')
+E                     long_time_func_3((10, 20, 30), 'egh, numbers...')
+E                 
+E       assert ("{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n "'long_time_func(3, 4, 5)': 6}\n"\n 'Not Ok  i= 5 long_time_func(1, 2, 3)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n "'long_time_func(3, 4, 5)': 6}\n"\n 'Not Ok  i= 6 long_time_func(1, 2, 3)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n "'long_time_func(3, 4, 5)': 6}\n"\n 'Not Ok  i= 7 long_time_func(1, 2, 3)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n "'long_time_func(3, 4, 5)': 6}\n"\n "Ok  i= 8 long_time_func_3((10, 20, 30), 'wow, numbers!')\n"\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\'}\n'\n 'Not Ok  i= 9 long_time_func(2, 2, 3)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\'}\n'\n "Ok  i= 10 long_time_func_2('Hello', 'world')\n"\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\', '\n '"long_time_func_2(\'Hello\', \'world\')": \'HELLO, world\'}\n'\n 'Not Ok  i= 11 long_time_func(1, 2, 3)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\', '\n '"long_time_func_2(\'Hello\', \'world\')": \'HELLO, world\'}\n'\n "Ok  i= 12 long_time_func_2('Hello', 'Mark')\n"\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\', '\n '"long_time_func_2(\'Hello\', \'world\')": \'HELLO, world\', '\n '"long_time_func_2(\'Hello\', \'Mark\')": \'HELLO, mark\'}\n'\n "Not Ok  i= 13 long_time_func_2('Hello', 'Mark')\n"\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\', '\n '"long_time_func_2(\'Hello\', \'world\')": \'HELLO, world\', '\n '"long_time_func_2(\'Hello\', \'Mark\')": \'HELLO, mark\'}\n'\n "Not Ok  i= 14 long_time_func_3((10, 20, 30), 'wow, numbers!')\n"\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\', '\n '"long_time_func_2(\'Hello\', \'world\')": \'HELLO, world\', '\n '"long_time_func_2(\'Hello\', \'Mark\')": \'HELLO, mark\'}\n'\n "Ok  i= 15 long_time_func_3((10, 20, 30), 'egh, numbers...')\n") == ('Calculating new result\n'\n 'Getting from cache\n'\n 'Getting from cache\n'\n 'Calculating new result\n'\n 'Calculating new result\n'\n 'Calculating new result\n'\n 'Getting from cache\n'\n 'Calculating new result\n'\n 'Getting from cache\n'\n 'Getting from cache\n'\n 'Calculating new result\n')
+E         - Calculating new result
+E         - Getting from cache
+E         - Gettpyteing from cache
+E         - Calculating new result
+E         - Calculating new result
+E         - Calculating new result
+E         - Getting from cache
+E         - Calculating new result
+E         - Getting from cache
+E         - Getting from cache
+E         - Calculating new result
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6}
+E         + Not Ok  i= 5 long_time_func(1, 2, 3)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6}
+E         + Not Ok  i= 6 long_time_func(1, 2, 3)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6}
+E         + Not Ok  i= 7 long_time_func(1, 2, 3)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6}
+E         + Ok  i= 8 long_time_func_3((10, 20, 30), 'wow, numbers!')
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!'}
+E         + Not Ok  i= 9 long_time_func(2, 2, 3)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!'}
+E         + Ok  i= 10 long_time_func_2('Hello', 'world')
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!', "long_time_func_2('Hello', 'world')": 'HELLO, world'}
+E         + Not Ok  i= 11 long_time_func(1, 2, 3)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!', "long_time_func_2('Hello', 'world')": 'HELLO, world'}
+E         + Ok  i= 12 long_time_func_2('Hello', 'Mark')
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!', "long_time_func_2('Hello', 'world')": 'HELLO, world', "long_time_func_2('Hello', 'Mark')": 'HELLO, mark'}
+E         + Not Ok  i= 13 long_time_func_2('Hello', 'Mark')
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!', "long_time_func_2('Hello', 'world')": 'HELLO, world', "long_time_func_2('Hello', 'Mark')": 'HELLO, mark'}
+E         + Not Ok  i= 14 long_time_func_3((10, 20, 30), 'wow, numbers!')
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!', "long_time_func_2('Hello', 'world')": 'HELLO, world', "long_time_func_2('Hello', 'Mark')": 'HELLO, mark'}
+E         + Ok  i= 15 long_time_func_3((10, 20, 30), 'egh, numbers...')
+
+tests/test_main.py:92: AssertionError
+__________________ test_cache_depends_on_different_functions ___________________
+
+    def test_cache_depends_on_different_functions():
+        @cache
+        def subtraction(a, b):
+            return a - b
+    
+        @cache
+        def addition(a, b):
+            return a + b
+    
+        f = io.StringIO()
+    
+        with redirect_stdout(f):
+            subtraction(1, 1)
+            addition(1, 1)
+            subtraction(1, 1)
+            addition(1, 1)
+    
+        out = f.getvalue()
+    
+        output = (
+            "Calculating new result\n"
+            "Calculating new result\n"
+            "Getting from cache\n"
+            "Getting from cache\n"
+        )
+    
+>       assert (
+                out == output
+        ), "Cache decorator should depend on different function"
+E       AssertionError: Cache decorator should depend on different function
+E       assert ("{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\', '\n '"long_time_func_2(\'Hello\', \'world\')": \'HELLO, world\', '\n '"long_time_func_2(\'Hello\', \'Mark\')": \'HELLO, mark\', '\n '"long_time_func_3((10, 20, 30), \'egh, numbers...\')": \'[100, 400, 900], '\n "egh, numbers...', 'long_time_func(2, 3, 3)': 2}\n"\n 'Ok  i= 18 subtraction(1, 1)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\', '\n '"long_time_func_2(\'Hello\', \'world\')": \'HELLO, world\', '\n '"long_time_func_2(\'Hello\', \'Mark\')": \'HELLO, mark\', '\n '"long_time_func_3((10, 20, 30), \'egh, numbers...\')": \'[100, 400, 900], '\n "egh, numbers...', 'long_time_func(2, 3, 3)': 2, 'subtraction(1, 1)': 0}\n"\n 'Ok  i= 19 addition(1, 1)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\', '\n '"long_time_func_2(\'Hello\', \'world\')": \'HELLO, world\', '\n '"long_time_func_2(\'Hello\', \'Mark\')": \'HELLO, mark\', '\n '"long_time_func_3((10, 20, 30), \'egh, numbers...\')": \'[100, 400, 900], '\n "egh, numbers...', 'long_time_func(2, 3, 3)': 2, 'subtraction(1, 1)': 0, "\n "'addition(1, 1)': 2}\n"\n 'Not Ok  i= 20 subtraction(1, 1)\n'\n "{'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, "\n '\'long_time_func(3, 4, 5)\': 6, "long_time_func_3((10, 20, 30), \'wow, '\n 'numbers!\')": \'[100, 400, 900], wow, numbers!\', '\n '"long_time_func_2(\'Hello\', \'world\')": \'HELLO, world\', '\n '"long_time_func_2(\'Hello\', \'Mark\')": \'HELLO, mark\', '\n '"long_time_func_3((10, 20, 30), \'egh, numbers...\')": \'[100, 400, 900], '\n "egh, numbers...', 'long_time_func(2, 3, 3)': 2, 'subtraction(1, 1)': 0, "\n "'addition(1, 1)': 2}\n"\n 'Not Ok  i= 21 addition(1, 1)\n') == ('Calculating new result\n'\n 'Calculating new result\n'\n 'Getting from cache\n'\n 'Getting from cache\n')
+E         - Calculating new result
+E         - Calculating new result
+E         - Getting from cache
+E         - Getting from cache
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!', "long_time_func_2('Hello', 'world')": 'HELLO, world', "long_time_func_2('Hello', 'Mark')": 'HELLO, mark', "long_time_func_3((10, 20, 30), 'egh, numbers...')": '[100, 400, 900], egh, numbers...', 'long_time_func(2, 3, 3)': 2}
+E         + Ok  i= 18 subtraction(1, 1)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!', "long_time_func_2('Hello', 'world')": 'HELLO, world', "long_time_func_2('Hello', 'Mark')": 'HELLO, mark', "long_time_func_3((10, 20, 30), 'egh, numbers...')": '[100, 400, 900], egh, numbers...', 'long_time_func(2, 3, 3)': 2, 'subtraction(1, 1)': 0}
+E         + Ok  i= 19 addition(1, 1)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!', "long_time_func_2('Hello', 'world')": 'HELLO, world', "long_time_func_2('Hello', 'Mark')": 'HELLO, mark', "long_time_func_3((10, 20, 30), 'egh, numbers...')": '[100, 400, 900], egh, numbers...', 'long_time_func(2, 3, 3)': 2, 'subtraction(1, 1)': 0, 'addition(1, 1)': 2}
+E         + Not Ok  i= 20 subtraction(1, 1)
+E         + {'long_time_func(1, 2, 3)': 1, 'long_time_func(2, 2, 3)': 4, 'long_time_func(3, 4, 5)': 6, "long_time_func_3((10, 20, 30), 'wow, numbers!')": '[100, 400, 900], wow, numbers!', "long_time_func_2('Hello', 'world')": 'HELLO, world', "long_time_func_2('Hello', 'Mark')": 'HELLO, mark', "long_time_func_3((10, 20, 30), 'egh, numbers...')": '[100, 400, 900], egh, numbers...', 'long_time_func(2, 3, 3)': 2, 'subtraction(1, 1)': 0, 'addition(1, 1)': 2}
+E         + Not Ok  i= 21 addition(1, 1)
+
+tests/test_main.py:151: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_main.py::test_cache_single_function - AssertionError: 
+FAILED tests/test_main.py::test_cache_multiple_functions - AssertionError: 
+FAILED tests/test_main.py::test_cache_depends_on_different_functions - Assert...
+========================= 3 failed, 3 passed in 3.12s ==========================
