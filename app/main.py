@@ -1,14 +1,12 @@
 from typing import Callable, Any
-cache_dict = {}
 
 
 def cache(func: Callable) -> Callable:
-    global cache_dict
     cache_dict = {}
 
     def inner(*args, **kwargs) -> Any:
 
-        cache_code = func.__name__ + str(args)
+        cache_code = str(args)
 
         if cache_code not in cache_dict:
             result = func(*args, **kwargs)
