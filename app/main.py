@@ -10,10 +10,9 @@ def cache(func: Callable) -> Callable:
 
             return results[args]
 
-        result = func(*args, **kwargs)
-        results[args] = result
+        results[args] = func(*args, **kwargs)
         print("Calculating new result")
 
-        return result
+        return results[args]
 
     return wrapper_cache
