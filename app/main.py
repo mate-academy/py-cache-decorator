@@ -1,18 +1,14 @@
-from typing import Callable, Any
 
 
-def cache(func: Callable) -> Callable:
+def cache(func: callable) -> callable:
     cache_dict = {}
 
-    def wrapper(*args, **kwargs) -> Any:
-        key = (args, frozenset(kwargs.items()))
-        if key in cache_dict:
+    def wrapper(*args, **kwargs) -> int:
+        if args in cache_dict:
             print("Getting from cache")
-            return cache_dict[key]
         else:
-            result = func(*args, **kwargs)
-            cache_dict[key] = result
+            cache_dict[args] = func(*args, **kwargs)
             print("Calculating new result")
-            return result
+        return cache_dict[args]
 
     return wrapper
