@@ -2,11 +2,13 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
+    list_of_old_cache = {}
+
     def inner(*args: list) -> list:
-        old_cach = args
-        list_of_old_cache = []
-        if old_cach not in list_of_old_cache:
-            list_of_old_cache.append(old_cach)
-            return "Calculating new result"
-        return "Getting from cache"
+        if args not in list_of_old_cache:
+            list_of_old_cache[args] = func(*args)
+            print("Calculating new result")
+        else:
+            print("Getting from cache")
+        return func(*args)
     return inner
