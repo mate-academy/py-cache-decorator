@@ -10,6 +10,3 @@ def cache(func: Callable) -> Callable:
             return "Calculating new result"
         return "Getting from cache"
     return inner
-
-
-
