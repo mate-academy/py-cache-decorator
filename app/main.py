@@ -10,9 +10,9 @@ def cache(func: Callable) -> Callable:
             print("Getting from cache")
             return cache_dict[key]
         else:
-            result = func(*args, **kwargs)
-            cache_dict[key] = result
+            result = cache_dict[key] if key in cache_dict \
+                else cache_dict.setdefault(key, func(*args, **kwargs))
             print("Calculating new result")
-            return result
+        return result
 
     return wrapper
