@@ -1,14 +1,17 @@
 from typing import Callable
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    list_of_old_cache = {}
+    cached_results = {}
 
+    @wraps(func)
     def inner(*args: list) -> list:
-        if args not in list_of_old_cache:
-            list_of_old_cache[args] = func(*args)
+        key = args
+        if key not in cached_results:
+            cached_results[key] = func(*args)
             print("Calculating new result")
         else:
             print("Getting from cache")
-        return func(*args)
+        return cached_results[key]
     return inner
