@@ -7,7 +7,7 @@ def cache(func: Callable) -> Callable:
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs) -> int:
-        key = str(id(func)) + "(" + f"{(args, frozenset(kwargs.items()))}" + ")"
+        key = (str(id(func)) + f"({(args, frozenset(kwargs.items()))})")
         # print(key)
         if key not in cached:
             print("Calculating new result")
