@@ -2,21 +2,17 @@ from typing import Callable
 import functools
 
 
-cached = {}
-
-
 def cache(func: Callable) -> Callable:
+    cached = {}
+
     @functools.wraps(func)
-    def wrapper(*args) -> int:
-        global cached
-        key = str(id(func)) + "(" + f"{args}" + ")"
+    def wrapper(*args, **kwargs) -> int:
+        key = str(id(func)) + "(" + f"{(args, frozenset(kwargs.items()))}" + ")"
         # print(key)
         if key not in cached:
             print("Calculating new result")
-            result = func(*args)
-            cached[key] = result
+            cached[key] = func(*args, **kwargs)
         else:
             print("Getting from cache")
-            result = cached[key]
-        return result
+        return cached[key]
     return wrapper
