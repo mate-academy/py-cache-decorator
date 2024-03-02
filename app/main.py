@@ -3,7 +3,6 @@ from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    # count = 0
     result_cache = dict()
 
     @wraps(func)
