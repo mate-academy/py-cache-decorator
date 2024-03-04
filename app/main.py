@@ -9,9 +9,8 @@ def cache(func: Callable) -> Callable:
         if arguments not in cache_result:
             print("Calculating new result")
             cache_result[arguments] = func(*args, **kwargs)
-            return cache_result[arguments]
         else:
             print("Getting from cache")
-            return cache_result[arguments]
+        return cache_result[arguments]
 
     return wrapper
