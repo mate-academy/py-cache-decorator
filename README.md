@@ -19,6 +19,26 @@ functions simultaneously and correctly return for every function separately.
 Also `cache` should print `Getting from cache` when returns stored value and 
 `Calculating new result` when run function with new arguments.
 
+
+У вас є великий масив з даними. Вам потрібно запустити довготривалу функцію
+з цими даними. Дані можуть повторюватись.
+Щоб не запускати функцію з повторюваними даними повторно, добре було б зберігати
+результати завершених запусків.
+
+
+Напишіть декоратор `cache`, який зберігає результати виконаних запусків з
+різними аргументами, кількість аргументів також може бути різною.
+Якщо декорована функція виконується з повторюваними аргументами, 
+вона має повертати збережений результат замість повторного виклику функції. Кеш декоратора `cache` створюється для 
+декорування тільки тих функцій, які отримують **незмінні** аргументи.
+
+Також зверніть увагу, що декоратор `cache` повинен коректно працювати з невеликою кількістю декорованих
+функцій одночасно і коректно повертати дані для кожної функції окремо.
+
+Також `cache` повинен виводити `Здобуття з кешу` при поверненні збереженого значення та 
+`Обчислення нового результату` при запуску функції з новими аргументами.
+
+
 Example:
 ```python
 @cache
@@ -45,3 +65,39 @@ long_time_func_2((5, 6, 7), 10)
 ```
 
 ### Note: Check your code using this [checklist](checklist.md) before pushing your solution.
+
+
+
+
+# Factorial program with memoization using
+# decorators.
+
+# A decorator function for function 'f' passed
+# as parameter
+memory = {}
+
+
+def memoize_factorial(f):
+    # This inner function has access to memory
+    # and 'f'
+    def inner(num):
+        if num not in memory:
+            memory[num] = f(num)
+            print('result saved in memory')
+        else:
+            print('returning result from saved memory')
+        return memory[num]
+
+    return inner
+
+
+@memoize_factorial
+def facto(num):
+    if num == 1:
+        return 1
+    else:
+        return num * facto(num - 1)
+
+
+print(facto(5))
+print(facto(5))  # directly coming from saved memory
