@@ -7,14 +7,14 @@ def cache(func: Callable) -> Callable:
 
     @functools.wraps(func)
     def inner(*args: Any, **kwargs: Any) -> Any:
-        if args in result_dict:
-            print("Getting from cache")
-            result = result_dict[args]
-            return result
+        key = (args, frozenset(kwargs.items()))
 
-        print("Calculating new result")
-        result = func(*args, **kwargs)
-        result_dict[args] = result
-        return result
+        if key not in result_dict:
+            print("Calculating new result")
+            result_dict[key] = func(*args, **kwargs)
+        else:
+            print("Getting from cache")
+
+        return result_dict[key]
 
     return inner
