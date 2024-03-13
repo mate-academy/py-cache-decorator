@@ -1,9 +1,8 @@
 from typing import Callable, Any
 
 
-def cache(func: Callable, hash_storage: dict = None) -> Callable:
-    if hash_storage is None:
-        hash_storage = {}
+def cache(func: Callable) -> Callable:
+    hash_storage = {}
 
     def inner(*args) -> Any:
         if args not in hash_storage:
