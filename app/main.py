@@ -8,10 +8,9 @@ def cache(func: Callable) -> Callable:
     def inner(*args) -> Any:
         if tuple(args) in result.keys():
             print("Getting from cache")
-            return result[tuple(args)]
         else:
             result[tuple(args)] = func(*args)
             print("Calculating new result")
-            return result[tuple(args)]
+        return result[tuple(args)]
 
     return inner
