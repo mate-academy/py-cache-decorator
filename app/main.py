@@ -1,7 +1,9 @@
 from typing import Callable
 
+
 def cache(func: Callable) -> Callable:
     results = {}
+
     def wrapper(*args, **kwargs) -> Callable:
         key = (func.__name__, args, tuple(sorted(kwargs.items())))
         if key in results:
