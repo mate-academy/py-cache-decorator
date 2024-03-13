@@ -6,11 +6,11 @@ def cache(func: Callable) -> Callable:
     result = {}
 
     def inner(*args) -> Any:
-        if tuple(args) in result.keys():
+        if str(args) in result.keys():
             print("Getting from cache")
         else:
-            result[tuple(args)] = func(*args)
+            result[str(args)] = func(*args)
             print("Calculating new result")
-        return result[tuple(args)]
+        return result[str(args)]
 
     return inner
