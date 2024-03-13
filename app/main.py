@@ -1,6 +1,18 @@
-from typing import Callable
+from typing import Callable, Any
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    cashed_value = {}
+
+    @wraps(func)
+    def inner(*args, **kwargs) -> Any:
+        if args not in cashed_value:
+            print("Calculating new result")
+            result = func(*args, **kwargs)
+            cashed_value[args] = result
+            return result
+        else:
+            print("Getting from cache")
+            return cashed_value[args]
+    return inner
