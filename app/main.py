@@ -6,7 +6,7 @@ def cache(func: Callable) -> Callable:
 
     def wrapper(*args, **kwargs) -> Any:
 
-        if cache_data.get(args) is not None:
+        if args in cache_data:
             print("Getting from cache")
         else:
             print("Calculating new result")
