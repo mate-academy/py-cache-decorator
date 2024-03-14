@@ -10,11 +10,9 @@ def cache(func: Callable) -> Callable:
         cash_key = tuple(args)
         if cash_key in cash_result:
             print("Getting from cache")
-            return cash_result[cash_key]
-
-        result = func(*args, **kwargs)
-        cash_result[cash_key] = result
-        print("Calculating new result")
-        return result
+        else:
+            cash_result[cash_key] = func(*args, **kwargs)
+            print("Calculating new result")
+        return cash_result[cash_key]
 
     return wrapper
