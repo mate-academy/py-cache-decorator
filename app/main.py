@@ -12,7 +12,6 @@ def cache(func: Callable) -> Callable:
             result = func(*args, **kwargs)
             cashed_value[args] = result
             return result
-        else:
-            print("Getting from cache")
-            return cashed_value[args]
+        print("Getting from cache")
+        return cashed_value[args]
     return inner
