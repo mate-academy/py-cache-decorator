@@ -1,16 +1,16 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    dic = {}
+    cache_dict = {}
 
-    def inner(*args, **kwargs) -> None:
-        if args not in dic:
-            dic.update({args: func(*args, **kwargs)})
+    def inner(*args, **kwargs) -> Any:
+        if args not in cache_dict:
+            cache_dict.update({args: func(*args, **kwargs)})
             print("Calculating new result")
         else:
             print("Getting from cache")
 
-        return dic[args]
+        return cache_dict[args]
 
     return inner
