@@ -4,9 +4,9 @@ from typing import Callable, Any
 def cache(func: Callable) -> Callable:
     cache_dict = {}
 
-    def inner(*args, **kwargs) -> Any:
+    def inner(*args) -> Any:
         if args not in cache_dict:
-            cache_dict.update({args: func(*args, **kwargs)})
+            cache_dict[args] = func(*args)
             print("Calculating new result")
         else:
             print("Getting from cache")
