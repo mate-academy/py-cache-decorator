@@ -1,6 +1,17 @@
-from typing import Callable
+from typing import Callable, Any
+import functools
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    cached_res = {}
+
+    @functools.wraps(func)
+    def inner(*args, **kwargs) -> Any:
+        call = (id(func), args, tuple(kwargs.items()))
+        if call in cached_res:
+            print("Getting from cache")
+            return cached_res[call]
+        cached_res[call] = func(*args, **kwargs)
+        print("Calculating new result")
+        return cached_res[call]
+    return inner
