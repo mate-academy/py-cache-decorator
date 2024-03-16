@@ -16,5 +16,3 @@ def cache(func: Callable) -> Callable:
             print("Calculating new result")
             return results_dict[func_args]
     return wrapper
-1
-
