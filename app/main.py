@@ -15,5 +15,5 @@ def cache(func: Callable) -> Callable:
             return result
         else:
             print("Getting from cache")
-        return cache_store[args]
+            return cache_store[args]
     return inner
