@@ -1,10 +1,12 @@
 from typing import Callable
+import functools
 
 
 def cache(func: Callable) -> Callable:
 
     results_dict = {}
 
+    @functools.wraps(func)
     def wrapper(*args) -> None:
         func_args = args
         if func_args in results_dict:
