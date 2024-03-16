@@ -10,10 +10,9 @@ def cache(func: Callable) -> Callable:
         nonlocal cache_store
         if args not in cache_store:
             print("Calculating new result")
-            result = func(*args)
-            cache_store[args] = result
-            return result
+            cache_store[args] = func(*args)
+            return cache_store[args]
         else:
             print("Getting from cache")
-            return cache_store[args]
+        return cache_store[args]
     return inner
