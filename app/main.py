@@ -1,6 +1,7 @@
 from typing import Callable, Any
 import functools
 
+
 def cache(func: Callable) -> Callable:
     cache_store = {}
 
