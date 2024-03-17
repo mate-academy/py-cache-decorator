@@ -11,8 +11,7 @@ def cache(func: Callable) -> Callable:
 
         if serialized_args not in cached_results:
             print("Calculating new result")
-            result = func(*args, **kwargs)
-            cached_results[serialized_args] = result
+            cached_results[serialized_args] = func(*args, **kwargs)
         else:
             print("Getting from cache")
 
