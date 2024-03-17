@@ -10,9 +10,8 @@ def cache(func: Callable) -> Callable:
             result = func(*args, **kwargs)
             closure_list[key] = result
             print("Calculating new result")
-            return result
         else:
             print("Getting from cache")
-            return closure_list[key]
+        return closure_list[key]
 
     return inner
