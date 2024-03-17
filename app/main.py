@@ -9,13 +9,13 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args, **kwargs) -> Any:
         serialized_args = str(args) + str(kwargs)
 
-        if serialized_args in cached_results:
-            print("Getting from cache")
-            return cached_results[serialized_args]
-        else:
+        if serialized_args not in cached_results:
             print("Calculating new result")
             result = func(*args, **kwargs)
             cached_results[serialized_args] = result
-            return result
+        else:
+            print("Getting from cache")
+
+        return cached_results[serialized_args]
 
     return wrapper
