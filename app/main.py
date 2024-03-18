@@ -2,16 +2,16 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    closure_list = {}
+    closure_dict = {}
 
-    def inner(*args, **kwargs) -> Callable:
+    def inner(*args, **kwargs) -> list:
         key = (args, frozenset(kwargs.items()))
-        if key not in closure_list.keys():
+        if key not in closure_dict.keys():
             result = func(*args, **kwargs)
-            closure_list[key] = result
+            closure_dict[key] = result
             print("Calculating new result")
         else:
             print("Getting from cache")
-        return closure_list[key]
+        return closure_dict[key]
 
     return inner
