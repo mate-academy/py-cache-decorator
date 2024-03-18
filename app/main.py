@@ -7,18 +7,14 @@ def cache(func: Callable) -> Callable:
 
     @functools.wraps(func)
     def inner(*args, **kwargs) -> Any:
-        if args and args not in cache_store:
+        key = args + tuple(kwargs.values())
+
+        if key not in cache_store:
             print("Calculating new result")
-            cache_store[args] = func(*args)
-            return cache_store[args]
-        elif kwargs and kwargs not in cache_store:
-            print("Calculating new result")
-            cache_store[kwargs] = func(*args)
-            return cache_store[kwargs]
-        elif args:
+            cache_store[key] = func(*args, **kwargs)
+            return cache_store[key]
+        else:
             print("Getting from cache")
-            return cache_store[args]
-        elif kwargs:
-            print("Getting from cache")
-            return cache_store[kwargs]
+            return cache_store[key]
+
     return inner
