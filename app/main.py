@@ -2,18 +2,18 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    cache_res = {}
+    cache_result = {}
 
     def inner(*args, **kwargs) -> Callable:
-        key = (args, tuple(kwargs.items()))
+        input_data = (args, tuple(kwargs.items()))
 
-        if key in cache_res:
+        if input_data in cache_result:
             print("Getting from cache")
-            return cache_res[key]
+            return cache_result[input_data]
 
         print("Calculating new result")
-        res = func(*args, **kwargs)
-        cache_res[key] = res
-        return res
+        result = func(*args, **kwargs)
+        cache_result[input_data] = result
+        return result
 
     return inner
