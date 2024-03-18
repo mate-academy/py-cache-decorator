@@ -6,7 +6,7 @@ def cache(func: Callable) -> Callable:
     cached_results = {}
 
     @functools.wraps(func)
-    def wrapper(*args, **kwargs) -> dict:
+    def wrapper(*args, **kwargs) -> any:
         key = (args, tuple(sorted(kwargs.items())))
         if key in cached_results:
             print("Getting from cache")
