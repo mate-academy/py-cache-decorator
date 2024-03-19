@@ -7,7 +7,7 @@ def cache(func: Callable) -> Callable:
 
     @functools.wraps(func)
     def inner(*args, **kwargs) -> Any:
-        key = args + tuple(kwargs.values()) + (func.__name__,)
+        key = args + tuple(kwargs.values())
 
         if key not in cache_store:
             print("Calculating new result")
