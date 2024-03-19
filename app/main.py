@@ -16,8 +16,7 @@ def cache(func: Callable) -> Callable:
             return cache_dict[key]
 
         print("Calculating new result")
-        result = func(*args, **kwargs)
-        cache_dict[key] = result
-        return result
+        cache_dict[key] = func(*args, **kwargs)
+        return cache_dict[key]
 
     return inner
