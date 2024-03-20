@@ -4,7 +4,7 @@ from typing import Callable
 def cache(func: Callable) -> Callable:
     cache_result = {}
 
-    def inner(*args, **kwargs) -> int:
+    def inner(*args, **kwargs) -> list[int] | int:
         input_data = (args, tuple(kwargs.items()))
 
         if input_data in cache_result:
