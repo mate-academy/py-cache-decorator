@@ -11,7 +11,6 @@ def cache(func: Callable) -> Callable:
         key = (args, frozenset(kwargs.items()))
         if key in cache_store:
             print("Getting from cache")
-            # return cache_store[key]
         else:
             print("Calculating new result")
             cache_store[key] = func(*args, **kwargs)
