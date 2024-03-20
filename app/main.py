@@ -1,6 +1,19 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    cache_result = {}
+
+    def inner(*args, **kwargs) -> Any:
+        input_data = (args, tuple(kwargs.items()))
+
+        if input_data in cache_result:
+            print("Getting from cache")
+            return cache_result[input_data]
+
+        print("Calculating new result")
+        result = func(*args, **kwargs)
+        cache_result[input_data] = result
+        return result
+
+    return inner
