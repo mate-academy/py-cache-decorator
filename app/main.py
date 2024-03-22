@@ -5,15 +5,16 @@ def cache(func: Callable) -> Callable:
     result_cashe = {}
 
 
-    def wrapper(*args,*kwargs):
+    def wrapper(*args,**kwargs):
+        nonlocal result_cashe
         key = (args, frozenset(kwargs.items()))
-        if key in cashed_result:
+        if key in result_cashe:
             print("Getting from cashe")
-            return cashed_result[key]
+            return result_cashe[key]
         else:
             print("Calculating new result")
-            result_cashe = func(*args,**kwargs)
-            result_cashe = result
+            result = func(*args,**kwargs)
+            result_cashe[key] = result
             return result
 
-        return wrapper
+    return wrapper
