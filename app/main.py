@@ -5,7 +5,6 @@ def cache(func: Callable) -> Callable:
     result = {}
 
     def wrapper(*args, **kwargs) -> None:
-        nonlocal result
         key = (func.__name__, args, frozenset(kwargs))
         if key in result:
             print("Getting from cache")
