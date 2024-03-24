@@ -18,4 +18,3 @@ def cache(func: Callable) -> Callable:
         return cache_store[args]
 
     return wrapper
-
