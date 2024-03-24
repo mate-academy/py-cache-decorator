@@ -3,18 +3,19 @@ from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    new_cache = {}
+    cache_store = {}
 
     @wraps(func)
     def wrapper(*args) -> Any:
-        if args not in new_cache:
+        if args not in cache_store:
             print("Calculating new result")
             result = func(*args)
-            new_cache[args] = result
+            cache_store[args] = result
 
         else:
             print("Getting from cache")
 
-        return new_cache[args]
+        return cache_store[args]
 
     return wrapper
+
