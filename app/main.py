@@ -3,7 +3,6 @@ from typing import Callable
 
 def cache(func: Callable) -> Callable:
     result_cashe = {}
-
     def wrapper(*args,**kwargs):
         nonlocal result_cashe
         key = (args, frozenset(kwargs.items()))
