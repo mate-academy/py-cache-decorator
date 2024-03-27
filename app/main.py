@@ -9,9 +9,8 @@ def cache(func: Callable) -> Callable:
         global results
         if (func, args) in results:
             print("Getting from cache")
-            return results[(func, args)]
         else:
             print("Calculating new result")
             results[(func, args)] = (func(*args))
-            return results[(func, args)]
+        return results[(func, args)]
     return inner
