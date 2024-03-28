@@ -6,8 +6,8 @@ def cache(func: Callable) -> Callable:
     results = {}
 
     @wraps(func)
-    def inner(*args: Any, **kwargs: Any) -> Any:
-        key = (func.__name__, args, tuple(kwargs.items()))
+    def inner(*args, **kwargs) -> Any:
+        key = (args, tuple(kwargs.items()))
         if key in results:
             print("Getting from cache")
         else:
