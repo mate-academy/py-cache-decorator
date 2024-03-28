@@ -1,17 +1,17 @@
 from typing import Callable, Any
-
-
-results = {}
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    def inner(*args: Any) -> Any:
-        global results
-        if (func, args) in results:
+    results = {}
+
+    @wraps(func)
+    def inner(*args: Any, **kwargs: Any) -> Any:
+        key = (func.__name__, args, tuple(kwargs.items()))
+        if key in results:
             print("Getting from cache")
-            return results[(func, args)]
         else:
             print("Calculating new result")
-            results[(func, args)] = (func(*args))
-            return results[(func, args)]
+            results[key] = func(*args, **kwargs)
+        return results[key]
     return inner
