@@ -1,5 +1,6 @@
 from typing import Callable
 
+
 def cache(func: Callable) -> Callable:
     def wrapper(*args, **kwargs) -> dict:
         nonlocal var_dict
@@ -10,16 +11,19 @@ def cache(func: Callable) -> Callable:
             print("Calculating new result")
             var_dict[key] = func(*args, **kwargs)
         return var_dict[key]
+
     var_dict = {}
     return wrapper
 
-@cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
 
 @cache
-def long_time_func_2(n_tuple: tuple, power: int) -> list:
-    return [number ** power for number in n_tuple]
+def long_time_func(base: int, exponent: int, coefficient: int) -> int:
+    return (base ** exponent ** coefficient) % (base * coefficient)
+
+
+@cache
+def long_time_func_2(numbers_tuple: tuple, power_value: int) -> list:
+    return [number ** power_value for number in numbers_tuple]
 
 
 print(long_time_func(1, 2, 3))  # "Calculating new result"
