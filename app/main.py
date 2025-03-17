@@ -1,7 +1,7 @@
 from typing import Callable
 
 def cache(func: Callable) -> Callable:
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> dict:
         nonlocal var_dict
         key = (args, frozenset(kwargs.items()))
         if key in var_dict:
