@@ -7,12 +7,12 @@ def cache(func: Callable) -> Any:
 
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
-        if args not in cache_data:
-            cache_data[args] = func(*args, **kwargs)
+        key = (args, frozenset(kwargs.items()))
+        if key not in cache_data:
             print("Calculating new result")
-            return cache_data[args]
+            cache_data[key] = func(*args, **kwargs)
         else:
             print("Getting from cache")
-            return cache_data[args]
+        return cache_data[key]
 
     return wrapper
