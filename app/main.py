@@ -16,7 +16,7 @@ def cache(func):
             func_cache[key] = result
             return result
 
-    return wrapper
+    return wrappe
 
 @cache
 def long_time_func(a: int, b: int, c: int) -> int:
