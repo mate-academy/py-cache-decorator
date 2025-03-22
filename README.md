@@ -6,6 +6,7 @@ with this data. Data can be repeated.
 To not re-run function with repeatable data, it will be good to store
 results of completed runs.
 
+
 Write decorator `cache` that stores results of completed runs with
 different arguments, number of arguments can be also different.
 If decorated function runs with repeating arguments it should return stored
@@ -21,11 +22,11 @@ Also `cache` should print `Getting from cache` when returns stored value and
 Example:
 ```python
 @cache
-def long_time_func(a, b, c):
-    return (a ** b ** c) % (a*c)
+def long_time_func(a: int, b: int, c: int) -> int:
+    return (a ** b ** c) % (a * c)
 
 @cache
-def long_time_func_2(n_tuple, power):
+def long_time_func_2(n_tuple: tuple, power: int) -> int:
     return [number ** power for number in n_tuple]
 
 long_time_func(1, 2, 3)
@@ -42,3 +43,5 @@ long_time_func_2((5, 6, 7), 10)
 # Calculating new result 
 # Getting from cache
 ```
+
+### Note: Check your code using this [checklist](checklist.md) before pushing your solution.
