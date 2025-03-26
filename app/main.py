@@ -10,11 +10,11 @@ def cache(func: Callable) -> Callable:
         nonlocal counter
         counter += 1
         if args in args_counter:
-            return func(*args)
+            return result_counter[args]
         else:
             args_counter.add(args)
             result_counter[args] = func(*args)
-            return func(*args)
+            return result_counter[args]
 
     return wrapper
 
