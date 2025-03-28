@@ -1,6 +1,8 @@
+from typing import Callable
 import functools
 
-def cache(func):
+
+def cache(func: Callable) -> Callable:
     func_cache = {}  # Cache specific to this decorated function
 
     @functools.wraps(func)
