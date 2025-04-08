@@ -1,12 +1,11 @@
-from typing import Callable
+from typing import Callable, Any
 import functools
-
 
 def cache(func: Callable) -> Callable:
     cache_dict = {}
 
     @functools.wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> Any:
         cache_key = (args, frozenset(kwargs.items()))
         if cache_key in cache_dict:
             print("Getting from cache")
