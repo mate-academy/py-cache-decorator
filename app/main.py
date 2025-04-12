@@ -5,12 +5,13 @@ def cache(func: Callable) -> Callable:
     cache_dict = {}
 
     def wrapper(*args, **kwargs) -> Any:
-        if args in cache_dict:
+        cached_key = f"{args} - {kwargs}"
+        if cached_key in cache_dict:
             print("Getting from cache")
-            return cache_dict[f"{args} - {kwargs}"]
+            return cache_dict[cached_key]
         print("Calculating new result")
         res = func(*args, **kwargs)
-        cache_dict[f"{args} - {kwargs}"] = res
+        cache_dict[cached_key] = res
         return res
 
     return wrapper
