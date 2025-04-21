@@ -1,19 +1,25 @@
 from typing import Callable, Any
+from functools import wraps
+import threading
+import pickle
 
 
 def cache(func: Callable) -> Callable:
-    func.cache_dict: dict = {}
+    cache_dict = {}
+    lock = threading.Lock()
 
+    @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
-        key = (args, frozenset(kwargs.items()))
-        if key in func.cache_dict:
-            print("Getting from cache")
-            return func.cache_dict[key]
-        else:
-            print("Calculating new result")
-            result = func(*args, **kwargs)
-            func.cache_dict[key] = result
-            return result
+        key = pickle.dumps((args, kwargs))
+        with lock:
+            if key in cache_dict:
+                print("Getting from cache")
+                return cache_dict[key]
+            else:
+                print("Calculating new result")
+                result = func(*args, **kwargs)
+                cache_dict[key] = result
+                return result
 
     return wrapper
 
