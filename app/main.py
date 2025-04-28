@@ -13,7 +13,6 @@ def cache(func: Callable) -> Callable:
             return cache_dict[keys]
         else:
             print("Calculating new result")
-            res = func(*args, **kwargs)
-            cache_dict[keys] = res
-            return res
+            cache_dict[keys] = func(*args, **kwargs)
+            return cache_dict[keys]
     return wrapper
