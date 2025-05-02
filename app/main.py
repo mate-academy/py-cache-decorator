@@ -5,11 +5,12 @@ def cache(func: Callable) -> Callable:
     cache_dict = {}
 
     def inner(*args, **kwargs) -> Any:
-        if args in cache_dict:
+        key = (args, tuple(sorted(kwargs.items())))
+        if key in cache_dict:
             print("Getting from cache")
-            return cache_dict[args]
+            return cache_dict[key]
         print("Calculating new result")
         result = func(*args, **kwargs)
-        cache_dict[args] = result
+        cache_dict[key] = result
         return result
     return inner
