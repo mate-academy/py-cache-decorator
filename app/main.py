@@ -1,6 +1,16 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    data = {}
+
+    def wrapper(*args) -> Any:
+        if args in data:
+            print("Getting from cache")
+            return data[args]
+        else:
+            print("Calculating new result")
+            res = func(*args)
+            data[args] = res
+            return res
+    return wrapper
