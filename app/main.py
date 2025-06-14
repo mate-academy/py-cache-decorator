@@ -1,16 +1,17 @@
-from typing import Callable
 import functools
+from typing import Callable
+
 
 def cache(func: Callable) -> Callable:
     cache_list = []
     functools.wraps(func)
+
     def wrapper(*args, **kwargs) -> str:
         for caches in cache_list:
-            if caches[0] == args and caches[1] == kwargs:
-                output = func(*args, **kwargs)
-                if caches[3] == output:
-                    return "Getting from caches"
-        cache_list.append((args, kwargs, func(*args, **kwargs)))
+            if caches[0] == args and caches[1] == tuple(kwargs.items()):
+                return "Getting from caches"
+        result = func(*args, **kwargs)
+        cache_list.append((args, tuple(kwargs.items()), result))
         return "Calculating new result"
 
     return wrapper
