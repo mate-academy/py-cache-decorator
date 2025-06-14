@@ -3,6 +3,7 @@ import functools
 
 def cache(func: Callable) -> Callable:
     cache_list = []
+    functools.wraps(func)
     def wrapper(*args, **kwargs) -> str:
         output = func(*args, **kwargs)
         for cache in cache_list:
