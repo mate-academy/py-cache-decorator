@@ -9,9 +9,11 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args, **kwargs) -> str:
         for caches in cache_list:
             if caches[0] == args and caches[1] == tuple(kwargs.items()):
-                return "Getting from caches"
+                print("Getting from cache")
+                return caches[2]
         result = func(*args, **kwargs)
         cache_list.append((args, tuple(kwargs.items()), result))
-        return "Calculating new result"
+        print("Calculating new result")
+        return result
 
     return wrapper
