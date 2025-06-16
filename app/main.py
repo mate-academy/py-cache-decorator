@@ -5,7 +5,7 @@ from functools import wraps
 def cache(func: Callable) -> Callable:
     @wraps(func)
     def wrapped(*args, **kwargs) -> Any:
-        function_name = f"{func.__name__}({args} {kwargs}"
+        function_name = f"{func}({args} {kwargs})"
         if function_name in cache_db:
             print("Getting from cache")
         else:
