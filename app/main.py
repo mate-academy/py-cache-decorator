@@ -3,16 +3,19 @@ from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    cache_dict = {}
+    cache_dict = {}  # variable for simple cache
 
     @wraps(func)
     def inner(*args, **kwargs) -> Any:
         nonlocal cache_dict
 
-        func_name = func.__name__
+        func_name = func.__name__  # save function name in variable
+        # if a function is called for the first time,
+        # then we create a new place for it
         if func_name not in cache_dict:
             cache_dict[func_name] = {}
 
+        # if we have a hashed value for the function, then we return it
         if args in cache_dict[func_name]:
             print("Getting from cache")
         else:
