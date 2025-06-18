@@ -3,7 +3,6 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    results = {}
 
     @wraps(func)
     def wrapper(*args) -> Any:
@@ -15,4 +14,5 @@ def cache(func: Callable) -> Callable:
 
         return results[args]
 
+    results = {}
     return wrapper
