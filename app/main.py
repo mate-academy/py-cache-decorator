@@ -1,10 +1,10 @@
-from typing import Callable
+from typing import Callable, Tuple
 
 
 def cache(func: Callable) -> Callable:
     cache_files = {}
 
-    def wrapper(*args) -> None:
+    def wrapper(*args) -> Tuple:
         if args not in cache_files:
             cache_files[args] = func(*args)
             print("Calculating new result")
