@@ -16,12 +16,13 @@ def cache(func: Callable) -> Callable:
             cache_dict[func_name] = {}
 
         # if we have a hashed value for the function, then we return it
-        if args in cache_dict[func_name]:
+        cache_key = args + tuple(kwargs.values())
+        if cache_key in cache_dict[func_name]:
             print("Getting from cache")
         else:
-            cache_dict[func_name][args] = func(*args, **kwargs)
+            cache_dict[func_name][cache_key] = func(*args, **kwargs)
             print("Calculating new result")
 
-        return cache_dict[func_name][args]
+        return cache_dict[func_name][cache_key]
 
     return inner
