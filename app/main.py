@@ -2,19 +2,15 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    func_cache = []
+    func_cache = {}
 
     def inner(*args) -> int:
-        cached_result = [res for res in func_cache if res["args"] == args]
-        if cached_result:
+        if args in func_cache:
             print("Getting from cache")
-            return cached_result[0]["result"]
+            return func_cache[args]
         else:
             result = func(*args)
-            func_cache.append({
-                "args": args,
-                "result": result
-            })
+            func_cache[args] = result
             print("Calculating new result")
             return result
 
