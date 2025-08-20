@@ -3,10 +3,10 @@ import functools
 
 
 def cache(func: Callable) -> Callable:
-    cache_dict: dict[Any, Any] = {}
+    cache_dict: dict[Callable, Callable] = {}
 
     @functools.wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> Callable:
         key = (args, tuple(sorted(kwargs.items())))
 
         if key in cache_dict:
@@ -21,8 +21,8 @@ def cache(func: Callable) -> Callable:
 
 
 @cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
+def long_time_func(var1: int, var2: int, var3: int) -> int:
+    return (var1 ** var2 ** var3) % (var1 * var3)
 
 
 @cache
