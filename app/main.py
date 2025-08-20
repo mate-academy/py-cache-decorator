@@ -3,7 +3,7 @@ import functools
 
 
 def cache(func: Callable) -> Callable:
-    cache_dict: dict[Callable, Callable] = {}
+    cache_dict: Dict[Tuple, Any] = {}
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Callable:
