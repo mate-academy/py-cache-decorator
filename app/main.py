@@ -3,7 +3,8 @@ from typing import Callable
 
 def cache(func: Callable) -> Callable:
     cached_result = {}
-    def wrapper(*args, **kwargs):
+
+    def wrapper(*args, **kwargs) -> dict:
         if args not in cached_result:
             cached_result[args] = func(*args, **kwargs)
             print("Calculating new result")
