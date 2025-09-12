@@ -1,15 +1,18 @@
 from typing import Callable, Any
 
+_MISSING = object()
+
 
 def cache(func: Callable) -> Callable:
     cached_result = {}
 
     def wrapper(*args) -> Any:
-        if args in cached_result:
+        result = cached_result.get(args, _MISSING)
+        if result is not _MISSING:
             print("Getting from cache")
-            return cached_result[args]
-        else:
-            print("Calculating new result")
-            cached_result[args] = func(*args)
-            return cached_result[args]
+            return result
+        print("Calculating new result")
+        result = func(*args)
+        cached_result[args] = result
+        return result
     return wrapper
