@@ -2,16 +2,16 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    dict_cash = {}
+    cache_dict = {}
 
     def wrapper(*args) -> str:
-        key = (func, args)
-        if key in dict_cash:
+
+        if args in cache_dict:
             print("Getting from cache")
-            return dict_cash[key]
+            return cache_dict[args]
         else:
             print("Calculating new result")
-            new_cash = func(*args)
-            dict_cash[key] = new_cash
-            return new_cash
+            result = func(*args)
+            cache_dict[args] = result
+            return result
     return wrapper
