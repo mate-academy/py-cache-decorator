@@ -38,9 +38,14 @@ def long_time_func_2(n_tuple: tuple, power: int) -> int:
     return [number ** power for number in n_tuple]
 
 
-long_time_func(1, 2, 3)
-long_time_func(2, 2, 3)
-long_time_func_2((5, 6, 7), 5)
-long_time_func(1, 2, 3)  # Cache Hit
-long_time_func_2((5, 6, 7), 10)
-long_time_func_2((5, 6, 7), 10)  # Cache Hit
+if __name__ == "__main__":
+    # Тепер ці виклики виконаються лише, якщо app/main.py буде запущено напряму
+    print("--- Test 1 (long_time_func) ---")
+    long_time_func(1, 2, 3)
+    long_time_func(2, 2, 3)
+    long_time_func(1, 2, 3)  # Cache Hit
+
+    print("\n--- Test 2 (long_time_func_2) ---")
+    long_time_func_2((5, 6, 7), 5)
+    long_time_func_2((5, 6, 7), 10)
+    long_time_func_2((5, 6, 7), 10)  # Cache Hit
