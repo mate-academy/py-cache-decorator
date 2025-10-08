@@ -4,13 +4,15 @@ from typing import Callable
 def cache(func: Callable) -> Callable:
     cache_data = {}
 
-    def wrapper(*args: None, **kwargs: None) -> Callable:
-        if (args, tuple(kwargs.items())) not in cache_data:
-            cache_data[(args, tuple(kwargs.items()))] = func(*args, **kwargs)
-            print("Calculating new result")
-            return cache_data[(args, tuple(kwargs.items()))]
-        else:
+    def wrapper(*args, **kwargs) -> Callable:
+        key = (args, tuple(kwargs.items()))
+        if key in cache_data:
             print("Getting from cache")
-            return cache_data[(args, tuple(kwargs.items()))]
+            return cache_data[key]
+        else:
+            print("Calculating new result")
+            result = func(*args, **kwargs)
+            cache_data[key] = result
+            return result
 
     return wrapper
