@@ -8,7 +8,6 @@ def cache(func: Callable) -> Callable:
     @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Any:
 
-        # 2. Tworzenie klucza: Łączymy args i kwargs w niemutowalną krotkę
         cache_key = (args, tuple(sorted(kwargs.items())))
 
         # 3. Sprawdzenie Cache'u
