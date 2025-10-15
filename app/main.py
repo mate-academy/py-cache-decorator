@@ -7,21 +7,18 @@ def cache(func: Callable) -> Callable:
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Callable:
-        for item_args in args:
-            if isinstance(item_args, (set, list, dict)):
-                print("Calculating new result")
-                return func(*args, **kwargs)
-        for item_kwargs in kwargs.values():
-            if isinstance(item_kwargs, (set, list, dict)):
-                print("Calculating new result")
-                return func(*args, **kwargs)
-        keys = (args, tuple(sorted(kwargs.items())), func)
-        if keys in stored_caches:
+        try:
+            cache_keys = (args, tuple(sorted(kwargs.items())))
+        except TypeError:
+            print("Calculating new result")
+            return func(*args, **kwargs)
+
+        if cache_keys in stored_caches:
             print("Getting from cache")
-            return stored_caches[keys]
+            return stored_caches[cache_keys]
         print("Calculating new result")
         result = func(*args, **kwargs)
-        stored_caches[keys] = result
+        stored_caches[cache_keys] = result
         return result
     return wrapper
 
