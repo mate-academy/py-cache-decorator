@@ -9,22 +9,20 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args, **kwargs) -> Callable:
         for item_args in args:
             if isinstance(item_args, (set, list, dict)):
+                print("Calculating new result")
                 return func(*args, **kwargs)
         for item_kwargs in kwargs.values():
             if isinstance(item_kwargs, (set, list, dict)):
+                print("Calculating new result")
                 return func(*args, **kwargs)
-        if ((args, tuple(sorted(kwargs.items())),
-            func)
-                in stored_caches):
+        keys = (args, tuple(sorted(kwargs.items())), func)
+        if keys in stored_caches:
             print("Getting from cache")
-            return stored_caches[(args,
-                                  tuple(sorted(kwargs.items())),
-                                  func)]
+            return stored_caches[keys]
         print("Calculating new result")
-        rez = func(*args, **kwargs)
-        stored_caches[(args,
-                       tuple(sorted(kwargs.items())), func)] = rez
-        return rez
+        result = func(*args, **kwargs)
+        stored_caches[keys] = result
+        return result
     return wrapper
 
 
