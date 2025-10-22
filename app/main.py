@@ -1,5 +1,5 @@
 from functools import wraps
-from typing import Callable
+from typing import Callable, Optional, Dict
 
 
 def cache(func: Callable) -> Callable:
@@ -28,7 +28,7 @@ def cache(func: Callable) -> Callable:
     func_cache = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> Optional[Dict]:
         """
         Wrapper function that implements the caching logic.
 
