@@ -1,6 +1,33 @@
 from typing import Callable
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    func_cache = {}
+
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> Callable:
+        cache_key = args
+        if cache_key in func_cache:
+            print("Getting from cache")
+            return func_cache[cache_key]
+        else:
+            # 3. Якщо результату немає, виконуємо функцію
+            print("Calculating new result")
+            result = func(*args, **kwargs)
+
+            # 4. Зберігаємо результат у кеші перед поверненням
+            func_cache[cache_key] = result
+            return result
+
+    return wrapper
+
+
+@cache
+def long_time_func(a: int, b: int, c: int) -> int:
+    return (a ** b ** c) % (a * c)
+
+
+@cache
+def long_time_func_2(n_tuple: tuple, power: int) -> int:
+    return [number ** power for number in n_tuple]
