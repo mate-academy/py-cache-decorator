@@ -1,8 +1,8 @@
-from typing import Callable
+from typing import Callable, Any
 import functools
 
 
-def make_key(args, kwargs) -> tuple:
+def make_key(args: Any, kwargs: Any) -> tuple:
     args_key = args
     kwargs_key = tuple(sorted(kwargs.items()))
     return args_key + kwargs_key
