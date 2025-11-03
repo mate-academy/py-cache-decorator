@@ -1,23 +1,22 @@
-from typing import Callable
+from typing import Callable, Any
 from functools import wraps
-
-cache_obj = {}
 
 
 def cache(func: Callable) -> Callable:
     cache_obj = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs) -> None:
+    def wrapper(*args, **kwargs) -> Any:
         if func.__name__ not in cache_obj:
             cache_obj[func.__name__] = {}
+        key = str(args) + str(kwargs)
 
-        if args not in cache_obj[func.__name__]:
-            cache_obj[func.__name__][args] = func(*args, **kwargs)
+        if key not in cache_obj[func.__name__]:
+            cache_obj[func.__name__][key] = func(*args, **kwargs)
             print("Calculating new result")
         else:
             print("Getting from cache")
 
-        return cache_obj[func.__name__][args]
+        return cache_obj[func.__name__][key]
 
     return wrapper
