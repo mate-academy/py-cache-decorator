@@ -6,10 +6,11 @@ def cache(func: Callable) -> Callable:
 
     def wrapper(*args) -> Callable:
         if args not in saved_cache:
-            saved_cache.update({args : func(*args)})
+            result = func(*args)
+            saved_cache[args] = result
             print("Calculating new result")
-            return saved_cache[args]
         else:
             print("Getting from cache")
-            return saved_cache[args]
+
+        return saved_cache[args]
     return wrapper
