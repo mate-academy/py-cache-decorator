@@ -1,12 +1,12 @@
 from functools import wraps
-from typing import Callable
+from typing import Callable, Any
 
 cache_results = {}
 
 
 def cache(func: Callable) -> Callable:
     @wraps(func)
-    def wrapper(*args, **kwargs) -> Callable:
+    def wrapper(*args, **kwargs) -> Any:
         if func not in cache_results:
             cache_results[func] = {}
 
