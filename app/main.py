@@ -17,4 +17,4 @@ def cache(func: Callable) -> Callable:
             cache_dict[cache_key] = result
             return result
 
-    return wrapper()
+    return wrapper
