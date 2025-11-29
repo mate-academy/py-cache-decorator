@@ -1,18 +1,18 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    cashe_dict = {}
+    cache_dict = {}
 
-    def wrapper(*args, **kwargs) -> dict:
+    def wrapper(*args, **kwargs) -> Any:
         key = (args, tuple(sorted(kwargs.items())))
 
-        if key in cashe_dict:
+        if key in cache_dict:
             print("Getting from cache")
-            return cashe_dict[key]
+            return cache_dict[key]
 
         print("Calculating new result")
         result = func(*args, **kwargs)
-        cashe_dict[key] = result
+        cache_dict[key] = result
         return result
     return wrapper
