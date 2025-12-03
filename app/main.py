@@ -5,35 +5,29 @@ import functools
 def cache(func: Callable) -> Callable:
     cache_dict = {}
 
-    def check(name: str, args: tuple) -> bool:
-        if name not in cache_dict:
-            return False
-        elif args not in cache_dict.get(name):
+    def check(args: tuple) -> bool:
+        if args not in cache_dict:
             return False
         else:
             return True
 
-    def set(name: str, args: tuple, value: Any) -> None:
-        if name not in cache_dict:
-            cache_dict.update({name: {args: value}})
-        else:
-            cache_dict.get(name).update({args: value})
+    def set(args: tuple, value: Any) -> None:
+        cache_dict.update({args: value})
 
-    def get(name: str, args: tuple) -> Any:
-        return cache_dict.get(name).get(args)
+    def get(args: tuple) -> Any:
+        return cache_dict.get(args)
 
     @functools.wraps(func)
     def inner(*args, **kwargs) -> Any:
-        name = func.__name__
-        args_tuple = args, frozenset(kwargs)
+        args_tuple = args, frozenset(kwargs.items())
 
-        if check(name, args_tuple):
+        if check(args_tuple):
             print("Getting from cache")
-            return get(name, args_tuple)
+            return get(args_tuple)
         else:
             print("Calculating new result")
             value = func(*args, **kwargs)
-            set(name, args_tuple, value)
+            set(args_tuple, value)
 
             return value
 
