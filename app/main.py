@@ -6,10 +6,7 @@ def cache(func: Callable) -> Callable:
     cache_dict = {}
 
     def check(args: tuple) -> bool:
-        if args not in cache_dict:
-            return False
-        else:
-            return True
+        return args in cache_dict
 
     def set(args: tuple, value: Any) -> None:
         cache_dict.update({args: value})
