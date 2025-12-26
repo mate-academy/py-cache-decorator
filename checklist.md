@@ -10,7 +10,6 @@ Good example:
 animals = "cat, dog, rabbit"
 animals_title = animals.title()
 print(animals_title)
-
 for letter in set(animals_title):
     if animals_title.count(letter) > 1:
         print("wow")
