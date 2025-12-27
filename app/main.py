@@ -6,7 +6,7 @@ def cache(func: Callable) -> Callable:
     cache = {}
 
     @wraps(func)
-    def inner(*args: int):
+    def inner(*args: int) -> int:
         if args in cache:
             print("Getting from cache")
             return cache[args][str(func.__name__)]
