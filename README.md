@@ -11,7 +11,7 @@ Write decorator `cache` that stores results of completed runs with
 different arguments, number of arguments can be also different.
 If decorated function runs with repeating arguments it should return stored
 result instead of calling function again. Decorator `cache` creating for 
-decorating only functions that take **immutable** arguments.
+decorating only functions that take **immutable** arguments. 
 
 Also note, that decorator `cache` should work correctly with few decorated
 functions simultaneously and correctly return for every function separately.
