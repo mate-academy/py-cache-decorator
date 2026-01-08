@@ -1,11 +1,12 @@
 from functools import wraps
-from typing import Callable
+from typing import Callable, Iterable
 
 
 def make_hashable_key(*args, **kwargs) -> tuple:
-    def convert_to_hashable(obj):
+    def convert_to_hashable(obj: Iterable) -> tuple:
         if isinstance(obj, dict):
-            return tuple(sorted((k, convert_to_hashable(v)) for k, v in obj.items()))
+            return tuple(sorted((k, convert_to_hashable(v))
+                                for k, v in obj.items()))
         elif isinstance(obj, list):
             return tuple(convert_to_hashable(item) for item in obj)
         elif isinstance(obj, set):
@@ -14,9 +15,10 @@ def make_hashable_key(*args, **kwargs) -> tuple:
             return tuple(convert_to_hashable(item) for item in obj)
         else:
             return obj
-    
+
     hashable_args = tuple(convert_to_hashable(arg) for arg in args)
-    hashable_kwargs = tuple(sorted((k, convert_to_hashable(v)) for k, v in kwargs.items()))
+    hashable_kwargs = tuple(sorted((k, convert_to_hashable(v))
+                                   for k, v in kwargs.items()))
     return (hashable_args, hashable_kwargs)
 
 
