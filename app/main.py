@@ -3,9 +3,21 @@ from typing import Callable
 
 
 def make_hashable_key(*args, **kwargs) -> tuple:
-    args_tuple = tuple(args)
-    kwargs_tuple = tuple(sorted(kwargs.items()))
-    return (args_tuple, kwargs_tuple)
+    def convert_to_hashable(obj):
+        if isinstance(obj, dict):
+            return tuple(sorted((k, convert_to_hashable(v)) for k, v in obj.items()))
+        elif isinstance(obj, list):
+            return tuple(convert_to_hashable(item) for item in obj)
+        elif isinstance(obj, set):
+            return tuple(sorted(convert_to_hashable(item) for item in obj))
+        elif isinstance(obj, tuple):
+            return tuple(convert_to_hashable(item) for item in obj)
+        else:
+            return obj
+    
+    hashable_args = tuple(convert_to_hashable(arg) for arg in args)
+    hashable_kwargs = tuple(sorted((k, convert_to_hashable(v)) for k, v in kwargs.items()))
+    return (hashable_args, hashable_kwargs)
 
 
 def cache(func: Callable) -> Callable:
@@ -41,7 +53,7 @@ if __name__ == "__main__":
     long_time_func_2((5, 6, 7), 5)
     long_time_func(1, 2, 3)
     long_time_func_2((5, 6, 7), 10)
-    long_time_func_2((5, 6, 7), 10)
+    long_time_func_2([5, 6, 7], 10)
 
 # Calculating new result
 # Calculating new result
