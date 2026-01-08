@@ -6,8 +6,8 @@ def cache(func: Callable) -> Callable:
     result_dict = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
-        key = (args, tuple(sorted(kwargs.items()))        )
+    def wrapper(*args, **kwargs) -> Callable:
+        key = (args, tuple(sorted(kwargs.items())))
 
         if key in result_dict:
             print("Getting from cache")
