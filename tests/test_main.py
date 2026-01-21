@@ -172,10 +172,10 @@ def test_deco_returns_cached_value():
 
 
 def test_unnecessary_comment():
-    if os.path.exists(os.path.join(os.pardir, "app", "main.py")):
-        main_path = os.path.join(os.pardir, "app", "main.py")
+    if os.path.exists(os.path.join(os.pardir, "app", "main1.py")):
+        main_path = os.path.join(os.pardir, "app", "main1.py")
     else:
-        main_path = os.path.join("app", "main.py")
+        main_path = os.path.join("app", "main1.py")
 
     with open(main_path, "r") as main:
         main_content = main.read()
