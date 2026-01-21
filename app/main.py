@@ -2,5 +2,18 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    cache_storage = {}
+
+    def wrapper(*args, **kwargs) -> Callable:
+        cache_key = (args, tuple(sorted(kwargs.items())))
+
+        if cache_key in cache_storage:
+            print("Getting from cache")
+            return cache_storage[cache_key]
+        else:
+            print("Calculating new result")
+            result = func(*args, **kwargs)
+            cache_storage[cache_key] = result
+            return result
+
+    return wrapper
