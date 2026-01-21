@@ -1,6 +1,14 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    result_list = {}
+
+    def inner(*args) -> Any:
+        if args not in result_list:
+            result_list[args] = func(*args)
+            print("Calculating new result")
+        else:
+            print("Getting from cache")
+        return result_list[args]
+    return inner
