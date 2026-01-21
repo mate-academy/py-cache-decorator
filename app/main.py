@@ -1,6 +1,44 @@
-from typing import Callable
+from functools import wraps
+from typing import Callable, Any, Tuple
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    """
+    Decorator that caches the results of function calls.
+    """
+    cache_storage = {}
+
+    @wraps(func)
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
+        # Tworzymy klucz, który uwzględnia args i posortowane kwargs
+        key = (args, tuple(sorted(kwargs.items())))
+
+        if key in cache_storage:
+            print("Getting from cache")
+            return cache_storage[key]
+        else:
+            print("Calculating new result")
+            result = func(*args, **kwargs)
+            cache_storage[key] = result
+            return result
+
+    return wrapper
+
+
+# --- Testy ---
+@cache
+def long_time_func(base: int, exponent: int, sub_exponent: int) -> int:
+    return (base ** exponent ** sub_exponent) % (base * sub_exponent)
+
+
+@cache
+def long_time_func_2(n_tuple: tuple, power: int) -> Tuple:  # Poprawiony typ
+    return tuple(number ** power for number in n_tuple)
+
+
+long_time_func(1, 2, 3)
+long_time_func(2, 2, 3)
+long_time_func_2((5, 6, 7), 5)
+long_time_func(1, 2, 3)
+long_time_func_2((5, 6, 7), 10)
+long_time_func_2((5, 6, 7), 10)
