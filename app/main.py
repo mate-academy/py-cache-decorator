@@ -1,23 +1,18 @@
 from typing import Callable
+import functools
 
 
 def cache(func: Callable) -> Callable:
-    """
-    A decorator that caches function results based on positional arguments.
-    """
-    # Each decorated function gets its own unique storage dictionary
     storage = {}
 
     @functools.wraps(func)
-    def wrapper(*args):
-        # Since args is a tuple, it is immutable and can be used as a key
+    def wrapper(*args, **kwargs) -> Callable:
         if args in storage:
             print("Getting from cache")
             return storage[args]
         else:
             print("Calculating new result")
-            result = func(*args)
+            result = func(*args, **kwargs)
             storage[args] = result
             return result
-            
     return wrapper
