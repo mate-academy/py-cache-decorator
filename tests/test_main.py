@@ -93,7 +93,7 @@ def test_cache_multiple_functions():
         out == output
     ), f"""
             output must be:
-            {output},
+            {output}
 
             while calls are:  
             long_time_func(1, 2, 3)
