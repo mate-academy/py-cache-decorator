@@ -1,6 +1,16 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    cache_dict = {}
+
+    def inner(*args, **kwargs) -> Any:
+        key = (args, frozenset(kwargs.items()))
+        if key in cache_dict:
+            print("Getting from cache")
+            return cache_dict[key]
+        print("Calculating new result")
+        result = func(*args, **kwargs)
+        cache_dict[key] = result
+        return result
+    return inner
