@@ -7,7 +7,7 @@ def cache(func: Callable) -> Callable:
 
     @functools.wraps(func)
     def wrapper(*args) -> Any:
-        if previous_runs.get(args) is None:
+        if args not in previous_runs.keys():
             print("Calculating new result")
             result = func(*args)
             previous_runs[args] = result
