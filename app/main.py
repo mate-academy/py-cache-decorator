@@ -2,9 +2,9 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    storage = {}
+    storage: dict[tuple, Any] = {}
 
-    def wrapper(*args) -> Any:
+    def wrapper(*args: Any) -> Any:
         if args in storage:
             print("Getting from cache")
             return storage[args]
@@ -13,4 +13,5 @@ def cache(func: Callable) -> Callable:
         result = func(*args)
         storage[args] = result
         return result
+
     return wrapper
