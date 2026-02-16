@@ -1,9 +1,10 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     slownik = {}
-    def wrapper(*args, **kwargs):
+
+    def wrapper(*args, **kwargs) -> Any:
         key = (args, tuple(sorted(kwargs.items())))
 
         if key in slownik:
@@ -17,20 +18,12 @@ def cache(func: Callable) -> Callable:
 
     return wrapper
 
+
 @cache
-def add(a, b):
-    return a + b
+def add(apples: int, bananas: int) -> int:
+    return apples + bananas
+
 
 print(add(1, 2))  # Calculating new result
 print(add(1, 2))  # Getting from cache
 print(add(2, 3))  # Calculating new result
-
-
-
-
-
-
-
-
-
-
