@@ -32,6 +32,7 @@ def long_time_func_2(numbers_tuple: tuple,
     return [number ** power_value for number in numbers_tuple]
 
 
+
 if __name__ == "__main__":
     long_time_func(1, 2, 3)
     long_time_func(2, 2, 3)
