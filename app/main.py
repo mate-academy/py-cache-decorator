@@ -1,29 +1,34 @@
 from typing import Callable
 
-def cache(function_to_cache: Callable) -> Callable:
 
-    function_cache = {}
+def cache(function_to_cache: Callable) -> Callable:
+    func_cache = {}
 
     def wrapper(*arguments) -> object:
-        if arguments in function_cache:
+        if arguments in func_cache:
             print("Getting from cache")
-            return function_cache[arguments]
+            return func_cache[arguments]
         else:
             print("Calculating new result")
             result = function_to_cache(*arguments)
-            function_cache[arguments] = result
+            func_cache[arguments] = result
             return result
 
     return wrapper
 
 
 @cache
-def long_time_function(first_number: int, second_number: int, third_number: int) -> int:
-    return (first_number ** second_number ** third_number) % (first_number * third_number)
+def long_time_function(first_number: int,
+                       second_number: int,
+                       third_number: int) -> int:
+    return (first_number ** second_number ** third_number) % (
+        first_number * third_number
+    )
 
 
 @cache
-def long_time_function_2(numbers_tuple: tuple, power_value: int) -> list[int]:
+def long_time_function_2(numbers_tuple: tuple,
+                         power_value: int) -> list[int]:
     return [number ** power_value for number in numbers_tuple]
 
 
