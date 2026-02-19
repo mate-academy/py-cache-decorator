@@ -32,10 +32,11 @@ def long_time_function_2(numbers_tuple: tuple,
     return [number ** power_value for number in numbers_tuple]
 
 
-# Вызовы функций
-long_time_function(1, 2, 3)
-long_time_function(2, 2, 3)
-long_time_function_2((5, 6, 7), 5)
-long_time_function(1, 2, 3)
-long_time_function_2((5, 6, 7), 10)
-long_time_function_2((5, 6, 7), 10)
+
+if __name__ == "__main__":
+    long_time_function(1, 2, 3)
+    long_time_function(2, 2, 3)
+    long_time_function_2((5, 6, 7), 5)
+    long_time_function(1, 2, 3)
+    long_time_function_2((5, 6, 7), 10)
+    long_time_function_2((5, 6, 7), 10)
