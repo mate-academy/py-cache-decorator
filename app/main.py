@@ -7,7 +7,11 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
-        key = (args, tuple(sorted(kwargs.items())))
+        try:
+            key = (args, frozenset(kwargs.items()))
+            hash(key)
+        except TypeError:
+            raise TypeError("Arguments must be immutable!")
         if key in cache_dict:
             print("Getting from cache")
             return cache_dict[key]
