@@ -18,3 +18,4 @@ def cache(func):
         return result
 
     return wrapper
+
