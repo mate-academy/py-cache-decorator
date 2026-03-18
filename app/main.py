@@ -5,14 +5,16 @@ def cache(func):
     saved_results = {}
 
     @wraps(func)
-    def wrapper(*args):
-        if args in saved_results:
+    def wrapper(*args, **kwargs):
+        cache_key = (args, tuple(sorted(kwargs.items())))
+
+        if cache_key in saved_results:
             print("Getting from cache")
-            return saved_results[args]
+            return saved_results[cache_key]
 
         print("Calculating new result")
-        result = func(*args)
-        saved_results[args] = result
+        result = func(*args, **kwargs)
+        saved_results[cache_key] = result
         return result
 
     return wrapper
