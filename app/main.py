@@ -1,13 +1,10 @@
-from typing import Callable, Any
+from typing import Callable, Any, Dict, Tuple
 
 
 def cache(func: Callable[..., Any]) -> Callable[..., Any]:
-    # Словник для зберігання результатів конкретної функції
-    results: dict[tuple[Any, ...], Any] = {}
+    results: Dict[Tuple[Any, Any], Any] = {}
 
     def wrapper(*args: Any, **kwargs: Any) -> Any:
-        # Створюємо унікальний ключ із позиційних та іменованих аргументів
-        # Перетворюємо kwargs у кортеж пар (ключ, значення), щоб він став hashable
         cache_key = (args, tuple(sorted(kwargs.items())))
 
         if cache_key in results:
@@ -23,8 +20,8 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
 
 
 @cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
+def long_time_func(num_a: int, num_b: int, num_c: int) -> int:
+    return (num_a ** num_b ** num_c) % (num_a * num_c)
 
 
 @cache
