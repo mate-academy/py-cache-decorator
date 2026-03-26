@@ -5,7 +5,7 @@ def cache(func: Callable) -> Callable:
     data_cache = {}
 
     def wrapper(*args, **kwargs) -> Any:
-        key = args + tuple(kwargs)
+        key = (args, tuple(kwargs.items()))
         if key in data_cache:
             value = data_cache[key]
             print("Getting from cache")
