@@ -15,3 +15,5 @@ def cache(func: Callable) -> Callable:
             data_cache[key] = value
         return value
     return wrapper
+
+# some commentar
