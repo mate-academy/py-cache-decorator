@@ -1,3 +1,4 @@
+import copy
 from typing import Callable, Any
 
 
@@ -9,18 +10,18 @@ def cache(func: Callable) -> Callable:
 
         if key in function_dictionary:
             print("Getting from cache")
-            return function_dictionary[key]
+            return copy.deepcopy(function_dictionary[key])
 
         print("Calculating new result")
         result = func(*args, **kwargs)
-        function_dictionary[key] = result
+        function_dictionary[key] = copy.deepcopy(result)
         return result
     return inner
 
 
 @cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
+def long_time_func(alfa: int, betta: int, cell: int) -> int:
+    return (alfa ** betta ** cell) % (alfa * cell)
 
 
 @cache
