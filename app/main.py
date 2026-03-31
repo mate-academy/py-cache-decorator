@@ -1,3 +1,4 @@
+import inspect
 from typing import Callable, Any
 from functools import wraps
 
@@ -5,9 +6,14 @@ from functools import wraps
 def cache(func: Callable) -> Callable:
     results = {}
 
+    sig = inspect.signature(func)
+
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
-        cache_key = (args, tuple(sorted(kwargs.items())))
+        bound_args = sig.bind(*args, **kwargs)
+
+        bound_args.apply_defaults()
+        cache_key = tuple(bound_args.arguments.items())
 
         if cache_key in results:
             print("Getting from cache")
