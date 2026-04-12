@@ -2,16 +2,18 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    cash = {}
+    cache_store = {}
 
     def wrapper(*args, **kwargs) -> Any:
-        if args in cash:
+        key = (args, frozenset(kwargs.items()))
+
+        if key in cache_store:
             print("Getting from cache")
-            return cash[args]
+            return cache_store[key]
         else:
             print("Calculating new result")
             result = func(*args, **kwargs)
-            cash[args] = result
+            cache_store[key] = result
             return result
 
     return wrapper
