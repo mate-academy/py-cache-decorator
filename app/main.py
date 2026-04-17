@@ -1,12 +1,12 @@
 from functools import wraps
-from typing import Callable
+from typing import Callable, Any, List
 
 
 def cache(func: Callable) -> Callable:
     stored_results = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs) -> any:
+    def wrapper(*args, **kwargs) -> Any:
         key = (args, tuple(sorted(kwargs.items())))
         if key in stored_results:
             print("Getting from cache")
@@ -24,7 +24,7 @@ def long_time_func(base: int, power: int, mod: int) -> int:
 
 
 @cache
-def long_time_func_2(n_tuple: tuple, power: int) -> int:
+def long_time_func_2(n_tuple: tuple, power: int) -> List[int]:
     return [number ** power for number in n_tuple]
 
 
