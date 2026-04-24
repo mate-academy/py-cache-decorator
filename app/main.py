@@ -6,10 +6,11 @@ def cache(func: Callable) -> Callable:
 
     def wrapper(*args: tuple, **kwargs: dict) -> Any:
         key = (args, tuple(sorted(kwargs.items())))
-        if key in cache_storage:
+        try:
+            key_is_true = cache_storage[key]
             print("Getting from cache")
-            return cache_storage.get(key)
-        else:
+            return key_is_true
+        except KeyError:
             print("Calculating new result")
             new_result = func(*args, **kwargs)
             cache_storage[key] = new_result
@@ -25,4 +26,3 @@ def long_time_func(base: int, exponent: int, mod_base: int) -> int:
 @cache
 def long_time_func_2(n_tuple: tuple, power: int) -> list:
     return [number ** power for number in n_tuple]
-
