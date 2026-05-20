@@ -1,10 +1,12 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     memory = {}
-    def wrapper(*args, **kwargs):
-        key = (args,tuple(kwargs.items()))
+
+    def wrapper(*args, **kwargs) -> Any:
+        key = (args, tuple(kwargs.items()))
+
         if key in memory:
             print("Getting from cache")
             return memory[key]
