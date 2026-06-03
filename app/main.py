@@ -10,7 +10,6 @@ def cache(func: Callable) -> Any:
         if cache_key not in cached_args:
             print("Calculating new result")
             cached_args[cache_key] = func(*args, **kwargs)
-            return cached_args[cache_key]
         print("Getting from cache")
         return cached_args[cache_key]
     return wrapper
