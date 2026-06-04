@@ -3,10 +3,9 @@ from typing import Any, Callable
 
 
 def cache(func: Callable) -> Callable:
-    cached = {}
-
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
+        cached = {}
         if cached.get(args, None) is None:
             cached[args] = func(*args, **kwargs)
             print("Calculating new result")
