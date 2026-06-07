@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Any
 import functools
 
 
@@ -6,7 +6,7 @@ def cache(func: Callable) -> Callable:
     func_cache = {}
 
     @functools.wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
 
         cache_key = (args, tuple(sorted(kwargs.items())))
 
@@ -19,7 +19,3 @@ def cache(func: Callable) -> Callable:
             func_cache[cache_key] = result
             return result
     return wrapper
-
-
-
-
