@@ -15,4 +15,4 @@ def cache(func: Callable) -> Callable:
             print("Calculating new result")
             return count[args]
 
-    return count
+    return inner
