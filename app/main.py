@@ -1,9 +1,10 @@
 from typing import Callable, Any
-
+from functools import wraps
 
 def cache(func: Callable) -> Callable:
     cached_data = {}
 
+    @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         cache_key = (args, *kwargs, *kwargs.values())
 
