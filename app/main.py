@@ -4,10 +4,9 @@ from typing import Callable
 def cache(func):
     cache_dict = {}
 
+
     def wrapper(*args, **kwargs):
-        # Тут потрібно створити ключ з args та kwargs
-        # Пам'ятай: аргументи immutable, тому можемо використовувати їх як ключ
-        key = args  # підказка: можна зробити tuple з args
+        key = args
 
         if key in cache_dict:
             print("Getting from cache")
