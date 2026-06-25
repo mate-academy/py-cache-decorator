@@ -7,7 +7,7 @@ def cache(func: Callable) -> Callable:
     def make_key(args: Any, kwargs: Any) -> Any:
         return (args, tuple(kwargs.items()))
 
-    def wrapper(*args: Any, **kwargs: Any):
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
         key = make_key(args, kwargs)
 
         if key in cache_dict:
