@@ -1,13 +1,13 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     cache_dict = {}
 
-    def make_key(args, kwargs):
+    def make_key(args: Any, kwargs: Any) -> Any:
         return (args, tuple(kwargs.items()))
 
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any):
         key = make_key(args, kwargs)
 
         if key in cache_dict:
@@ -23,8 +23,8 @@ def cache(func: Callable) -> Callable:
 
 
 @cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * b)
+def long_time_func(first: int, second: int, third: int) -> int:
+    return (first ** second ** third) % (first * second)
 
 
 @cache
