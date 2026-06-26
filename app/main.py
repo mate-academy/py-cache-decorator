@@ -1,8 +1,10 @@
 import functools
 from typing import Callable, Any
 
+
 def cache(func: Callable) -> Callable:
     storage = {}
+
     @functools.wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
         cache_key = (args, tuple(sorted(kwargs.items())))
