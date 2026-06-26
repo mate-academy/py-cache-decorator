@@ -1,5 +1,5 @@
 import functools
-from typing import Callable
+from typing import Callable, Any
 
 def cache(func: Callable) -> Callable:
     storage = {}
