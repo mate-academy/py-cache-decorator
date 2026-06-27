@@ -3,14 +3,17 @@ from typing import Callable, Any
 
 def cache(func: Callable) -> Callable:
     result = dict()
+
     def wrapper(*args: Any, **kwargs: Any) -> Any:
-        if args in result.keys():
+        key = (args, tuple(sorted(kwargs.items())))
+
+        if key in result:
             print("Getting from cache")
-            return result[args]
+            return result[key]
         else:
-            result[args] = func(*args, **kwargs)
+            result[key] = func(*args, **kwargs)
             print("Calculating new result")
-            return result[args]
+            return result[key]
     return wrapper
 
 
