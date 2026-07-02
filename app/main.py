@@ -1,12 +1,19 @@
-from typing import Callable
+from typing import Any, Callable
 
 
 def cache(func: Callable) -> Callable:
     cached_results = {}
 
-    def wrapper(*args):
-        if args not in cached_results:
-            cached_results[args] = func(*args)
-        return cached_results[args]
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
+        key = (args, tuple(sorted(kwargs.items())))
+
+        if key in cached_results:
+            print("Getting from cache")
+            return cached_results[key]
+
+        print("Calculating new result")
+        result = func(*args, **kwargs)
+        cached_results[key] = result
+        return result
 
     return wrapper
