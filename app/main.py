@@ -1,7 +1,7 @@
 from typing import Any, Callable
 
 
-def cache(func: Callable) -> Callable:
+def cache(func: Callable[..., Any]) -> Callable[..., Any]:
     cached_results = {}
 
     def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -14,6 +14,7 @@ def cache(func: Callable) -> Callable:
         print("Calculating new result")
         result = func(*args, **kwargs)
         cached_results[key] = result
+
         return result
 
     return wrapper
