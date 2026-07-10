@@ -5,6 +5,8 @@ from typing import Callable, Any
 @cache
 def cache(func: Callable) -> Callable:
     storage = {}
+
+    @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
         key = (args, tuple(sorted(kwargs.items())))
 
@@ -16,4 +18,5 @@ def cache(func: Callable) -> Callable:
         result = func(*args, **kwargs)
         storage[key] = result
         return result
+
     return wrapper
