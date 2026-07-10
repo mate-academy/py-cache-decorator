@@ -16,5 +16,4 @@ def cache(func: Callable) -> Callable:
         result = func(*args, **kwargs)
         storage[key] = result
         return result
-
     return wrapper
