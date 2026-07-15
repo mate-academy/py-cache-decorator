@@ -2,14 +2,14 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    cache_1 = {}
+    results_cache = {}
 
-    def wrapper(*args, **kwargs) -> None:
+    def wrapper(*args, **kwargs) -> func:
         result = (args, tuple(sorted(kwargs.items())))
-        if result not in cache_1:
+        if result not in results_cache:
             print("Calculating new result")
-            cache_1[result] = func(*args, **kwargs)
+            results_cache[result] = func(*args, **kwargs)
         else:
             print("Getting from cache")
-        return cache_1[result]
+        return results_cache[result]
     return wrapper
