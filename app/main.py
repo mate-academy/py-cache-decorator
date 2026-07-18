@@ -1,6 +1,19 @@
 from typing import Callable
 
-
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+
+    cache_key = dict()
+
+    def inner(*args, **kwargs):
+        key = (args, tuple(sorted(kwargs.items())))
+        value = cache_key.get(key, None)
+        if value is None:
+            print("Calculating new result")
+            result = func(*args, **kwargs)
+            cache_key[key] = result
+            return result
+        else:
+            print("Getting from cache")
+        return value
+
+    return inner
