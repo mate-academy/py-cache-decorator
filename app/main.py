@@ -3,17 +3,18 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    cashh = {}
+    cache_data = {}
 
     @functools.wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
-        if args in cashh:
+        if args in cache_data:
             print("Getting from cache")
-            return cashh[args]
+            return cache_data [args]
 
         print("Calculating new result")
         result = func(*args, **kwargs)
-        cashh[args] = result
+
+        cache_data[args] = result
         return result
 
     return wrapper
