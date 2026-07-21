@@ -1,23 +1,19 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     storage = {}
 
-    def inner(*args, **kwargs) -> int:
+    def inner(*args, **kwargs) -> Any:
         data = (args, tuple(sorted(kwargs.items())))
-        result = 0
 
-        for arg in data:
-            if arg:
-                if arg not in storage:
-                    print("Calculating new result")
-                    result = func(*args, **kwargs)
-                    storage[arg] = result
-                else:
-                    print("Getting from cache")
-                    result = storage[arg]
+        if data in storage:
+            print("Getting from cache")
+            return storage[data]
 
+        print("Calculating new result")
+        result = func(*args, **kwargs)
+        storage[data] = result
         return result
 
     return inner
