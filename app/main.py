@@ -3,6 +3,7 @@ from typing import Callable, Any
 
 def cache(func: Callable) -> Callable:
     cache1 = {}
+
     def dec(*args, **kwargs) -> Any:
         key = (args, tuple(kwargs))
         if key in cache1:
