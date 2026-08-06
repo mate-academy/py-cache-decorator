@@ -7,14 +7,14 @@ def cache(func: Callable) -> Callable:
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Any:
-        input_ = (args, tuple(sorted(tuple(kwargs))))
+        input_ = (args, tuple(sorted(kwargs.items())))
         if input_ in cache_collector:
             print("Getting from cache")
-            return cache_collector[input_]
+
         else:
             print("Calculating new result")
             result = func(*args, **kwargs)
             cache_collector[input_] = result
-            return result
+        return cache_collector[input_]
 
     return wrapper
