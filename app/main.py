@@ -1,9 +1,11 @@
+import functools
 from typing import Callable
+from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     cashed_items = {}
-
+    @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Callable:
         key = (args, tuple(sorted(kwargs.items())))
 
