@@ -1,10 +1,10 @@
 import functools
 from typing import Callable
-from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     cashed_items = {}
+
     @functools.wraps(func)
     def wrapper(*args, **kwargs) -> Callable:
         key = (args, tuple(sorted(kwargs.items())))
@@ -14,7 +14,6 @@ def cache(func: Callable) -> Callable:
             cashed_items[key] = result
             print("Calculating new result")
             return result
-        else:
-            print("Getting from cache")
-            return cashed_items[key]
+        print("Getting from cache")
+        return cashed_items[key]
     return wrapper
