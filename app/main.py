@@ -1,7 +1,10 @@
-def cache(func):
+from typing import Callable
+
+
+def cache(func: Callable) -> Callable:
     func_cache = {}
 
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> Callable:
         key = args
         if key in func_cache:
             print("Getting from cache")
