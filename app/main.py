@@ -15,4 +15,3 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
             func_cache[key] = result
             return result
     return wrapper
-
