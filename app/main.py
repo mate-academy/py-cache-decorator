@@ -15,5 +15,3 @@ def cache(func: Callable) -> Callable:
 
         return new_result
     return wrapper
-
-
