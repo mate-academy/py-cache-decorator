@@ -1,7 +1,7 @@
 from typing import Callable
 
 
-def cache(func: Callable) -> Callable:
+def cache(func: Callable) -> object:
     results = {}
 
     def wrapper(*args, **kwargs) -> object:
