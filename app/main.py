@@ -15,4 +15,4 @@ def cache(func: Callable) -> object:
             result = func(*args, **kwargs)
             results[key] = result
             return result
-    return wrapper()
+    return wrapper
