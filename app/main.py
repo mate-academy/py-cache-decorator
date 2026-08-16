@@ -6,11 +6,11 @@ def cache(func: Callable) -> Callable:
     store: dict[str, Any] = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> Any:
         key: str = f"{func.__name__}_{str(args)}_{str(kwargs)}"
         if key not in store:
             print("Calculating new result")
-            store[key] = func(*args,**kwargs)
+            store[key] = func(*args, **kwargs)
         else:
             print("Getting from cache")
 
