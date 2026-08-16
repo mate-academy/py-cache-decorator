@@ -1,9 +1,10 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     stored_results = {}
-    def wrapper(*args, **kwargs):
+
+    def wrapper(*args, **kwargs) -> Any:
         current_args = (args)
         if current_args not in stored_results:
             print("Calculating new result")
