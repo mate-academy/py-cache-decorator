@@ -1,9 +1,12 @@
 from typing import Any, Callable
+
+
 from functools import wraps
 
 
 def cache(func: Callable) -> Callable:
     cache_data = {}
+
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         key = (args, tuple(sorted(kwargs.items())))
@@ -17,13 +20,18 @@ def cache(func: Callable) -> Callable:
             return result
     return wrapper
 
+
 @cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
+def long_time_func(first_number: int, second_number: int, third_number: int) \
+        -> int:
+    return ((first_number ** second_number ** third_number)
+            % (first_number * third_number))
+
 
 @cache
 def long_time_func_2(n_tuple: tuple, power: int) -> list:
     return [number ** power for number in n_tuple]
+
 
 long_time_func(1, 2, 3)
 long_time_func(2, 2, 3)
