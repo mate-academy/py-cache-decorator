@@ -1,11 +1,12 @@
 from functools import wraps
+from typing import Any, Callable
 
 
-def cache(func):
-    results = {}
+def cache(func: Callable[..., Any]) -> Callable[..., Any]:
+    results: dict[tuple[Any, ...], Any] = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
         key = (args, tuple(sorted(kwargs.items())))
 
         if key in results:
