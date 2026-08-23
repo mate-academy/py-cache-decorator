@@ -5,12 +5,13 @@ def cache(func: Callable) -> Callable:
     cache_storage = {}
 
     def wrapper(*args, **kwargs) -> Any:
-        if args in cache_storage:
+        key = (*args, tuple(sorted(kwargs.items())))
+        if key in cache_storage:
             print("Getting from cache")
-            return cache_storage[args]
+            return cache_storage[key]
         else:
             print("Calculating new result")
-            cache_storage[args] = func(*args, **kwargs)
-            return cache_storage[args]
+            cache_storage[key] = func(*args, **kwargs)
+            return cache_storage[key]
 
     return wrapper
