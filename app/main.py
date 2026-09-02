@@ -1,9 +1,10 @@
 from typing import Callable, Any
 
-def cache(func: Callable) -> Callable:
-    storage:dict = {}
 
-    def wrapper(*args:Any) -> Any:
+def cache(func: Callable) -> Callable:
+    storage: dict = {}
+
+    def wrapper(*args: Any) -> Any:
         func_name = func.__name__
 
         if func_name in storage and args in storage[func_name]:
