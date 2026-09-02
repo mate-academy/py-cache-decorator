@@ -1,9 +1,9 @@
-from typing import Callable
+from typing import Callable, Any
 
 def cache(func: Callable) -> Callable:
-    storage = {}
+    storage:dict = {}
 
-    def wrapper(*args) -> Callable:
+    def wrapper(*args:Any) -> Any:
         func_name = func.__name__
 
         if func_name in storage and args in storage[func_name]:
