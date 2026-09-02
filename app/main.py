@@ -1,17 +1,20 @@
-from typing import Callable
-
-
 def cache(func):
-    storage = {}  # um dicionário só
+    storage = {}
     
     def wrapper(*args):
-        if args in storage:
+        func_name = func.__name__
+        
+        if func_name in storage and args in storage[func_name]:
             print("Getting from cache")
-            return storage[args]
-        else:
-            result = func(*args)  # chama a função original
-            storage[args] = result
-            print("Calculating new result")
-            return result
+            return storage[func_name][args]
+        
+        result = func(*args)
+        
+        if func_name not in storage:
+            storage[func_name] = {}
+        storage[func_name][args] = result
+        
+        print("Calculating new result")
+        return result
     
     return wrapper
