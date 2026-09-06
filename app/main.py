@@ -3,6 +3,7 @@ from typing import Callable, Any
 
 def cache(func: Callable) -> Callable:
     mass = {}
+
     def wrapper(*args, **kwargs) -> Any:
         if args in mass:
             print("Getting from cache")
@@ -12,4 +13,3 @@ def cache(func: Callable) -> Callable:
             mass[args] = func(*args, **kwargs)
             return mass[args]
     return wrapper
-    
