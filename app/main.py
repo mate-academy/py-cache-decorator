@@ -7,7 +7,7 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
-        key = (args, tuple(sorted(kwargs.items())))
+        key = (args, frozenset(kwargs.items()))
 
         if key in stored_results:
             print("Getting from cache")
@@ -29,11 +29,3 @@ def long_time_func(base: int, exponent: int, divisor: int) -> int:
 @cache
 def long_time_func_2(n_tuple: tuple, power: int) -> list:
     return [number ** power for number in n_tuple]
-
-
-long_time_func(1, 2, 3)
-long_time_func(2, 2, 3)
-long_time_func_2((5, 6, 7), 5)
-long_time_func(1, 2, 3)
-long_time_func_2((5, 6, 7), 10)
-long_time_func_2((5, 6, 7), 10)
