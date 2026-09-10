@@ -2,20 +2,16 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    arr = []
-    obj = {}
+    cache_dict = {}
 
     def inner(*args) -> Callable:
-        for item in arr:
-            for key, value in item.items():
-                if key == args:
-                    print("Getting from cache")
-                    return value
+        if args in cache_dict:
+            print("Getting from cache")
+            return cache_dict[args]
 
         res = func(*args)
-        obj[args] = res
+        cache_dict[args] = res
         print("Calculating new result")
-        arr.append(obj)
         return res
 
     return inner
@@ -24,3 +20,8 @@ def cache(func: Callable) -> Callable:
 @cache
 def long_time_func(num1: int, num2: int, num3: int) -> int:
     return num1 * num2 * num3
+
+
+@cache
+def long_time_func_2(n_tuple: tuple, power: int) -> int:
+    return [number**power for number in n_tuple]
