@@ -2,9 +2,7 @@ from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
-    result_dict = {}
-
-    def wrapper(*args: Any) -> Any:
+    def wrapper(*args: Any, result_dict: dict = {}) -> Any:
         key = args
         if key in result_dict:
             print("Getting from cache")
