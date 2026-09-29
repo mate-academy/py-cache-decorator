@@ -2,18 +2,19 @@ from typing import Any, Callable
 
 
 def cache(func: Callable) -> Callable:
-    cache_resultados = {}
+    cache_results = {}
 
     def wrapper(*args, **kwargs) -> Any:
-        chave = (args, tuple(sorted(kwargs.items())))
+        key = (args, tuple(sorted(kwargs.items())))
 
-        if chave in cache_resultados:
+        if key in cache_results:
             print("Getting from cache")
-            return cache_resultados[chave]
+            return cache_results[key]
 
         print("Calculating new result")
-        resultado = func(*args, **kwargs)
-        cache_resultados[chave] = resultado
-        return resultado
+        result = func(*args, **kwargs)
+
+        cache_results[key] = result
+        return result
 
     return wrapper
