@@ -2,13 +2,14 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    list1 = {}
+    cache_storage = {}
+
     def wrapper(*args, **kwargs) -> dict:
         key = (args, tuple(sorted(kwargs.items())))
-        if key in list1:
+        if key in cache_storage:
             print("Getting from cache")
         else:
-            list1[key] = func(*args, **kwargs)
+            cache_storage[key] = func(*args, **kwargs)
             print("Calculating new result")
-        return list1[key]
+        return cache_storage[key]
     return wrapper
