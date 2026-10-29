@@ -1,7 +1,9 @@
 from typing import Callable, Any
 
+
 def cache(func: Callable) -> Callable:
     cache_storage = {}
+
     def inner(*args, **kwargs) -> Any:
         args_key = (args, frozenset(kwargs.items()))
 
