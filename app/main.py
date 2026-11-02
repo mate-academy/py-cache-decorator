@@ -10,7 +10,7 @@ def cache(func: Callable) -> Callable:
             cache_result[result] = func(*args)
             print("Calculating new result")
             return cache_result[result]
-        elif result in cache_result:
+        else:
             print("Getting from cache")
             return cache_result[result]
     return wrapper
