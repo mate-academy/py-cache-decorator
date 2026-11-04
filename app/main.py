@@ -18,6 +18,3 @@ def cache(func: Callable) -> Callable:
         return memory[key]
 
     return wrapper
-
-
-
