@@ -4,7 +4,7 @@ from typing import Callable
 def cache(func: Callable) -> Callable:
     saved_results = dict()
 
-    def inner(*args) -> None:
+    def inner(*args) -> int:
         key = args, func.__name__
         if key not in saved_results:
             saved_results[key] = func(*args)
