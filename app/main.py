@@ -6,7 +6,7 @@ def cache(func: Callable) -> Callable:
     memory = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> None:
 
         key = (args, tuple(sorted(kwargs.items())))
 
