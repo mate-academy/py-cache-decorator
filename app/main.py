@@ -1,47 +1,21 @@
 from functools import wraps
-from typing import Callable
+from typing import Any, Callable
 
 
-def _hashable(val):
-    if isinstance(val, list):
-        return (list, tuple(_hashable(x) for x in val))
-    if isinstance(val, tuple):
-        return (tuple, tuple(_hashable(x) for x in val))
-    if isinstance(val, set):
-        return (set, frozenset(_hashable(x) for x in val))
-    if isinstance(val, dict):
-        sorted_items = sorted(
-            val.items(),
-            key=lambda item: (str(type(item[0])), str(item[0]))
-        )
-        return (dict, tuple((k, _hashable(v)) for k, v in sorted_items))
-    try:
-        hash(val)
-    except TypeError:
-        raise TypeError(f"Unsupported unhashable type: {type(val)}")
-    return (type(val), val)
+def cache(func: Callable[..., Any]) -> Callable[..., Any]:
+    """Almacena resultados por función y argumentos inmutables."""
 
-
-def cache(func: Callable) -> Callable:
-    memo = {}
+    cache_storage: dict[tuple[Any, ...], Any] = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
-        key = (
-            tuple(_hashable(a) for a in args),
-            tuple(sorted(
-                ((k, _hashable(v)) for k, v in kwargs.items()),
-                key=lambda x: (str(type(x[0])), str(x[0]))
-            ))
-        )
-
-        if key in memo:
+    def wrapper(*args: Any) -> Any:
+        if args in cache_storage:
             print("Getting from cache")
-            return memo[key]
+            return cache_storage[args]
 
         print("Calculating new result")
-        result = func(*args, **kwargs)
-        memo[key] = result
+        result = func(*args)
+        cache_storage[args] = result
         return result
 
     return wrapper
