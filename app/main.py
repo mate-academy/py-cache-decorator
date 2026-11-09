@@ -3,9 +3,10 @@ from typing import Any, Callable
 
 
 def cache(func: Callable[..., Any]) -> Callable[..., Any]:
-    """Almacena resultados por función y argumentos inmutables."""
-
-    cache_storage: dict[tuple[tuple[Any, ...], tuple[tuple[str, Any], ...]], Any] = {}
+    cache_storage: dict[
+        tuple[tuple[Any, ...], tuple[tuple[str, Any], ...]],
+        Any,
+    ] = {}
 
     @wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -21,4 +22,3 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
         return result
 
     return wrapper
-
