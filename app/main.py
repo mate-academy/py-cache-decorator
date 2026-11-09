@@ -12,6 +12,13 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
     def wrapper(*args: Any, **kwargs: Any) -> Any:
         key = (args, tuple(sorted(kwargs.items())))
 
+        try:
+            hash(key)
+        except TypeError as error:
+            raise TypeError(
+                "cache() supports only hashable arguments"
+            ) from error
+
         if key in cache_storage:
             print("Getting from cache")
             return cache_storage[key]
