@@ -1,13 +1,12 @@
 from functools import wraps
 from typing import Callable
-from typing import Any as any
 
 
 def cache(func: Callable) -> Callable:
     memo = {}
 
     @wraps(func)
-    def wrapper(*args: any, **kwargs: any) -> any:
+    def wrapper(*args, **kwargs):
         key = (args, tuple(sorted(kwargs.items())))
 
         if key in memo:
