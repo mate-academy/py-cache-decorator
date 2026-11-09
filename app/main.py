@@ -1,10 +1,10 @@
 from typing import Callable
 
 def cache(func) -> Callable:
-    cache = {}
+    cache_store = {}
     def cache_wrapper(*args, **kwargs):
         key = args + tuple(kwargs.items())
-        if key in cache:
+        if key in cache_store:
             print("Getting from cache")
             return cache[key]
 
@@ -14,11 +14,3 @@ def cache(func) -> Callable:
         return result
 
     return cache_wrapper
-@cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
-
-@cache
-def long_time_func_2(n_tuple: tuple, power: int) -> int:
-    return [number ** power for number in n_tuple]
-
