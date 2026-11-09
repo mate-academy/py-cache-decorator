@@ -1,8 +1,8 @@
 from functools import wraps
-from typing import Callable, Any
+from typing import Callable
 
 
-def _hashable(val: Any) -> Any:
+def _hashable(val):
     if isinstance(val, list):
         return (list, tuple(_hashable(x) for x in val))
     if isinstance(val, tuple):
@@ -10,13 +10,16 @@ def _hashable(val: Any) -> Any:
     if isinstance(val, set):
         return (set, frozenset(_hashable(x) for x in val))
     if isinstance(val, dict):
-        # Ordenamiento seguro para evitar TypeError con claves de tipos mixtos
         sorted_items = sorted(
             val.items(),
             key=lambda item: (str(type(item[0])), str(item[0]))
         )
         return (dict, tuple((k, _hashable(v)) for k, v in sorted_items))
-    return val
+    try:
+        hash(val)
+    except TypeError:
+        raise TypeError(f"Unsupported unhashable type: {type(val)}")
+    return (type(val), val)
 
 
 def cache(func: Callable) -> Callable:
