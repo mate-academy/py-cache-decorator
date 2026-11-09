@@ -1,16 +1,13 @@
+from functools import wraps
 from typing import Callable
+from typing import Any as any
 
-
-def cache(func: Callable) -> Callable:
-   from functools import wraps
-from typing import Callable, Any
 
 def cache(func: Callable) -> Callable:
     memo = {}
 
     @wraps(func)
-    def wrapper(*args: Any, **kwargs: Any) -> Any:
-        # Convertimos kwargs a una tupla ordenada para que sea hashable y sirva como clave
+    def wrapper(*args: any, **kwargs: any) -> any:
         key = (args, tuple(sorted(kwargs.items())))
 
         if key in memo:
@@ -23,4 +20,3 @@ def cache(func: Callable) -> Callable:
         return result
 
     return wrapper
-   
