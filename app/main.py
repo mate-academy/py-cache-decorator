@@ -11,7 +11,7 @@ def cache(func) -> Callable:
         print("Calculating new result")
         result = func(*args, **kwargs)
         cache[key] = result
-        return None
+        return result
 
     return cache_wrapper
 @cache
