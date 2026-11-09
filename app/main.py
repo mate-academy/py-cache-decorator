@@ -1,5 +1,8 @@
+import logging
 from functools import wraps
 from typing import Any, Callable
+
+logger = logging.getLogger(__name__)
 
 
 def cache(func: Callable[..., Any]) -> Callable[..., Any]:
@@ -20,10 +23,10 @@ def cache(func: Callable[..., Any]) -> Callable[..., Any]:
             ) from error
 
         if key in cache_storage:
-            print("Getting from cache")
+            logger.debug("Getting from cache")
             return cache_storage[key]
 
-        print("Calculating new result")
+        logger.debug("Calculating new result")
         result = func(*args, **kwargs)
         cache_storage[key] = result
         return result
