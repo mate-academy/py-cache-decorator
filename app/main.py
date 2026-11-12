@@ -3,6 +3,7 @@ from typing import Callable, Any
 
 def cache(func: Callable) -> Callable:
     cached_results = {}
+
     def inner(*args: Any, **kwargs: Any) -> Callable:
         if args not in cached_results:
             print("Calculating new result")
