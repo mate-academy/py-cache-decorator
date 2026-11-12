@@ -5,11 +5,12 @@ def cache(func: Callable) -> Callable:
     cached_results = {}
 
     def inner(*args: Any, **kwargs: Any) -> Callable:
-        if args not in cached_results:
+        cache_key = (args, tuple(sorted(kwargs.items())))
+        if cache_key not in cached_results:
             print("Calculating new result")
-            cached_results[args] = func(*args, **kwargs)
-            return cached_results[args]
+            cached_results[cache_key] = func(*args, **kwargs)
+            return cached_results[cache_key]
         else:
             print("Getting from cache")
-        return cached_results[args]
+        return cached_results[cache_key]
     return inner
