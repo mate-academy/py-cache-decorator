@@ -7,7 +7,6 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
-        # Створюємо унікальний ключ, який враховує і позиційні, і іменовані аргументи
         cache_key = (args, tuple(sorted(kwargs.items())))
 
         if cache_key in cached_results:
@@ -20,4 +19,3 @@ def cache(func: Callable) -> Callable:
         return result
 
     return wrapper
-
