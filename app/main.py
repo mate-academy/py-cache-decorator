@@ -7,13 +7,17 @@ def cache(func: Callable) -> Callable:
 
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
-        if args in cached_results:
+        # Створюємо унікальний ключ, який враховує і позиційні, і іменовані аргументи
+        cache_key = (args, tuple(sorted(kwargs.items())))
+
+        if cache_key in cached_results:
             print("Getting from cache")
-            return cached_results[args]
+            return cached_results[cache_key]
 
         print("Calculating new result")
         result = func(*args, **kwargs)
-        cached_results[args] = result
+        cached_results[cache_key] = result
         return result
 
     return wrapper
+
