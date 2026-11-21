@@ -2,8 +2,15 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    # Write your code here
-    pass
+    results = {}
+    def wrapper(*args, **kwargs):
+        key = (args, tuple(sorted(kwargs.items()))) # create a key here
+        # check results
+        # calculate and save if needed
+
+
+    return wrapper
+
 
 
 @cache
