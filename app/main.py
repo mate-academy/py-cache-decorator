@@ -7,12 +7,11 @@ def cache(func: Callable) -> Callable:
     def wrapper(*args, **kwargs):
         key = (args, tuple(sorted(kwargs.items())))  # create a key here
         if key in results:
-            print("Getting from cache:", results[key])
+            print("Getting from cache")
             return results[key]   # check results
         else:
             print("Calculating new result")
         results[key] = func(*args, **kwargs)
-        print(results[key])
         return results[key]    # calculate and save if needed
     return wrapper
 
