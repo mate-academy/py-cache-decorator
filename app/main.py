@@ -1,9 +1,10 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     temp_cache = {}
-    def decorate(*args, **kwargs):
+
+    def decorate(*args, **kwargs) -> Any:
 
         key = (args, tuple(sorted(kwargs.items())))
 
